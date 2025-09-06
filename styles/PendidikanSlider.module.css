@@ -24,7 +24,7 @@
   font-family: var(--font-poppins);
   font-size: 8vw;
   font-weight: 700;
-  color: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.785);
   white-space: nowrap;
   user-select: none;
   opacity: 0;
@@ -76,7 +76,8 @@
 .cardImageWrapper {
   flex-grow: 1;
   position: relative;
-  /* Tambahkan ini untuk menata isinya */
+  width: 100%;
+  bottom: -5%;
   display: flex;
   align-items: flex-end; /* Paksa item ke bawah */
   justify-content: center; /* Pusatkan item secara horizontal */
@@ -84,10 +85,10 @@
 
 .decorativeBlob {
   position: absolute;
-  width: 300px;
+  width: 400px;
   height: 250px;
   top: 10%;
-  left: 20%;
+  left: 10%;
   transform: translate(-50%, -50%);
   z-index: -1;
   opacity: 0.8;
