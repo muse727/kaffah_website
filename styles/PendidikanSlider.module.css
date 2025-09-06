@@ -1,0 +1,131 @@
+.section {
+  background-color: #107163;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* LAPISAN 1: TEKS LATAR */
+.backgroundTextsContainer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  /* Beri transisi agar gerakan parallax smooth */
+  transition: transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.backgroundText {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-poppins);
+  font-size: 8vw;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.15);
+  white-space: nowrap;
+  user-select: none;
+  opacity: 0;
+}
+.backgroundText:first-child {
+  opacity: 1;
+}
+
+/* LAPISAN 2: SLIDER */
+.swiper {
+  position: relative;
+  z-index: 2;
+  width: 100%; /* Slider jadi full width */
+  height: 550px;
+}
+
+.swiperSlide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  width: 420px; /* Ukuran kartu tetap */
+  height: 100%;
+  background: var(--white);
+  border-radius: 24px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  /* Beri transisi agar gerakan parallax smooth */
+  transition: transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.cardHeader, .decorativeBlob {
+  transition: transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.cardHeader {
+  padding: 1.5rem;
+  text-align: center;
+  font-family: var(--font-poppins);
+  font-weight: 600;
+  font-size: 1.5rem;
+  color: var(--text-primary);
+  flex-shrink: 0;
+}
+.cardImageWrapper {
+  flex-grow: 1;
+  position: relative;
+  /* Tambahkan ini untuk menata isinya */
+  display: flex;
+  align-items: flex-end; /* Paksa item ke bawah */
+  justify-content: center; /* Pusatkan item secara horizontal */
+}
+
+.decorativeBlob {
+  position: absolute;
+  width: 300px;
+  height: 250px;
+  top: 10%;
+  left: 20%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  opacity: 0.8;
+}
+
+/* LAPISAN 3: NAVIGASI */
+.navigationContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  height: 0;
+  width: 100%;
+  max-width: 1200px; /* <-- Diperlebar */
+}
+:global(.swiper-button-prev-custom),
+:global(.swiper-button-next-custom) {
+  position: absolute;
+  top: 0;
+  background-color: rgba(255, 255, 255, 0.2);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+:global(.swiper-button-prev-custom):hover,
+:global(.swiper-button-next-custom):hover {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+:global(.swiper-button-prev-custom) { left: 0; }
+:global(.swiper-button-next-custom) { right: 0; }
+
+@media (max-width: 768px) {
+  .backgroundText { font-size: 10vw; }
+  .card { width: 90%; }
+}

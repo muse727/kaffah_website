@@ -1,0 +1,182 @@
+.section {
+  padding: 6rem 0;
+  overflow: hidden;
+}
+
+/* KUNCI UTAMA LAYOUT BARU */
+.container {
+  display: grid;
+  /* Kita buat 2 kolom */
+  grid-template-columns: 1fr 1fr;
+  /* Kita definisikan area-area */
+  grid-template-areas:
+    "title image"
+    "features image";
+  align-items: center;
+  gap: 2rem 4rem;
+  background-color: var(--icon-bg);
+  padding: 4rem;
+  border-radius: 24px;
+}
+
+/* --- PENEMPATAN ELEMEN DI GRID --- */
+.title {
+  grid-area: title; /* Tempatkan judul di area 'title' */
+}
+.featuresGrid {
+  grid-area: features; /* Tempatkan fitur di area 'features' */
+}
+.imageColumn {
+  grid-area: image; /* Tempatkan gambar di area 'image' */
+}
+
+/* --- STYLING ELEMEN (DENGAN PERBAIKAN) --- */
+.imageColumn {
+  position: relative;
+  width: 100%;
+  height: 550px; /* Sedikit lebih tinggi */
+  align-self: end; /* MEMBUAT GAMBAR NEMPEL KE BAWAH */
+}
+
+.blobBackground {
+  position: absolute;
+  bottom: 0;
+  left: 5%;
+  width: 80%;
+  height: 80%;
+  z-index: 1;
+}
+
+.mainImageWrapper {
+  position: absolute;
+  bottom: -63; /* NEMPEL DI BAWAH */
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+
+/* KUNCI FLEKSIBILITAS GAMBAR */
+.mainImageWrapper > div:first-child img {
+  object-fit: contain;
+  /* Lo bisa atur gambar di sini */
+  transform: scale(1.1) translateX(-20px); 
+  transition: transform 0.3s ease;
+}
+.mainImageWrapper:hover > div:first-child img {
+  transform: scale(1.15) translateX(-25px);
+}
+
+/* PERBAIKAN: Geser posisi ikon like ke kiri */
+.likeIcon1 {
+  position: absolute;
+  z-index: 3;
+  filter: drop-shadow(0 4px 10px rgba(255, 165, 0, 0.4));
+  bottom: 25%;
+  left: 80%; /* <-- Geser ke kiri */
+}
+
+.likeIcon2 {
+  position: absolute;
+  z-index: 3;
+  filter: drop-shadow(0 4px 10px rgba(255, 165, 0, 0.4));
+  bottom: 10%;
+  left: 10%; /* <-- Geser ke kiri */
+}
+
+
+/* --- KOLOM KANAN: KONTEN (FIXED) --- */
+.contentColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.title {
+  font-family: var(--font-poppins);
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  align-self: end; /* Rata bawah dengan grid area-nya */
+}
+
+.highlight {
+  color: var(--brand-green);
+}
+
+.featuresGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  width: 100%;
+  align-self: start; /* Rata atas dengan grid area-nya */
+}
+
+.featureItem {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background-color: var(--brand-green);
+  color: var(--white);
+  padding: 1rem 1.5rem;
+  border-radius: 999px;
+  font-family: var(--font-poppins);
+  font-weight: 500;
+  font-size: 1rem;
+  box-shadow: 0 4px 15px rgba(26, 188, 156, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.featureItem:hover {
+  transform: scale(1.03);
+}
+
+.featureIcon {
+  background-color: rgba(255, 255, 255, 0.2);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* --- RESPONSIVE (FIXED) --- */
+@media (max-width: 992px) {
+  .container {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "title"
+      "image"
+      "features";
+    padding: 2rem;
+    gap: 2rem;
+  }
+
+  .mainImageWrapper {
+    position: relative;
+    bottom: auto;
+    height: 100%;
+  }
+
+  .imageColumn {
+    height: 400px;
+    order: 2; /* Urutan kedua setelah judul */
+    
+    /* KUNCI EFEK BLENDING DI SINI */
+    mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%); /* Kompatibilitas browser */
+  }
+
+  .title {
+    text-align: center;
+    align-self: center;
+    font-size: 2rem;
+    order: 1; /* Pastikan urutan tetap benar */
+  }
+
+  .featuresGrid {
+    order: 3; /* Urutan ketiga setelah gambar */
+  }
+}

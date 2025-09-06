@@ -1,0 +1,55 @@
+/* 1. Definisi Font & Warna dari Figma sebagai CSS Variables */
+:root {
+  /* Fonts */
+  --font-poppins: var(--font-poppins);
+  --font-roboto: var(--font-roboto);
+
+  /* Colors - UPDATED */
+  --background: #F9FAFB;
+  --text-primary: #1F2937;
+  --text-secondary: #6B7280;
+  --brand-green: #107163;      /* <-- WARNA HIJAU UTAMA (BARU) */
+  --icon-bg: #E0F2F1;
+  --white: #FFFFFF;
+  --border-color: #E5E7EB;
+  --dark-bg: #107163;          /* <-- WARNA TOP BAR (BARU) */
+}
+
+
+/* 2. CSS Reset (Menghapus semua style default browser) */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 3. Style Dasar untuk Seluruh Halaman */
+html,
+body {
+  font-family: var(--font-roboto), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background-color: var(--background);
+  color: var(--text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-poppins), sans-serif;
+  font-weight: 600;
+}
+
+/* 4. Container (Pembungkus Konten) */
+.container {
+  width: 100%;
+  max-width: 1280px; /* Lebar maksimal konten sesuai desain */
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 24px; /* 24px */
+  padding-right: 1.5rem; /* 24px */
+}

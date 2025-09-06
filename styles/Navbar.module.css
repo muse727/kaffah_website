@@ -1,0 +1,230 @@
+/* === HEADER & SHADOW === */
+.header {
+  position: fixed; /* Tetap nempel di atas */
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  background-color: #ffffff; /* Putih solid, ga transparan */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05),
+              0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* === TOP BAR === */
+.topBar {
+  background-color: var(--dark-bg);
+  color: #D1D5DB;
+  padding: 0.6rem 0;
+  font-size: 0.875rem;
+  font-family: var(--font-roboto);
+}
+
+.topBarContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.contactInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.contactInfo img {
+  filter: brightness(0) saturate(100%) invert(92%) sepia(6%) 
+          saturate(243%) hue-rotate(187deg) brightness(94%) contrast(88%);
+}
+
+/* === MAIN NAV === */
+
+.mainNavContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.logoText {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.logoText span {
+  font-family: var(--font-poppins);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.logoText span:first-child {
+  font-size: 0.9rem;
+}
+
+.logoText span:last-child {
+  font-size: 1rem;
+}
+
+/* === NAV MENU WRAPPER === */
+.navMenu {
+  display: flex;           /* Baru */
+  align-items: center;     /* Baru */
+  gap: 2.5rem;             /* Jarak menu <-> tombol */
+}
+
+.desktopNav {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  justify-content: center;
+}
+
+.desktopNav a {
+  font-family: var(--font-poppins);
+  font-weight: 500;
+  font-size: 1rem;
+  color: var(--text-secondary);
+  padding: 0.5rem 0;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s ease-in-out;
+}
+
+.desktopNav a:hover {
+  color: var(--text-primary);
+}
+
+.desktopNav .activeLink {
+  color: var(--text-primary);
+  border-bottom-color: var(--brand-green);
+}
+
+/* === CTA BUTTON === */
+.ctaButton {
+  font-family: var(--font-poppins);
+  font-weight: 600;
+  font-size: 0.875rem;
+  background-color: var(--brand-green);
+  color: var(--white);
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  transition: background-color 0.2s ease-in-out;
+  white-space: nowrap;
+}
+
+.ctaButton:hover {
+  background-color: #16a085; /* Hover lebih gelap */
+}
+
+/* === HAMBURGER MENU === */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 2rem;
+  height: 2rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 10;
+}
+
+.bar {
+  width: 2rem;
+  height: 0.25rem;
+  background: var(--text-primary);
+  border-radius: 10px;
+  transition: all 0.3s linear;
+  position: relative;
+  transform-origin: 1px;
+}
+
+.bar.open:nth-child(1) {
+  transform: rotate(45deg);
+}
+.bar.open:nth-child(2) {
+  opacity: 0;
+  transform: translateX(20px);
+}
+.bar.open:nth-child(3) {
+  transform: rotate(-45deg);
+}
+
+/* === MOBILE MENU === */
+.mobileMenu {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  background: var(--white);
+  height: 100vh;
+  width: 100%;
+  text-align: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  transition: transform 0.3s ease-in-out;
+  transform: translateX(-100%);
+  z-index: 5;
+}
+
+.mobileMenu.open {
+  transform: translateX(0);
+}
+
+.mobileMenu a {
+  font-family: var(--font-poppins);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.mobileCta {
+  margin-top: 1rem;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  background: var(--brand-green);
+  color: var(--white) !important;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 1024px) {
+  /* Sembunyikan navMenu di mobile */
+  .navMenu {
+    display: none;
+  }
+
+  /* Sembunyikan kontak telepon di mobile */
+  .topBarContainer > .contactInfo:last-child {
+    display: none;
+  }
+  .topBarContainer {
+    justify-content: center;
+  }
+
+  /* Tampilkan hamburger */
+  .hamburger {
+    display: flex;
+  }
+
+  .mainNavContainer {
+    justify-content: space-between;
+  }
+}
