@@ -1,22 +1,17 @@
-/* 1. Definisi Font & Warna dari Figma sebagai CSS Variables */
+/* 1. Definisi Warna dari Figma sebagai CSS Variables */
 :root {
-  /* Fonts */
-  --font-poppins: var(--font-poppins);
-  --font-roboto: var(--font-roboto);
-
-  /* Colors - UPDATED */
+  /* Colors */
   --background: #F9FAFB;
   --text-primary: #1F2937;
   --text-secondary: #6B7280;
-  --brand-green: #107163;      /* <-- WARNA HIJAU UTAMA (BARU) */
+  --brand-green: #107163;
   --icon-bg: #E0F2F1;
   --white: #FFFFFF;
   --border-color: #E5E7EB;
-  --dark-bg: #107163;          /* <-- WARNA TOP BAR (BARU) */
+  --dark-bg: #107163;
 }
 
-
-/* 2. CSS Reset (Menghapus semua style default browser) */
+/* 2. CSS Reset */
 * {
   margin: 0;
   padding: 0;
@@ -26,6 +21,12 @@
 /* 3. Style Dasar untuk Seluruh Halaman */
 html,
 body {
+  width: 100%;
+  overflow-x: hidden; /* Mencegah scroll horizontal yang tidak diinginkan */
+}
+
+body {
+  /* Font Roboto (default) akan diterapkan oleh className dari layout.js */
   font-family: var(--font-roboto), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   background-color: var(--background);
   color: var(--text-primary);
@@ -40,16 +41,23 @@ a {
 }
 
 h1, h2, h3, h4, h5, h6 {
+  /* Font Poppins (untuk judul) akan diterapkan oleh className dari layout.js */
   font-family: var(--font-poppins), sans-serif;
   font-weight: 600;
 }
 
+main {
+  /* Beri ruang di atas agar konten tidak tertutup Navbar fixed */
+  padding-top: 116px; 
+}
+
+
 /* 4. Container (Pembungkus Konten) */
 .container {
   width: 100%;
-  max-width: 1280px; /* Lebar maksimal konten sesuai desain */
+  max-width: 1280px;
   margin-left: auto;
   margin-right: auto;
-  padding-left: 24px; /* 24px */
-  padding-right: 1.5rem; /* 24px */
+  padding-left: 24px;
+  padding-right: 24px;
 }

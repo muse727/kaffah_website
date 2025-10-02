@@ -1,0 +1,189 @@
+.footer {
+  position: relative;
+  background-color: var(--background);
+  padding-top: 8rem;
+}
+
+/* === CTA BLOCK (FIXED) === */
+.ctaBlock {
+  background: var(--brand-green);
+  color: var(--white);
+  padding: 120px 2rem 2rem 2rem; /* Padding atas besar untuk ruang gambar */
+  border-radius: 24px;
+  display: block; /* Hapus grid, jadikan blok biasa */
+  position: relative;
+  overflow: visible;
+  text-align: center;
+  /* PERBAIKAN: Overlap lebih dalam */
+  margin-bottom: -150px; 
+  z-index: 5;
+}
+
+/* PERBAIKAN: Layout CTA baru (terpusat & overlap) */
+.ctaImage {
+  position: absolute;
+  top: -100px; /* Tarik gambar ke atas */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 220px;
+  height: 220px;
+}
+.ctaImage > div {
+  position: absolute !important;
+  bottom: 0;
+  height: auto !important;
+}
+
+.ctaContent {
+  max-width: 600px;
+  margin: 0 auto;
+}
+.ctaContent h3 {
+  font-family: var(--font-poppins);
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+.ctaContent p {
+  font-size: 1rem;
+  opacity: 0.9;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+.ctaForm {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.5rem;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 400px;
+  margin: 0 auto;
+}
+.ctaForm span { font-weight: 500; padding-left: 1rem; }
+.ctaForm button {
+  background: var(--white);
+  color: var(--brand-green);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+.ctaForm button:hover {
+  opacity: 0.9;
+}
+
+
+/* === MAIN FOOTER (FIXED) === */
+.mainFooter {
+  background-color: var(--white);
+  /* PERBAIKAN: Padding atas lebih besar untuk CTA */
+  padding: 180px 0 4rem 0; 
+  /* PERBAIKAN: Shadow lebih pekat */
+  box-shadow: 0 -10px 40px -15px rgba(0, 0, 0, 0.15);
+}
+
+.footerGrid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1.5fr;
+  gap: 4rem;
+}
+
+.footerCol {
+  color: var(--text-secondary); 
+}
+.footerCol h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+}
+.footerCol p {
+  margin-bottom: 1rem;
+  line-height: 1.7;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.footerCol p img {
+  filter: none;
+}
+.footerCol ul {
+  list-style: none;
+  padding: 0;
+}
+.footerCol ul li {
+  margin-bottom: 0.75rem;
+}
+.footerCol ul a {
+  transition: color 0.3s ease;
+  color: var(--text-secondary);
+}
+.footerCol ul a:hover {
+  color: var(--brand-green);
+}
+
+.footerLogo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.socialIcons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+.socialIcons img {
+  filter: grayscale(100%) opacity(0.6);
+  transition: filter 0.3s ease;
+}
+.socialIcons a:hover img {
+  filter: none;
+}
+
+.mapContainer {
+  height: 150px;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+
+/* === COPYRIGHT BAR === */
+.copyrightBar {
+  background-color: var(--brand-green);
+  color: rgba(255, 255, 255, 0.8);
+  padding: 1rem 0;
+  text-align: center;
+  font-size: 0.875rem;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 992px) {
+  .footer {
+    padding-top: 6rem;
+  }
+  .ctaBlock { 
+    margin-bottom: -100px; /* Kurangi overlap di tablet */
+  }
+  .footerGrid { 
+    grid-template-columns: 1fr; 
+  }
+}
+@media (max-width: 768px) {
+  .ctaBlock {
+    padding-top: 100px;
+  }
+  .ctaImage {
+    width: 180px;
+    height: 180px;
+    top: -90px;
+  }
+}

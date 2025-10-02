@@ -2,6 +2,8 @@ import { Poppins, Roboto } from 'next/font/google';
 import '../styles/globals.css';
 import 'aos/dist/aos.css'; // Pastikan AOS CSS tetap diimport
 import { AOSInit } from '../components/AOSInit'; // Komponen baru untuk inisialisasi AOS
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 // Konfigurasi Font dari Google Fonts
 const poppins = Poppins({
@@ -26,7 +28,9 @@ export default function RootLayout({ children }) {
     <html lang="id">
       <body className={`${poppins.variable} ${roboto.variable}`}>
         <AOSInit /> {/* <--- POSISI BENAR, di dalam body */}
+        <Navbar />
         {children}
+        <Footer />
       </body>
     </html>
   );

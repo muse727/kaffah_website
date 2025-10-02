@@ -1,0 +1,169 @@
+.newsSection {
+  padding: 6rem 0;
+  background-color: var(--white);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 4rem;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.subTitle {
+  font-family: var(--font-poppins);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--brand-green);
+  letter-spacing: 1px;
+  margin-bottom: 0.75rem;
+  display: block;
+}
+
+.title {
+  font-family: var(--font-poppins);
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.description {
+  font-size: 1.125rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+/* ======================================= */
+/* === KUNCI UTAMA BENTO GRID DI SINI === */
+/* ======================================= */
+.bentoGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Kita buat kanvas 4 kolom */
+  /* Tinggi setiap baris akan ditentukan oleh kontennya, kita buat lebih fleksibel */
+  grid-auto-rows: minmax(250px, auto); 
+  gap: 1.5rem;
+}
+
+.card {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  color: var(--white);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.5rem;
+  transition: transform 0.3s ease;
+  background-color: var(--dark-bg); /* Beri warna fallback */
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.cardImage {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+.cardImage img {
+  transition: transform 0.4s ease;
+}
+.card:hover .cardImage img {
+  transform: scale(1.05);
+}
+
+.greenOverlay { /* <-- Ganti dari imageOverlay ke greenOverlay */
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(16, 113, 99, 0.1) 0%, rgba(16, 113, 99, 0.8) 100%);
+  z-index: 2;
+}
+
+.cardContent {
+  position: relative;
+  z-index: 3;
+}
+
+.cardCategory {
+  font-family: var(--font-poppins);
+  font-size: 0.75rem;
+  font-weight: 600;
+  background-color: var(--white);
+  color: var(--brand-green);
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  display: inline-block;
+  margin-bottom: 0.75rem;
+}
+
+.cardTitle {
+  font-family: var(--font-poppins);
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 1.4;
+  margin-bottom: 0.5rem;
+}
+
+.cardDescription {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 1rem;
+}
+
+.readMore {
+  font-weight: 600;
+  font-size: 0.875rem;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+}
+
+.card:hover .readMore {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* PERINTAH POSISI SETIAP KARTU (SESUAI FIGMA) */
+.card:nth-child(1) { grid-column: span 1; grid-row: span 2; }
+.card:nth-child(2) { grid-column: span 1; }
+.card:nth-child(3) { grid-column: span 1; }
+.card:nth-child(4) { grid-column: span 1; grid-row: span 2; }
+.card:nth-child(5) { grid-column: span 2; grid-row: span 2; }
+.card:nth-child(6) { grid-column: span 1; }
+.card:nth-child(7) { grid-column: span 1; }
+/* Kita hanya atur 7 kartu dulu sesuai jumlah data */
+
+/* RESPONSIVE */
+@media (max-width: 992px) {
+  .bentoGrid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: minmax(280px, auto);
+  }
+  /* Reset posisi di mobile, biarkan grid mengalir alami */
+  .card:nth-child(n) {
+    grid-column: auto;
+    grid-row: auto;
+  }
+  /* Tapi buat kartu ke-5 tetap lebih menonjol */
+  .card:nth-child(5) {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+}
+
+@media (max-width: 768px) {
+  .bentoGrid {
+    grid-template-columns: 1fr;
+    grid-auto-rows: 350px;
+  }
+  /* Di mobile, semua kartu ukurannya sama */
+  .card:nth-child(n) {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+}

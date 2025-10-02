@@ -1,0 +1,119 @@
+.section { 
+  padding: 6rem 0; 
+}
+.title {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 12rem;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+.card {
+  padding: 4rem;
+  border-radius: 24px;
+  border: 1px solid var(--border-color);
+  background-color: var(--white);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0px 4px 16px rgba(17, 17, 26, 0.05), 0px 8px 32px rgba(17, 17, 26, 0.05);
+  /* PERBAIKAN: Beri tinggi minimal agar konten tidak tumpang tindih */
+  min-height: 280px; 
+}
+.card:hover {
+  border-color: var(--brand-green);
+  transform: translateY(-5px);
+  box-shadow: 0px 4px 16px rgba(17, 17, 26, 0.1), 0px 8px 32px rgba(17, 17, 26, 0.1);
+}
+
+.cardHeader {
+  margin-bottom: 1rem;
+}
+
+.cardHeader h3 {
+  font-family: var(--font-poppins);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--brand-green);
+  position: relative;
+  display: inline-block;
+  z-index: 2;
+}
+
+/* PERBAIKAN: Latar judul di kartu putih jadi hijau transparan */
+.cardHeader h3::before {
+  content: '';
+  position: absolute;
+  left: -10px;
+  right: -10px;
+  top: -5px;
+  bottom: -5px;
+  background-color: rgba(16, 113, 99, 0.200); /* <-- Hijau super transparan */
+  border-radius: 0px;
+  z-index: -1;
+}
+
+.cardBody {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-grow: 1;
+}
+.cardBody p {
+  color: var(--text-secondary);
+  flex: 1;
+}
+.cardImage {
+  position: relative;
+  width: 120px;
+  height: 80px;
+  flex-shrink: 0;
+}
+
+.cardNumber {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: var(--white);
+  border: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--brand-green);
+  z-index: 2;
+}
+
+/* Styling untuk kartu yang berwarna hijau */
+.highlighted {
+  background-color: var(--brand-green);
+  border-color: var(--brand-green);
+  box-shadow: 0 10px 30px rgba(16, 113, 99, 0.2);
+}
+.highlighted .cardHeader h3,
+.highlighted .cardBody p {
+  color: var(--white);
+  opacity: 0.95;
+}
+.highlighted .cardHeader h3::before {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+.highlighted .cardNumber {
+  background-color: var(--white);
+  color: var(--brand-green);
+  border-color: transparent;
+}
+
+@media (max-width: 768px) {
+  .grid { grid-template-columns: 1fr; }
+}

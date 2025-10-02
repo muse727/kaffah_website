@@ -1,0 +1,33 @@
+.heroSection {
+  position: relative;
+  width: 100%;
+  height: 65vh; /* Tinggi banner, bisa disesuaikan */
+}
+
+.fallbackBackground {
+  width: 100%;
+  height: 100%;
+  background-color: var(--brand-green);
+}
+
+.contentOverlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  /* Atur posisi tombol sesuai desain */
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 20%; /* Geser ke kanan */
+  padding-top: 5%; /* Sedikit turun */
+}
+
+@media (max-width: 768px) {
+  .heroSection {
+    height: 40vh;
+  }
+  .contentOverlay {
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+  }
+}
