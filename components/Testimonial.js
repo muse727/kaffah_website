@@ -11,25 +11,36 @@ import 'swiper/css/navigation';
 import styles from '../styles/Testimonial.module.css';
 
 // SIAPKAN DATA TESTIMONI DI SINI
+// DATA TESTIMONI DENGAN LINK VIMEO BARU
 const testimonialsData = [
   {
-    name: 'Sameer Rai',
-    title: 'Product Head',
-    quote: '"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."',
-    thumbnail: '/testimonial-photo.jpg',
-    avatar: '/author-avatar.png',
-    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1' // <-- GANTI DENGAN URL VIDEO 1
+    // --- DATA TESTIMONI 1 ---
+    name: 'Orang Tua Siswi SMPIT', // Ganti dengan nama yang sesuai
+    title: 'Wali Murid Angkatan Pertama', // Ganti dengan title yang sesuai
+    quote: '"Alhamdulillah, putri kami mendapatkan lingkungan belajar yang sangat mendukung di SMPIT Al Mubarak. Guru-gurunya peduli dan fasilitasnya lengkap."', // Ganti dengan kutipan testimoni
+    thumbnail: '/testimonial-photo-1.png', // Ganti dengan path thumbnail kamu
+    avatar: '/author-avatar-1.png',      // Ganti dengan path avatar kamu
+    videoUrl: 'https://player.vimeo.com/video/1123886147?autoplay=1&title=0&byline=0&portrait=0'
   },
   {
-    name: 'Orang Tua Murid',
-    title: 'Wali Murid SDIT',
-    quote: '"Pendidikan di Al Mubarak sangat luar biasa. Anak saya tidak hanya cerdas secara akademis, tapi juga akhlaknya terbentuk dengan baik."',
-    thumbnail: '/testimonial-photo-2.jpg', // <-- Siapkan foto thumbnail kedua
-    avatar: '/author-avatar-2.png', // <-- Siapkan avatar kedua
-    videoUrl: 'https://www.youtube.com/embed/anotherVideoID?autoplay=1' // <-- GANTI DENGAN URL VIDEO 2
+    // --- DATA TESTIMONI 2 ---
+    name: 'H. Ismail, S.Pd., M.H', // Ganti dengan nama yang sesuai
+    title: 'Anggota Komisi B DPRD DKI Jakarta Wali Murid SMPIT Al Mubarak', // Ganti dengan title yang sesuai
+    quote: '"Kurikulum di Al Mubarak sangat seimbang antara pendidikan agama dan umum. Anak saya senang sekolah di sini dan perkembangan akhlaknya sangat terlihat."', // Ganti dengan kutipan testimoni
+    thumbnail: '/testimonial-photo-2.png', // Ganti dengan path thumbnail kamu
+    avatar: '/author-avatar-2.jpeg',      // Ganti dengan path avatar kamu
+    videoUrl: 'https://player.vimeo.com/video/1123887901?autoplay=1&title=0&byline=0&portrait=0'
+  },
+  {
+    // --- DATA TESTIMONI 3 ---
+    name: 'Muhammad Nurohman', // Ganti dengan nama yang sesuai
+    title: 'Drummer Band Ungu Wali Murid SMPIT Al Mubarak', // Ganti dengan title yang sesuai
+    quote: '"Sebagai angkatan pertama, kami melihat langsung komitmen yayasan dalam memberikan yang terbaik. Kami bangga menjadi bagian dari keluarga besar Al Mubarak."', // Ganti dengan kutipan testimoni
+    thumbnail: '/testimonial-photo-3.png', // Ganti dengan path thumbnail kamu
+    avatar: '/author-avatar-3.jpg',      // Ganti dengan path avatar kamu
+    videoUrl: 'https://player.vimeo.com/video/1123888522?autoplay=1&title=0&byline=0&portrait=0'
   },
 ];
-
 
 const Testimonial = () => {
   const [activeVideoUrl, setActiveVideoUrl] = useState(null);
@@ -39,12 +50,12 @@ const Testimonial = () => {
       <section className={styles.section} id="testimonial">
         <div className="container">
           <div className={styles.header} data-aos="fade-up">
-            <span className={styles.subTitle}>TESTIMONIAL</span>
+            <span className={styles.subTitle}>TESTIMONI</span>
             <h2 className={styles.title}>
-              Real Stories, Real Impact: Hear From Our Satisfied Clients
+              Pengalaman Nyata, Hasil Terbukti: Apa Kata Orang Tua Murid Kami?
             </h2>
             <p className={styles.description}>
-              Discover how video testimonial has transformed businesses through innovative solutions and dedicated support.
+              Temukan cerita-cerita inspiratif dari para wali murid mengenai perkembangan anak-anak mereka dan kualitas pendidikan di Yayasan Al Mubarak.
             </p>
           </div>
 

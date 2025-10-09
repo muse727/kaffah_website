@@ -1,0 +1,99 @@
+.main { padding: 4rem 0; }
+.articleContainer {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  gap: 4rem;
+}
+.articleContent { max-width: 800px; }
+.articleTitle {
+  font-size: 3rem;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+.metaInfo {
+  display: flex;
+  gap: 1.5rem;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  font-size: 0.9rem;
+}
+.featuredImageWrapper {
+  position: relative;
+  width: 100%;
+  padding-bottom: 60%;
+  margin-bottom: 2rem;
+  border-radius: 16px;
+  overflow: hidden;
+}
+.articleBody {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--text-primary);
+}
+.articleBody p { margin-bottom: 1.5rem; }
+.articleBody h2, .articleBody h3 { margin: 2rem 0 1rem 0; }
+
+/* Sidebar */
+.sidebar { padding-top: 1rem; }
+.sidebar h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 0.75rem;
+}
+.sidebar ul { list-style: none; padding: 0; }
+.sidebar li { margin-bottom: 1rem; }
+.sidebar a {
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: color 0.3s ease;
+}
+.sidebar a:hover { color: var(--brand-green); }
+.sidebar h3 {
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  border-left: 4px solid #107163; /* Warna utama kamu */
+  padding-left: 1rem;
+}
+
+.sidebarPostList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.sidebarPostCard {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  transition: background-color 0.2s ease-in-out;
+  border-radius: 8px;
+}
+
+.sidebarPostCard:hover h4 {
+  color: #107163;
+}
+
+.sidebarCardImage {
+  position: relative;
+  flex-shrink: 0; /* Mencegah gambar menyusut */
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.sidebarCardContent h4 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.5;
+  transition: color 0.2s ease-in-out;
+}
+
+@media (max-width: 992px) {
+  .articleContainer { grid-template-columns: 1fr; }
+  .sidebar { order: -1; margin-bottom: 3rem; }
+  .articleTitle { font-size: 2.5rem; }
+}

@@ -1,0 +1,110 @@
+.visiMisiSection {
+  padding: 6rem 0;
+  background-color: var(--brand-green);
+  overflow-x: clip; /* Mencegah gambar keluar layar saat horizontal */
+}
+
+/* Kotak putih utama */
+.contentBox {
+  background-color: #fff;
+  color: #333;
+  border-radius: 24px;
+  padding: 3rem;
+  margin-bottom: 4rem;
+  position: relative; /* <-- KUNCI #1: Ini adalah jangkar untuk gambar */
+}
+
+/* Konten teks di dalam kotak */
+.textContent {
+  /* Beri ruang di sebelah kanan agar tidak tertimpa gambar */
+  padding-right: 220px; 
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+}
+
+.visiText {
+  font-size: 1.25rem;
+  font-style: italic;
+  line-height: 1.8;
+  color: #555;
+}
+
+/* Perbaikan untuk list Misi */
+.misiList {
+  list-style-type: none; /* Hapus bullet point default */
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.misiList li {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #555;
+}
+
+.misiIcon {
+  flex-shrink: 0; /* Mencegah ikon menyusut */
+  margin-top: 2px; /* Sejajarkan dengan baris pertama teks */
+}
+
+
+/* Styling untuk gambar siswa/i */
+.studentImage {
+  position: absolute; /* <-- KUNCI #2: Gambar diposisikan absolut */
+  z-index: 2;
+}
+
+.visiImage {
+  width: 200px;
+  height: 300px;
+  bottom: 0;
+  right: 2rem; /* Atur posisi dari kanan */
+}
+
+.misiImage {
+  width: 250px;
+  height: 375px;
+  bottom: 0;
+  right: 1rem; /* Atur posisi dari kanan */
+}
+
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 992px) {
+  .contentBox {
+    padding: 2rem;
+    padding-bottom: 200px; /* Beri ruang di bawah untuk gambar */
+    margin-bottom: 6rem;
+  }
+  
+  .textContent {
+    padding-right: 0; /* Hapus padding kanan di mobile */
+    text-align: center;
+  }
+  
+  .misiList li {
+    text-align: left; /* Teks misi tetap rata kiri */
+  }
+
+  /* Pindahkan gambar ke bawah dan tengah */
+  .studentImage {
+    left: 50%;
+    transform: translateX(-50%);
+    right: auto;
+    bottom: -30px; /* Sedikit keluar ke bawah */
+  }
+
+  /* Perkecil ukuran gambar di mobile */
+  .visiImage { width: 150px; height: 225px; }
+  .misiImage { width: 180px; height: 270px; }
+}

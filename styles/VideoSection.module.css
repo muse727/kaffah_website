@@ -1,0 +1,153 @@
+.videoSection {
+  padding: 6rem 0;
+  background-color: #f8f9fa;
+  overflow: hidden;
+}
+
+/* Wrapper hijau */
+.greenWrapper {
+  background-color: var(--brand-green);
+  color: #fff;
+  border-radius: 24px;
+  padding: 4rem;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Kolom kiri */
+.leftColumn {
+  width: 55%;
+  display: flex;
+  flex-direction: column;
+}
+
+.textHeader {
+  margin-bottom: 1rem;
+}
+
+.subtitle {
+  background-color: rgba(255, 255, 255, 0.15);
+  display: inline-block;
+  padding: 0.3rem 0.8rem;
+  border-radius: 99px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+/* Video */
+.videoThumbnail {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.videoThumbnail:hover {
+  transform: scale(1.02);
+}
+
+.playButton {
+  transition: transform 0.3s ease;
+}
+
+.videoThumbnail:hover .playButton {
+  transform: scale(1.1);
+}
+
+/* Gambar Kepala Sekolah (desktop) */
+.principalImage {
+  position: absolute;
+  bottom: 0;
+  right: 4rem;
+  width: 400px;
+  height: 550px;
+}
+
+/* ===== MODAL STYLING ===== */
+.modalOverlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0,0,0,.8);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 1000;
+  animation: fadeIn .3s ease;
+}
+.modalContent {
+  position: relative;
+  width: 90%;
+  max-width: 1100px;
+  animation: scaleUp .3s ease;
+}
+.closeButton {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  font-size: 2.5rem;
+  color: #fff;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.videoEmbedContainer {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  background: #000;
+}
+.videoEmbedContainer iframe {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+}
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes scaleUp { from { transform: scale(.9); } to { transform: scale(1); } }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 992px) {
+  .greenWrapper {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .leftColumn {
+    width: 100%;
+    order: 2;
+  }
+
+  .principalImage {
+    position: relative; /* ubah dari absolute */
+    order: 1; /* tampil di atas teks */
+    width: 250px;
+    height: auto;
+    margin-bottom: 2rem;
+    right: auto;
+    bottom: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .videoSection { padding: 4rem 0; }
+  .greenWrapper { padding: 2rem; }
+  .title { font-size: 2rem; }
+  .principalImage {
+    width: 200px;
+  }
+}

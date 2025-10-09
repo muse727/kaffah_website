@@ -20,12 +20,12 @@ const AlurPendaftaran = ({ alur }) => {
         <div className={styles.grid}>
           {alur.map((item, index) => {
             const imageUrl = item.gambar_ilustrasi?.url;
-            // Menentukan apakah kartu ini berwarna hijau
             const isHighlighted = [2, 3, 6].includes(item.nomor_urut);
 
             return (
+              // PERBAIKAN: 'key' dipindah ke elemen paling luar
               <div 
-                key={item.id} 
+                key={item.nomor_urut} // <-- 'key' HARUS ADA DI SINI
                 className={`${styles.card} ${isHighlighted ? styles.highlighted : ''}`}
                 data-aos="fade-up" 
                 data-aos-delay={index * 100}
@@ -38,7 +38,7 @@ const AlurPendaftaran = ({ alur }) => {
                   {imageUrl && (
                     <div className={styles.cardImage}>
                       <Image 
-                        src={`http://localhost:1337${imageUrl}`}
+                        src={imageUrl}
                         alt={item.judul}
                         fill
                         sizes="30vw"

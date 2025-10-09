@@ -22,7 +22,7 @@
 html,
 body {
   width: 100%;
-  overflow-x: hidden; /* Mencegah scroll horizontal yang tidak diinginkan */
+ 
 }
 
 body {
@@ -46,10 +46,7 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
 }
 
-main {
-  /* Beri ruang di atas agar konten tidak tertutup Navbar fixed */
-  padding-top: 116px; 
-}
+
 
 
 /* 4. Container (Pembungkus Konten) */
@@ -61,3 +58,4 @@ main {
   padding-left: 24px;
   padding-right: 24px;
 }
+

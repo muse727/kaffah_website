@@ -1,0 +1,263 @@
+/* Pembungkus utama */
+.parallaxContainer {
+  position: relative;
+}
+
+.section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* SECTION 1: PENDAHULUAN PUTIH DENGAN PATTERN */
+.sectionOne {
+  background-color: #fff;
+  color: #1E1E1E;
+  padding-top: 80px;
+  position: relative;
+  z-index: 2;
+  
+  /* Pattern Subtle */
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(16, 113, 99, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(16, 113, 99, 0.03) 0%, transparent 50%);
+  background-size: 50px 50px;
+}
+
+.sectionOne::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    linear-gradient(45deg, transparent 49%, rgba(16, 113, 99, 0.02) 50%, transparent 51%),
+    linear-gradient(-45deg, transparent 49%, rgba(16, 113, 99, 0.02) 50%, transparent 51%);
+  background-size: 20px 20px;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.introContent {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.introContent h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.introContent p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #555;
+  margin-bottom: 2rem;
+}
+
+.cta {
+  font-size: 0.9rem;
+  color: #777;
+}
+
+.ctaButton {
+  display: inline-block;
+  margin-left: 1rem;
+  padding: 0.5rem 1.5rem;
+  border: 1px solid #107163;
+  border-radius: 99px;
+  color: #1e1e1e;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.ctaButton:hover {
+  background-color: #107163;
+  color: #fff;
+}
+
+/* SECTION 2: FORMULIR HIJAU - DI BAWAH */
+.sectionTwo {
+  background-color: #107163;
+  color: #fff;
+  position: relative;
+  z-index: 1;
+}
+
+.contactGrid {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 4rem;
+  align-items: center;
+  padding: 2rem 0;
+}
+
+.contactInfo {
+  padding: 2rem;
+}
+
+.contactInfo h1 {
+  font-size: 3.5rem;
+  font-weight: 800;
+  line-height: 1.1;
+  margin: 1rem 0;
+}
+
+.contactInfo h2 {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.contactInfo p {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #eee;
+  max-width: 500px;
+}
+
+.formContainer {
+  background-color: #fff;
+  color: #333;
+  padding: 2.5rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.1);
+  margin: 2rem;
+}
+
+.formContainer p {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+
+.inputGroup {
+  margin-bottom: 1.25rem;
+}
+
+.inputGroup label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.inputGroup input,
+.inputGroup select,
+.inputGroup textarea {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: #fff;
+}
+
+.inputGroup input:focus,
+.inputGroup select:focus,
+.inputGroup textarea:focus {
+  outline: none;
+  border-color: #107163;
+  box-shadow: 0 0 0 2px rgba(16, 113, 99, 0.1);
+}
+
+.submitButton {
+  width: 100%;
+  padding: 1rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #107163;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.submitButton:hover {
+  opacity: 0.9;
+}
+
+.submitButton:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+
+.successMsg {
+  color: #107163;
+  margin-top: 1rem;
+  text-align: center;
+  font-weight: 600;
+}
+
+.errorMsg {
+  color: #d32f2f;
+  margin-top: 1rem;
+  text-align: center;
+  font-weight: 600;
+}
+
+/* ===== ATURAN RESPONSIVE ===== */
+@media (max-width: 992px) {
+  .contactGrid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .contactInfo { 
+    text-align: center; 
+    padding: 1rem;
+  }
+  .contactInfo p { 
+    margin: 0 auto; 
+  }
+  .formContainer {
+    margin: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .section { 
+    padding: 2rem 1rem; 
+  }
+  .sectionOne { 
+    padding-top: calc(80px + 2rem);
+  }
+  .contactInfo h1 { 
+    font-size: 2.5rem; 
+  }
+  .introContent h1 { 
+    font-size: 2.2rem; 
+  }
+  .formContainer { 
+    padding: 1.5rem; 
+  }
+  .contactGrid {
+    padding: 1rem 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .introContent h1 {
+    font-size: 1.8rem;
+  }
+  .contactInfo h1 {
+    font-size: 2rem;
+  }
+  .formContainer {
+    padding: 1rem;
+    margin: 0.5rem;
+  }
+  
+  /* Simplify pattern on mobile for better performance */
+  .sectionOne::before {
+    background-image: none;
+  }
+}

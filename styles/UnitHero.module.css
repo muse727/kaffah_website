@@ -1,0 +1,82 @@
+.heroContainer {
+  position: relative;
+  height: 100vh; /* Tinggi 1 layar penuh */
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.swiperContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(16, 113, 99, 0.65); /* Warna hijau transparan */
+  z-index: 2; /* Di atas gambar, di bawah teks */
+}
+
+.content {
+  position: relative;
+  z-index: 3; /* Pastikan teks di paling depan */
+  text-align: center;
+}
+
+.textContent {
+  max-width: 800px;
+}
+
+.schoolName {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.tagline {
+  font-size: 3.5rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  line-height: 1.2;
+  margin-bottom: 2.5rem;
+  letter-spacing: 1px;
+}
+
+.registerButton {
+  display: inline-block;
+  background-color: #107163; /* Warna utama */
+  color: #fff;
+  padding: 1rem 2.5rem;
+  border: 2px solid #fff;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.registerButton:hover {
+  background-color: #fff;
+  color: #107163;
+}
+
+/* Aturan untuk mobile */
+@media (max-width: 768px) {
+  .tagline {
+    font-size: 2.5rem;
+  }
+  .registerButton {
+    padding: 0.8rem 2rem;
+  }
+}
