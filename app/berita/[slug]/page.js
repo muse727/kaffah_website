@@ -65,7 +65,6 @@ export default async function SinglePostPage({ params }) {
       }
     `;
     
-    // Jalankan kedua query secara paralel agar lebih cepat
     const [postData, recentData] = await Promise.all([
       fetchGraphQL(postQuery, { id: slug }),
       fetchGraphQL(recentPostsQuery)
@@ -126,10 +125,10 @@ export default async function SinglePostPage({ params }) {
           <h3>Berita Lainnya</h3>
           <div className={styles.sidebarPostList}>
             {recentPosts
-              .filter(p => p.slug !== slug) // Filter post yang sedang dibuka
-              .slice(0, 4) // Ambil 4 berita lainnya
+              .filter(p => p.slug !== slug) 
+              .slice(0, 4) 
               .map(recent => (
-                // Tambahkan pengecekan ini, jika post tidak ada gambar, jangan ditampilkan
+                
                 recent.featuredImage?.node?.sourceUrl && (
                   <Link href={`/berita/${recent.slug}`} key={recent.id} className={styles.sidebarPostCard}>
                     <div className={styles.sidebarCardImage}>
@@ -137,7 +136,7 @@ export default async function SinglePostPage({ params }) {
                         src={recent.featuredImage.node.sourceUrl}
                         alt={recent.title}
                         fill
-                        sizes="100px" // Beri tahu browser ukuran gambar kira-kira 100px
+                        sizes="100px" 
                         style={{ objectFit: 'cover' }}
                       />
                     </div>

@@ -1,0 +1,315 @@
+.vmSection {
+  padding: 8rem 0;
+  background: linear-gradient(135deg, var(--brand-green) 0%, #1a7368 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Background Blur Effect */
+.backgroundBlur {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* Floating Orbs */
+.floatingOrbs {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.orb1, .orb2, .orb3 {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  animation: float 6s ease-in-out infinite;
+}
+
+.orb1 {
+  width: 200px;
+  height: 200px;
+  top: 10%;
+  left: 5%;
+  animation-delay: 0s;
+}
+
+.orb2 {
+  width: 150px;
+  height: 150px;
+  top: 60%;
+  right: 10%;
+  animation-delay: 2s;
+}
+
+.orb3 {
+  width: 100px;
+  height: 100px;
+  bottom: 20%;
+  left: 15%;
+  animation-delay: 4s;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) scale(1); }
+  50% { transform: translateY(-20px) scale(1.05); }
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 4rem;
+  position: relative;
+  z-index: 2;
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  color: #fff;
+  text-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 2.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+/* Glassmorphism Cards */
+.card {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 24px;
+  padding: 2.5rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.cardGlow {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.card:hover .cardGlow {
+  opacity: 1;
+}
+
+.cardHeader {
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.iconWrapper {
+  width: 50px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.iconWrapper svg {
+  color: #FFD700;
+  width: 24px;
+  height: 24px;
+}
+
+.cardHeader h3 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.visiText {
+  font-size: 1.3rem;
+  line-height: 1.8;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.95);
+  text-align: center;
+  margin: 0;
+  font-weight: 500;
+}
+
+.misiList {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.misiList li {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.misiList li:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateX(8px);
+}
+
+.misiNumber {
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #000;
+  flex-shrink: 0;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.misiList li {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.95);
+  margin: 0;
+  font-weight: 500;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1200px) {
+  .title {
+    font-size: 2.5rem;
+  }
+  
+  .card {
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .vmSection {
+    padding: 6rem 0;
+  }
+  
+  .title {
+    font-size: 2.2rem;
+  }
+  
+  .visiText {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .vmSection {
+    padding: 4rem 0;
+  }
+  
+  .title {
+    font-size: 2rem;
+  }
+  
+  .subtitle {
+    font-size: 1.1rem;
+  }
+  
+  .card {
+    padding: 1.5rem;
+    border-radius: 20px;
+  }
+  
+  .cardHeader {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.8rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .misiList li {
+    padding: 1.2rem;
+    flex-direction: column;
+    text-align: center;
+    gap: 0.8rem;
+  }
+  
+  .misiList li:hover {
+    transform: translateY(-4px);
+  }
+  
+  .orb1, .orb2, .orb3 {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 1.8rem;
+  }
+  
+  .cardHeader h3 {
+    font-size: 1.5rem;
+  }
+  
+  .visiText {
+    font-size: 1.1rem;
+  }
+  
+  .misiList li {
+    font-size: 1rem;
+  }
+}

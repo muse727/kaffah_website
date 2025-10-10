@@ -74,7 +74,7 @@ const smpitGalleryData = {
   description: 'Dokumentasi berbagai aktivitas akademik, ekstrakurikuler, dan prestasi siswa-siswi SMPIT.',
   images: [
     // Kamu bisa atur layout berbeda untuk SMPIT dengan mengubah nilai 'span'
-    { src: '/images/galeri-smpit/foto-1.jpg', alt: 'Kegiatan OSIS', span: '' },
+    { src: '/images/galeri-smpit/foto-1smp.jpg', alt: 'Kegiatan OSIS', span: '' },
     { src: '/images/galeri-smpit/foto-2.jpg', alt: 'Lomba Cerdas Cermat', span: styles.span_2x1 },
     { src: '/images/galeri-smpit/foto-3.jpg', alt: 'Kegiatan Pramuka', span: styles.span_1x2 },
     { src: '/images/galeri-smpit/foto-4.jpg', alt: 'Juara Futsal', span: styles.span_2x2 },
@@ -84,14 +84,14 @@ const smpitGalleryData = {
 };
 
 const smpitEkskulData = [
-  { name: 'Paskibra', icon: '/icons/ekskul/paskibra.svg' },
-  { name: 'PMR', icon: '/icons/ekskul/pmr.svg' },
-  { name: 'Robotik', icon: '/icons/ekskul/robotik.svg' },
-  { name: 'Basket', icon: '/icons/ekskul/basket.svg' },
-  { name: 'Jurnalistik', icon: '/icons/ekskul/jurnalistik.svg' },
-  { name: 'Nasyid', icon: '/icons/ekskul/nasyid.svg' },
-  { name: 'English Club', icon: '/icons/ekskul/english.svg' },
-  // GANTI ATAU TAMBAHKAN DENGAN EKSTRAKURIKULER SMPIT YANG SEBENARNYA
+  { name: 'Hadroh', icon: '/icons/ekskul/hadroh.png' },
+  { name: 'Coding', icon: '/icons/ekskul/coding.png' },
+  { name: 'Acapella', icon: '/icons/ekskul/acapella.png' },
+  { name: 'Silat', icon: '/icons/ekskul/silat.png' },
+  { name: 'Nasyid', icon: '/icons/ekskul/nasyid.png' },
+  { name: 'English Club', icon: '/icons/ekskul/english.png' },
+  { name: 'Pramuka', icon: '/icons/ekskul/pramuka.png' },
+  { name: 'Futsal', icon: '/icons/ekskul/futsal.png' },
 ];
 
 export default function SmpitPage() {

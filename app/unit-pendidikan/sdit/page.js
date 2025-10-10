@@ -8,7 +8,7 @@ import GaleriSection from '../../../components/GaleriSection';
 import styles from '../../../styles/GaleriSection.module.css';
 import EkstrakurikulerSection from '../../../components/EkstrakurikulerSection';
 
-// Siapkan data spesifik untuk halaman SDIT
+
 const sditData = {
   schoolName: 'SD IT AL MUBARAK',
   tagline: 'BERTAQWA MANDIRI CERDAS KREATIF',
@@ -16,7 +16,7 @@ const sditData = {
     { src: '/images/sdit-hero-1.jpg', alt: 'Kegiatan Wisuda SDIT Al Mubarak' },
     { src: '/images/sdit-hero-2.jpg', alt: 'Kegiatan Belajar Mengajar SDIT Al Mubarak' },
     { src: '/images/sdit-hero-3.jpg', alt: 'Kegiatan Olahraga SDIT Al Mubarak' },
-    // Tambahkan foto lain di sini
+    { src: '/images/sdit-hero-4.jpg', alt: 'Kegiatan Seni SDIT Al Mubarak' },
   ],
   registerLink: '/pendaftaran', // Arahkan ke halaman pendaftaran
 };
@@ -88,13 +88,16 @@ const sditGalleryData = {
 };
 
 const sditEkskulData = [
-  { name: 'Silat', icon: '/icons/ekskul/silat.svg' },
-  { name: 'Panahan', icon: '/icons/ekskul/panahan.svg' },
-  { name: 'Karate', icon: '/icons/ekskul/karate.svg' },
-  { name: 'Coding', icon: '/icons/ekskul/coding.svg' },
-  { name: 'Marawis', icon: '/icons/ekskul/marawis.svg' },
-  { name: 'Sains Club', icon: '/icons/ekskul/sains.svg' },
-  { name: 'Futsal', icon: '/icons/ekskul/futsal.svg' },
+  { name: 'Silat', icon: '/icons/ekskul/silat.png' },
+  { name: 'Panahan', icon: '/icons/ekskul/panahan.png' },
+  { name: 'Karate', icon: '/icons/ekskul/karate.png' },
+  { name: 'Coding', icon: '/icons/ekskul/coding.png' },
+  { name: 'Marawis', icon: '/icons/ekskul/marawis.png' },
+  { name: 'Sains Club', icon: '/icons/ekskul/sains.png' },
+  { name: 'Futsal', icon: '/icons/ekskul/futsal.png' },
+  { name: 'Tahsin', icon: '/icons/ekskul/tahsin.png' },
+  { name: 'Tahfizh', icon: '/icons/ekskul/tahfizh.png' },
+  { name: 'Mujawwad', icon: '/icons/ekskul/mujawwad.png' },
 ];
 
 export default function SditPage() {

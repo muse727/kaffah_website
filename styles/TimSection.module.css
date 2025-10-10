@@ -1,0 +1,99 @@
+.timSection {
+  padding: 6rem 0;
+  background-color: #f8f9fa; /* Abu-abu muda */
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: #666;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Tombol Filter */
+.filterButtons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+}
+
+.filterButton {
+  background-color: #fff;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  padding: 0.75rem 1.5rem;
+  border-radius: 99px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.filterButton:hover {
+  background-color: #e0f2f1; /* Warna icon-bg */
+  color: var(--brand-green);
+  border-color: var(--brand-green);
+}
+
+.filterButton.active {
+  background-color: var(--brand-green);
+  color: #fff;
+  border-color: var(--brand-green);
+}
+
+
+/* Grid Kartu Tim */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.card {
+  background-color: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1; /* Membuat gambar jadi kotak */
+}
+
+.cardContent {
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.name {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.position {
+  font-size: 0.9rem;
+  color: var(--brand-green);
+}

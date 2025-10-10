@@ -1,21 +1,259 @@
 .section {
-  padding: 4rem 0 6rem 0;
+  padding: 5rem 0 7rem 0;
   text-align: center;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
 }
-.ctaButton {
-  display: inline-block;
+
+.container {
+  max-width: 800px; /* Sedikit diperlebar */
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.title {
+  font-family: var(--font-poppins);
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--brand-green);
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, var(--brand-green) 0%, #0d9488 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.description {
+  font-family: var(--font-poppins);
+  font-size: 1.1rem;
+  color: var(--dark-gray);
+  margin-bottom: 2.5rem;
+  line-height: 1.6;
+}
+
+.buttonGroup {
+  display: flex;
+  flex-direction: row; /* Default: horizontal */
+  gap: 1.5rem;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap; /* Jika tidak muat, akan wrap */
+}
+
+/* Token Section Styles */
+.tokenSection {
+  position: relative;
+  flex: 1;
+  max-width: 300px;
+}
+
+.tokenMainButton {
+  background: var(--white);
+  color: var(--brand-green);
+  font-family: var(--font-poppins);
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding: 1.2rem 2rem;
+  border: 3px solid var(--brand-green);
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: 0 5px 20px rgba(16, 113, 99, 0.2);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.tokenMainButton:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(16, 113, 99, 0.3);
   background: var(--brand-green);
   color: var(--white);
+}
+
+.arrow {
+  transition: transform 0.3s ease;
+  font-size: 0.8rem;
+}
+
+.arrowUp {
+  transform: rotate(180deg);
+}
+
+.tokenOptions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--white);
+  border: 2px solid var(--brand-green);
+  border-radius: 12px;
+  margin-top: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tokenOptionButton {
+  background: var(--white);
+  color: var(--brand-green);
   font-family: var(--font-poppins);
-  font-size: 1.5rem;
-  font-weight: 700;
-  padding: 1.5rem 4rem;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 1rem 2rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.tokenOptionButton:last-child {
+  border-bottom: none;
+}
+
+.tokenOptionButton:hover {
+  background: var(--brand-green);
+  color: var(--white);
+}
+
+.ctaButton {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--brand-green) 0%, #0d9488 100%);
+  color: var(--white);
+  font-family: var(--font-poppins);
+  font-size: 1.4rem;
+  font-weight: 800;
+  padding: 1.5rem 3rem;
   border-radius: 16px;
   text-decoration: none;
-  box-shadow: 0 10px 30px rgba(16, 113, 99, 0.3);
+  box-shadow: 0 10px 30px rgba(16, 113, 99, 0.4);
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  flex: 1;
+  max-width: 300px;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
 }
+
+.ctaButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s;
+}
+
+.ctaButton:hover::before {
+  left: 100%;
+}
+
 .ctaButton:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 20px 40px rgba(16, 113, 99, 0.4);
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 20px 40px rgba(16, 113, 99, 0.5);
+}
+
+.note {
+  font-family: var(--font-poppins);
+  font-size: 0.9rem;
+  color: var(--dark-gray);
+  font-style: italic;
+  margin-bottom: 2rem;
+}
+
+/* Admin Info Styles */
+.adminInfo {
+  background: var(--white);
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  border: 2px solid #e2e8f0;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.adminInfo h3 {
+  font-family: var(--font-poppins);
+  font-size: 1.1rem;
+  color: var(--brand-green);
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.adminContacts {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.adminContact {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-poppins);
+  font-size: 0.9rem;
+  padding: 0.5rem 0;
+}
+
+.adminContact strong {
+  color: var(--dark-gray);
+}
+
+.adminContact span {
+  color: var(--brand-green);
+  font-weight: 600;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .section {
+    padding: 3rem 0 5rem 0;
+  }
+  
+  .title {
+    font-size: 2rem;
+  }
+  
+  .description {
+    font-size: 1rem;
+  }
+  
+  .buttonGroup {
+    flex-direction: column; /* Pada layar kecil, tombol vertikal */
+  }
+
+  .tokenSection {
+    max-width: 100%;
+  }
+
+  .tokenMainButton,
+  .ctaButton {
+    font-size: 1.1rem;
+    padding: 1.2rem 2rem;
+    max-width: 100%;
+  }
+
+  .adminContact {
+    flex-direction: column;
+    gap: 0.2rem;
+    text-align: center;
+  }
 }
