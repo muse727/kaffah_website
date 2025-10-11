@@ -57,7 +57,6 @@
   margin-top: 2px; /* Sejajarkan dengan baris pertama teks */
 }
 
-
 /* Styling untuk gambar siswa/i */
 .studentImage {
   position: absolute; /* <-- KUNCI #2: Gambar diposisikan absolut */
@@ -78,13 +77,13 @@
   right: 1rem; /* Atur posisi dari kanan */
 }
 
-
 /* ===== RESPONSIVE ===== */
 @media (max-width: 992px) {
   .contentBox {
     padding: 2rem;
-    padding-bottom: 200px; /* Beri ruang di bawah untuk gambar */
-    margin-bottom: 6rem;
+    /* HAPUS padding-bottom karena gambar dihapus */
+    padding-bottom: 2rem;
+    margin-bottom: 2rem;
   }
   
   .textContent {
@@ -96,15 +95,23 @@
     text-align: left; /* Teks misi tetap rata kiri */
   }
 
-  /* Pindahkan gambar ke bawah dan tengah */
+  /* SEMBUNYIKAN GAMBAR DI MOBILE */
   .studentImage {
-    left: 50%;
-    transform: translateX(-50%);
-    right: auto;
-    bottom: -30px; /* Sedikit keluar ke bawah */
+    display: none !important;
   }
+}
 
-  /* Perkecil ukuran gambar di mobile */
-  .visiImage { width: 150px; height: 225px; }
-  .misiImage { width: 180px; height: 270px; }
+/* Optional: Jika ingin menyembunyikan gambar di tablet juga, gunakan media query yang lebih lebar */
+@media (max-width: 768px) {
+  .studentImage {
+    display: none !important;
+  }
+  
+  .title {
+    font-size: 2rem;
+  }
+  
+  .visiText {
+    font-size: 1.1rem;
+  }
 }

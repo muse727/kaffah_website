@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
@@ -10,40 +10,128 @@ import 'swiper/css/navigation';
 
 import styles from '../styles/Testimonial.module.css';
 
-// SIAPKAN DATA TESTIMONI DI SINI
 // DATA TESTIMONI DENGAN LINK VIMEO BARU
 const testimonialsData = [
   {
-    // --- DATA TESTIMONI 1 ---
-    name: 'Orang Tua Siswi SMPIT', // Ganti dengan nama yang sesuai
-    title: 'Wali Murid Angkatan Pertama', // Ganti dengan title yang sesuai
-    quote: '"Alhamdulillah, putri kami mendapatkan lingkungan belajar yang sangat mendukung di SMPIT Al Mubarak. Guru-gurunya peduli dan fasilitasnya lengkap."', // Ganti dengan kutipan testimoni
-    thumbnail: '/testimonial-photo-1.png', // Ganti dengan path thumbnail kamu
-    avatar: '/author-avatar-1.png',      // Ganti dengan path avatar kamu
+    name: 'Orang Tua Siswi SMPIT',
+    title: 'Wali Murid Angkatan Pertama',
+    quote: '"Alhamdulillah, putri kami mendapatkan lingkungan belajar yang sangat mendukung di SMPIT Al Mubarak. Guru-gurunya peduli dan fasilitasnya lengkap."',
+    thumbnail: '/testimonial-photo-1.png',
+    avatar: '/author-avatar-1.png',
     videoUrl: 'https://player.vimeo.com/video/1123886147?autoplay=1&title=0&byline=0&portrait=0'
   },
   {
-    // --- DATA TESTIMONI 2 ---
-    name: 'H. Ismail, S.Pd., M.H', // Ganti dengan nama yang sesuai
-    title: 'Anggota Komisi B DPRD DKI Jakarta Wali Murid SMPIT Al Mubarak', // Ganti dengan title yang sesuai
-    quote: '"Kurikulum di Al Mubarak sangat seimbang antara pendidikan agama dan umum. Anak saya senang sekolah di sini dan perkembangan akhlaknya sangat terlihat."', // Ganti dengan kutipan testimoni
-    thumbnail: '/testimonial-photo-2.png', // Ganti dengan path thumbnail kamu
-    avatar: '/author-avatar-2.jpeg',      // Ganti dengan path avatar kamu
+    name: 'H. Ismail, S.Pd., M.H',
+    title: 'Anggota Komisi B DPRD DKI Jakarta Wali Murid SMPIT Al Mubarak',
+    quote: '"Kurikulum di Al Mubarak sangat seimbang antara pendidikan agama dan umum. Anak saya senang sekolah di sini dan perkembangan akhlaknya sangat terlihat."',
+    thumbnail: '/testimonial-photo-2.png',
+    avatar: '/author-avatar-2.jpeg',
     videoUrl: 'https://player.vimeo.com/video/1123887901?autoplay=1&title=0&byline=0&portrait=0'
   },
   {
-    // --- DATA TESTIMONI 3 ---
-    name: 'Muhammad Nurohman', // Ganti dengan nama yang sesuai
-    title: 'Drummer Band Ungu Wali Murid SMPIT Al Mubarak', // Ganti dengan title yang sesuai
-    quote: '"Sebagai angkatan pertama, kami melihat langsung komitmen yayasan dalam memberikan yang terbaik. Kami bangga menjadi bagian dari keluarga besar Al Mubarak."', // Ganti dengan kutipan testimoni
-    thumbnail: '/testimonial-photo-3.png', // Ganti dengan path thumbnail kamu
-    avatar: '/author-avatar-3.jpg',      // Ganti dengan path avatar kamu
+    name: 'Muhammad Nurohman',
+    title: 'Drummer Band Ungu Wali Murid SMPIT Al Mubarak',
+    quote: '"Sebagai angkatan pertama, kami melihat langsung komitmen yayasan dalam memberikan yang terbaik. Kami bangga menjadi bagian dari keluarga besar Al Mubarak."',
+    thumbnail: '/testimonial-photo-3.png',
+    avatar: '/author-avatar-3.jpg',
     videoUrl: 'https://player.vimeo.com/video/1123888522?autoplay=1&title=0&byline=0&portrait=0'
   },
 ];
 
 const Testimonial = () => {
   const [activeVideoUrl, setActiveVideoUrl] = useState(null);
+  const modalRef = useRef(null);
+  const closeButtonRef = useRef(null);
+  const [startY, setStartY] = useState(0);
+  const [currentY, setCurrentY] = useState(0);
+  const [isSwiping, setIsSwiping] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Detect mobile device
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, []);
+
+  // Effect untuk handle ESC key dan scroll lock
+  useEffect(() => {
+    const handleEscKey = (event) => {
+      if (event.keyCode === 27) {
+        setActiveVideoUrl(null);
+      }
+    };
+
+    if (activeVideoUrl) {
+      document.addEventListener('keydown', handleEscKey);
+      document.body.style.overflow = 'hidden';
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleEscKey);
+      document.body.style.overflow = 'unset';
+    };
+  }, [activeVideoUrl]);
+
+  // Touch event handlers untuk swipe down (mobile only)
+  const handleTouchStart = (e) => {
+    if (!isMobile) return;
+    
+    setStartY(e.touches[0].clientY);
+    setCurrentY(e.touches[0].clientY);
+    setIsSwiping(true);
+  };
+
+  const handleTouchMove = (e) => {
+    if (!isMobile || !isSwiping) return;
+    
+    const touchY = e.touches[0].clientY;
+    setCurrentY(touchY);
+    
+    // Berikan feedback visual saat swipe down
+    const diff = touchY - startY;
+    if (diff > 0) {
+      e.currentTarget.style.transform = `translateY(${diff}px)`;
+      e.currentTarget.style.opacity = `${1 - (diff / 500)}`;
+    }
+  };
+
+  const handleTouchEnd = (e) => {
+    if (!isMobile || !isSwiping) return;
+    
+    const diff = currentY - startY;
+    
+    // Jika swipe down lebih dari 100px, close modal
+    if (diff > 100) {
+      setActiveVideoUrl(null);
+    } else {
+      // Reset posisi jika tidak cukup jauh
+      e.currentTarget.style.transform = 'translateY(0)';
+      e.currentTarget.style.opacity = '1';
+    }
+    
+    setIsSwiping(false);
+    setStartY(0);
+    setCurrentY(0);
+  };
+
+  // Click outside to close (desktop only)
+  const handleOverlayClick = (e) => {
+    if (e.target === e.currentTarget && !isMobile) {
+      setActiveVideoUrl(null);
+    }
+  };
+
+  const handleCloseModal = () => {
+    setActiveVideoUrl(null);
+  };
 
   return (
     <>
@@ -101,14 +189,46 @@ const Testimonial = () => {
         </div>
       </section>
 
-      {/* MODAL VIDEO (Tidak berubah) */}
+      {/* MODAL HYBRID - Desktop: Tombol X, Mobile: Swipe + Tombol X */}
       {activeVideoUrl && (
-        <div className={styles.modalOverlay} onClick={() => setActiveVideoUrl(null)}>
-          <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-            <button className={styles.closeButton} onClick={() => setActiveVideoUrl(null)}>×</button>
+        <div 
+          className={styles.modalOverlay}
+          onClick={handleOverlayClick}
+          ref={modalRef}
+        >
+          <div 
+            className={styles.modalContent}
+            onTouchStart={isMobile ? handleTouchStart : undefined}
+            onTouchMove={isMobile ? handleTouchMove : undefined}
+            onTouchEnd={isMobile ? handleTouchEnd : undefined}
+          >
+            {/* TOMBOL X - BERFUNGSI UNTUK SEMUA DEVICE */}
+            <button 
+              className={styles.closeButton}
+              ref={closeButtonRef}
+              onClick={handleCloseModal}
+              aria-label="Tutup video"
+            >
+              ×
+            </button>
+
             <div className={styles.videoPlayer}>
-              <iframe src={activeVideoUrl} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
+              <iframe 
+                src={activeVideoUrl} 
+                title="Video testimoni" 
+                frameBorder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                allowFullScreen
+              ></iframe>
             </div>
+            
+            {/* INSTRUKSI SWIPE HANYA UNTUK MOBILE */}
+            {isMobile && (
+              <div className={styles.swipeIndicator}>
+                <span>Swipe down to close</span>
+                <div className={styles.swipeArrow}>↓</div>
+              </div>
+            )}
           </div>
         </div>
       )}

@@ -21,7 +21,7 @@ const pricingData = {
     cards: [
       { title: 'Biaya Pendaftaran', price: 500000, icon: '/illustrations/biaya-pendaftaran.svg' },
       { title: 'Biaya Daftar Ulang', price: 15000000, icon: '/illustrations/biaya-daftar-ulang.svg' },
-      { title: 'SPP', price: 700000, icon: '/illustrations/biaya-spp.svg' },
+      { title: 'SPP', price: 750000, icon: '/illustrations/biaya-spp.svg' },
     ],
     rincian: ['Uang Pangkal', 'Uang Kegiatan 1 Tahun', 'Uang Seragam', 'Uang Buku', 'SPP Bulan Pertama'],
   }
@@ -30,6 +30,7 @@ const pricingData = {
 const InvestasiPendidikan = () => {
   const [activeTab, setActiveTab] = useState('smp');
   const contentRef = useRef(null);
+  const tabSwitcherRef = useRef(null);
 
   useEffect(() => {
     // Animasi GSAP saat tab diganti
@@ -52,6 +53,11 @@ const InvestasiPendidikan = () => {
     }
   }, [activeTab]);
 
+  // Fix untuk touch events di mobile
+  const handleTabClick = (tab) => {
+    setActiveTab(tab);
+  };
+
   const activeData = pricingData[activeTab];
 
   return (
@@ -60,16 +66,28 @@ const InvestasiPendidikan = () => {
         <h2 className={styles.mainTitle}>Investasi Pendidikan</h2>
         <div className={styles.pricingBlock}>
           <div className={styles.blobBackground}></div>
-          <div className={styles.tabSwitcher}>
+          
+          {/* Tab Switcher dengan event handling yang lebih baik */}
+          <div className={styles.tabSwitcher} ref={tabSwitcherRef}>
             <button 
-              className={activeTab === 'smp' ? styles.active : ''} 
-              onClick={() => setActiveTab('smp')}
+              className={`${styles.tabButton} ${activeTab === 'smp' ? styles.active : ''}`} 
+              onClick={() => handleTabClick('smp')}
+              onTouchEnd={(e) => {
+                e.preventDefault();
+                handleTabClick('smp');
+              }}
+              aria-label="Lihat biaya SMP"
             >
               SMP
             </button>
             <button 
-              className={activeTab === 'sd' ? styles.active : ''} 
-              onClick={() => setActiveTab('sd')}
+              className={`${styles.tabButton} ${activeTab === 'sd' ? styles.active : ''}`} 
+              onClick={() => handleTabClick('sd')}
+              onTouchEnd={(e) => {
+                e.preventDefault();
+                handleTabClick('sd');
+              }}
+              aria-label="Lihat biaya SD"
             >
               SD
             </button>
@@ -80,7 +98,15 @@ const InvestasiPendidikan = () => {
             <div className={styles.cardsGrid} key={activeTab}>
               {activeData.cards.map((card, index) => (
                 <div key={index} className={styles.priceCard}>
-                  <div className={styles.cardIcon}><Image src={card.icon} alt="" fill style={{ objectFit: 'contain' }}/></div>
+                  <div className={styles.cardIcon}>
+                    <Image 
+                      src={card.icon} 
+                      alt={card.title} 
+                      width={80} 
+                      height={80}
+                      style={{ objectFit: 'contain' }}
+                    />
+                  </div>
                   <h4>{card.title}</h4>
                   <div className={styles.price}>
                     <span>Rp</span>{card.price.toLocaleString('id-ID')}

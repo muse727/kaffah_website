@@ -118,57 +118,53 @@
 }
 
 /* === RESPONSIVE === */
-/* === RESPONSIVE === */
 @media (max-width: 992px) {
-  /* 1. Atur ulang section utama */
   .heroSection {
-    height: auto; /* Tinggi sekarang otomatis, tidak lagi 90vh */
-    display: flex; /* Ganti jadi flex agar bisa diatur */
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  /* 2. Atur ulang background agar tidak terlalu tinggi */
-  .backgroundContainer {
-    height: 60vh; /* Tinggi background tetap ada, tapi tidak penuh */
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
+    display: block;
+    height: auto;
+    padding: 10rem 1rem 0 1rem; 
   }
 
-  /* 3. Atur posisi konten judul */
   .heroContent {
-    position: relative; /* Bukan absolute lagi */
-    z-index: 2;
+    position: relative;
     transform: none;
-    top: auto;
     left: auto;
+    top: auto;
     text-align: center;
     max-width: 100%;
-    padding: 10rem 1rem 2rem 1rem; /* Beri padding atas yang besar agar tidak tertutup */
+    /* DIKURANGI: Ruang bawah secukupnya */
+    margin-bottom: 6rem; 
   }
 
   .heroContent h1 {
-    font-size: 2.5rem; /* Ukuran font lebih kecil */
+    font-size: 2.5rem;
   }
+  
 
-  /* 4. Atur posisi kartu-kartu */
-  .cardsContainer {
-    position: relative; /* Bukan absolute lagi */
-    z-index: 2;
-    transform: none; /* Hapus transform translateY */
+  .cardsWrapper {
+    position: center;
+    transform: none;
     bottom: auto;
     left: auto;
     right: auto;
-    width: 90%; /* Lebar 90% dari layar */
-    grid-template-columns: 1fr; /* Jadi 1 kolom */
-    margin: 0 auto; /* Otomatis di tengah */
-    padding-bottom: 4rem; /* Jarak dari bawah */
+    height: auto;
+    padding-bottom: 4rem;
+    /* BARU: Gunakan Flexbox untuk centering sempurna */
+    display: flex;
+    justify-content: center;
   }
 
-  /* Hapus semua margin aneh dari kartu */
+  .cardsContainer {
+    grid-template-columns: 1fr;
+    width: 90%;
+    /* DIHAPUS: margin auto karena sudah diatur parent */
+    margin: 20; 
+    /* DIKURANGI: Tarik ke atasnya jangan terlalu banyak */
+    margin-top: 20px;
+  }
+
+  /* Hapus margin spesifik untuk kartu pertama karena semua sudah ditarik ke atas */
   .card:first-child {
-    margin-top: 0;
+    margin-top: 700px;
   }
 }

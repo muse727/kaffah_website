@@ -127,6 +127,21 @@
 :global(.swiper-button-next-custom) { right: 0; }
 
 @media (max-width: 768px) {
-  .backgroundText { font-size: 10vw; }
-  .card { width: 90%; }
+  .cardImageWrapper {
+    position: relative;
+    width: 100%;
+    height: 55%;
+    bottom: -10%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    margin-top: auto;
+    /* TAMBAHAN: Pastikan benar-benar nempel */
+    align-self: flex-end;
+  }
+
+  /* Jika masih ada gap, hapus padding dari card */
+  .card {
+    padding-bottom: 0 !important;
+  }
 }

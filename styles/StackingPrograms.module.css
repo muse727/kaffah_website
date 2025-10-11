@@ -1,22 +1,24 @@
 .programSection {
-  padding: 4rem 0;
-  background-color: #f8f9fa;
+  padding: 6rem 0;
+  background: #f8f9fa;
 }
 
 .header {
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 4rem;
 }
 
 .subtitle {
   display: inline-block;
-  background-color: #e9ecef;
-  color: #6c757d;
-  padding: 0.3rem 0.8rem;
+  background-color: var(--brand-green);
+  color: white;
+  padding: 0.5rem 1.5rem;
   border-radius: 99px;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 0.9rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .title {
@@ -24,43 +26,176 @@
   font-weight: 700;
   color: var(--text-primary);
   margin-bottom: 1rem;
+  line-height: 1.2;
 }
 
 .description {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   color: #666;
   max-width: 600px;
   margin: 0 auto;
+  line-height: 1.6;
 }
 
-.nextSection {
-  padding: 3rem 0;
-  text-align: center;
-  background: white;
-  margin-top: 2rem;
+/* Programs List - Layout Vertikal */
+.programsList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Program Card - Memanjang */
+.programCard {
+  background: var(--brand-green);
   border-radius: 16px;
+  padding: 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  overflow: hidden;
 }
 
-.nextSection h3 {
-  color: var(--text-primary);
-  margin-bottom: 1rem;
+.programCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
 }
 
-.nextSection p {
-  color: #666;
+.cardContent {
+  display: flex;
+  align-items: stretch;
+  min-height: 180px;
 }
 
+/* Card Header */
+.cardHeader {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 200px;
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.iconWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+}
+
+.cardTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Card Body */
+.cardBody {
+  flex: 1;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+}
+
+.programList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.5rem 2rem;
+  width: 100%;
+}
+
+.programItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0;
+  font-size: 1rem;
+  line-height: 1.4;
+  color: white;
+}
+
+.bullet {
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: bold;
+  font-size: 1.2rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
   .programSection {
-    padding: 2rem 0;
+    padding: 4rem 0;
   }
   
   .title {
     font-size: 2rem;
   }
   
-  .nextSection {
-    padding: 2rem 1rem;
-    margin-top: 1rem;
+  .description {
+    font-size: 1.1rem;
+  }
+  
+  .cardContent {
+    flex-direction: column;
+    min-height: auto;
+  }
+  
+  .cardHeader {
+    min-width: auto;
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 1.5rem;
+  }
+  
+  .iconWrapper {
+    flex-direction: row;
+    gap: 1rem;
+  }
+  
+  .cardTitle {
+    font-size: 1.3rem;
+  }
+  
+  .cardBody {
+    padding: 1.5rem;
+  }
+  
+  .programList {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .programSection {
+    padding: 3rem 0;
+  }
+  
+  .title {
+    font-size: 1.8rem;
+  }
+  
+  .programCard {
+    border-radius: 12px;
+  }
+  
+  .cardHeader {
+    padding: 1.25rem;
+  }
+  
+  .cardBody {
+    padding: 1.25rem;
+  }
+  
+  .programItem {
+    font-size: 0.95rem;
   }
 }

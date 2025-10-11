@@ -76,7 +76,7 @@ const SejarahSection = () => {
             <div className={styles.imageContainer}>
               <div className={styles.imageFrame}>
                 <Image 
-                  src="/images/siswi-berprestasi.png" 
+                  src="/images/siswi-berprestasii.png" 
                   alt="Sejarah Al Mubarak" 
                   fill 
                   style={{ objectFit: 'cover', objectPosition: 'center' }}

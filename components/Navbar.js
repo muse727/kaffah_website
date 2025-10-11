@@ -31,11 +31,11 @@ const Navbar = () => {
         <div className={styles.topBarContainer}>
           <div className={styles.contactInfo}>
             <Image src="/icons/mail.svg" alt="Email" width={16} height={16} />
-            <span>al.mubarokah@gmail.com</span>
+            <span>almubaraksit@gmail.com</span>
           </div>
           <div className={styles.contactInfo}>
             <Image src="/icons/phone.svg" alt="Telepon" width={16} height={16} />
-            <span>+6289-5170-39100</span>
+            <span>+6289-5170-36100</span>
           </div>
         </div>
       </div>
@@ -116,7 +116,7 @@ const Navbar = () => {
         <Link href="/berita" onClick={handleMobileLinkClick}>Berita</Link>
         <Link href="/kontak" onClick={handleMobileLinkClick}>Kontak</Link>
         <Link href="/pendaftaran" className={styles.mobileCta} onClick={handleMobileLinkClick}>
-          Daftar Sekarang
+          Informasi Pendaftaran
         </Link>
       </div>
     </header>
