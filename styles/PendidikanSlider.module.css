@@ -85,8 +85,6 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
-/* --- PERUBAHAN DI SINI --- */
-/* Wrapper/pembungkus gambar sudah bersih */
 .cardImageWrapper {
   flex-grow: 1;
   position: relative;
@@ -95,13 +93,11 @@
   overflow: hidden; 
 }
 
-/* --- DAN DI SINI --- */
-/* Style untuk gambar agar tidak gepeng */
 .cardImage {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Penting! Menjaga rasio aspek */
-  object-position: top center; /* Penting! Fokus pada bagian atas gambar */
+  object-fit: cover;
+  object-position: top center;
   display: block;
 }
 
@@ -162,7 +158,7 @@
   right: -80px;
 }
 
-/* RESPONSIVE DESIGN */
+/* RESPONSIVE DESIGN - FIX WHITESPACE DI MOBILE */
 @media (max-width: 1200px) {
   .swiper {
     height: 600px;
@@ -188,14 +184,15 @@
 @media (max-width: 992px) {
   .section {
     height: 90vh;
+    padding: 1rem;
   }
   
   .swiper {
-    height: 550px;
+    height: 520px; /* Dikurangi */
   }
   
   .card {
-    width: 400px;
+    width: 380px; /* Dikurangi */
   }
   
   .backgroundText {
@@ -217,51 +214,61 @@
   }
 }
 
+/* TABLET - OPTIMIZE HEIGHT */
 @media (max-width: 768px) {
   .section {
-    height: 80vh;
-    padding: 1rem 0;
+    height: 85vh; /* Pas-pasan, tidak auto */
+    padding: 1rem;
+    display: flex;
+    align-items: center;
   }
   
   .swiper {
-    height: 500px;
+    height: 420px; /* Dikurangi signifikan */
+    margin: 0 auto;
   }
   
   .card {
-    width: 90%;
-    max-width: 350px;
-    border-radius: 24px;
+    width: 100%;
+    max-width: 320px; /* Lebih kecil */
+    border-radius: 20px;
+    margin: 0 auto;
+    height: 100%;
   }
   
   .cardHeader {
-    padding: 1.5rem;
-    font-size: 1.5rem;
+    padding: 1.2rem; /* Dikurangi */
+    font-size: 1.4rem; /* Dikurangi */
   }
   
   .cardImageWrapper {
-    height: 65%;
+    height: 58%; /* Disesuaikan */
   }
   
   .backgroundText {
-    font-size: 8vw;
+    font-size: 7vw;
     opacity: 0.08;
+    white-space: normal;
+    text-align: center;
+    padding: 0 1rem;
   }
   
   .decorativeBlob {
-    width: 350px;
-    height: 250px;
-    top: 20%;
-    left: 20%;
+    width: 250px; /* Dikurangi */
+    height: 180px; /* Dikurangi */
+    top: 18%;
+    left: 18%;
     opacity: 0.5;
   }
   
   .navigationContainer {
-    position: relative;
+    position: absolute;
+    bottom: -60px; /* Pindah ke bawah */
     top: auto;
-    left: auto;
-    transform: none;
+    left: 50%;
+    transform: translateX(-50%);
     height: auto;
-    margin-top: 2rem;
+    margin-top: 0;
     display: flex;
     justify-content: center;
     gap: 2rem;
@@ -274,58 +281,133 @@
     right: auto;
     top: auto;
     background: rgba(255, 255, 255, 0.3);
-    width: 50px;
-    height: 50px;
-  }
-}
-
-@media (max-width: 480px) {
-  .section {
-    height: 75vh;
-  }
-  
-  .swiper {
-    height: 450px;
-  }
-  
-  .card {
-    width: 95%;
-    max-width: 320px;
-  }
-  
-  .cardHeader {
-    padding: 1.25rem;
-    font-size: 1.3rem;
-  }
-  
-  .cardImageWrapper {
-    height: 60%;
-  }
-  
-  .backgroundText {
-    font-size: 10vw;
-  }
-  
-  .decorativeBlob {
-    width: 280px;
-    height: 200px;
-  }
-  
-  :global(.swiper-button-prev-custom),
-  :global(.swiper-button-next-custom) {
     width: 45px;
     height: 45px;
   }
 }
 
-/* Animasi */
+/* MOBILE - FIX WHITESPACE */
+@media (max-width: 480px) {
+  .section {
+    height: 75vh; /* Pas untuk mobile */
+    padding: 0.5rem;
+  }
+  
+  .swiper {
+    height: 360px; /* Dikurangi lagi */
+  }
+  
+  .card {
+    width: 95%;
+    max-width: 300px;
+    border-radius: 16px;
+  }
+  
+  .cardHeader {
+    padding: 1rem;
+    font-size: 1.2rem;
+  }
+  
+  .cardImageWrapper {
+    height: 55%;
+  }
+  
+  .backgroundText {
+    font-size: 8vw;
+  }
+  
+  .decorativeBlob {
+    width: 200px;
+    height: 140px;
+    top: 15%;
+    left: 15%;
+  }
+  
+  .navigationContainer {
+    bottom: -50px;
+    gap: 1.5rem;
+  }
+  
+  :global(.swiper-button-prev-custom),
+  :global(.swiper-button-next-custom) {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* MOBILE SANGAT KECIL - TIDAK ADA WHITESPACE */
+@media (max-width: 360px) {
+  .section {
+    height: 70vh; /* Semakin ketat */
+    padding: 0.5rem;
+  }
+  
+  .swiper {
+    height: 320px; /* Minimum height */
+  }
+  
+  .card {
+    max-width: 280px;
+  }
+  
+  .cardHeader {
+    padding: 0.8rem;
+    font-size: 1.1rem;
+  }
+  
+  .cardImageWrapper {
+    height: 52%;
+  }
+  
+  .backgroundText {
+    font-size: 9vw;
+  }
+  
+  .navigationContainer {
+    bottom: -45px;
+    gap: 1rem;
+  }
+}
+
+/* LANDSCAPE MOBILE - BIAR GA RUSAK */
+@media (max-height: 500px) and (orientation: landscape) {
+  .section {
+    height: 100vh; /* Untuk landscape, full height */
+    padding: 0.5rem;
+  }
+  
+  .swiper {
+    height: 280px; /* Lebih pendek untuk landscape */
+  }
+  
+  .card {
+    max-width: 300px;
+  }
+  
+  .cardHeader {
+    padding: 0.5rem;
+    font-size: 1rem;
+  }
+  
+  .cardImageWrapper {
+    height: 65%; /* Lebih tinggi di landscape */
+  }
+  
+  .navigationContainer {
+    bottom: -40px;
+  }
+}
+
+/* Animasi - nonaktifkan di mobile untuk performa */
+@media (min-width: 769px) {
+  .card {
+    animation: float 6s ease-in-out infinite;
+  }
+}
+
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
   50% { transform: translateY(-10px); }
-}
-
-.card {
-  animation: float 6s ease-in-out infinite;
 }
 
 /* Gradient overlay untuk section */
