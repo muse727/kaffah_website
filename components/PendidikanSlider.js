@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Parallax, Autoplay } from 'swiper/modules'; // ⬅️ Tambah Autoplay
+import { Navigation, Parallax, Autoplay } from 'swiper/modules';
 import { gsap } from 'gsap';
 
 import 'swiper/css';
@@ -12,10 +12,11 @@ import 'swiper/css/parallax';
 
 import styles from '../styles/PendidikanSlider.module.css';
 
+// Data diubah menggunakan 'src'
 const sliderData = [
-  { bgText: 'SDIT AL MUBARAK', title: 'SDIT Al Mubarak', image: '/sd-photo.png', bgColor: '#107163' },
-  { bgText: 'SMPIT AL MUBARAK', title: 'SMPIT Al Mubarak', image: '/smp-photo.png', bgColor: '#FBA21A' },
-  { bgText: 'LPQ AL MUBARAK', title: 'LPQ Al Mubarak', image: '/lpq-photo.png', bgColor: '#3F3F3F' },
+  { bgText: 'SDIT AL MUBARAK', title: 'SDIT Al Mubarak', src: '/images/sd-photo.png', bgColor: '#107163' },
+  { bgText: 'SMPIT AL MUBARAK', title: 'SMPIT Al Mubarak', src: '/images/smp-photo.png', bgColor: '#FBA21A' },
+  { bgText: 'LPQ AL MUBARAK', title: 'LPQ Al Mubarak', src: '/images/lpq-photo.png', bgColor: '#3F3F3F' },
 ];
 
 const PendidikanSlider = () => {
@@ -50,7 +51,7 @@ const PendidikanSlider = () => {
 
       <Swiper
         onSwiper={setSwiperInstance}
-        modules={[Navigation, Parallax, Autoplay]} // ⬅️ Tambah Autoplay di modules
+        modules={[Navigation, Parallax, Autoplay]}
         parallax={true}
         speed={1000}
         navigation={{ nextEl: '.swiper-button-next-custom', prevEl: '.swiper-button-prev-custom' }}
@@ -58,8 +59,8 @@ const PendidikanSlider = () => {
         centeredSlides={true}
         slidesPerView={1}
         autoplay={{
-          delay: 3000, // ⬅️ Ganti slide otomatis tiap 5 detik
-          disableOnInteraction: false, // tetap jalan meski user swipe manual
+          delay: 3000,
+          disableOnInteraction: false,
         }}
         onRealIndexChange={(swiper) => setCurrentIndex(swiper.realIndex)}
         className={styles.swiper}
@@ -72,11 +73,18 @@ const PendidikanSlider = () => {
               </div>
               <div className={styles.cardImageWrapper}>
                 <Image
-                  src={slide.image}
+                  src={slide.src}
                   alt={slide.title}
                   fill
                   sizes="50vw"
-                  style={{ objectFit: 'contain' }}
+                  // KODE LAMA DIHAPUS, DIGANTI DENGAN YANG DI BAWAH
+                  // style={{ 
+                  //   objectFit: 'cover',
+                  //   objectPosition: 'top center'
+                  // }}
+
+                  // GANTI DENGAN INI UNTUK MENGAMBIL STYLE DARI FILE .CSS
+                  className={styles.cardImage}
                 />
                 <div className={styles.decorativeBlob} data-swiper-parallax-scale="0.5">
                   <Image src="/orange-blob.svg" alt="Dekorasi" fill />
