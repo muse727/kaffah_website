@@ -56,22 +56,25 @@ const Footer = () => {
       {/* ===== CTA BLOCK ===== */}
       <div className="container">
         <div className={styles.ctaBlock}>
-          <div className={styles.ctaImage}>
-            <Image 
-              src="/cta-image.png" 
-              alt="Siswa-siswi Al Mubarak" 
-              width={300}
-              height={200}
-              style={{ objectFit: 'contain' }} 
-            />
+          <div className={styles.ctaImageWrapper}>
+            <div className={styles.ctaImage}>
+              <Image 
+                src="/cta-image.png" 
+                alt="Siswa-siswi Al Mubarak" 
+                width={300}
+                height={200}
+                style={{ objectFit: 'contain' }} 
+                priority
+              />
+            </div>
           </div>
           <div className={styles.ctaContent}>
             <h3>Bergabunglah Menjadi Keluarga Besar Al Mubarak!</h3>
             <p>Mari bersama-sama mewujudkan generasi Rabbani yang berakhlak mulia, berilmu, dan berprestasi. Daftarkan putra-putri Anda untuk mendapatkan pendidikan terbaik.</p>
-            <form className={styles.ctaForm}>
+            <div className={styles.ctaForm}>
               <span>Pendaftaran Siswa Baru:</span>
               <button type="button">Daftar Sekarang</button>
-            </form>
+            </div>
           </div>
         </div>
       </div>

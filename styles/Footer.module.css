@@ -1,66 +1,96 @@
 .footer {
   position: relative;
   background-color: var(--background);
-  padding-top: 8rem;
+  padding-top: 6rem;
 }
 
-/* === CTA BLOCK (FIXED) === */
+/* === CTA BLOCK - GAMBAR KELUAR DARI KOTAK === */
 .ctaBlock {
   background: var(--brand-green);
   color: var(--white);
-  padding: 120px 2rem 2rem 2rem; /* Padding atas besar untuk ruang gambar */
+  padding: 2rem;
   border-radius: 24px;
-  display: block; /* Hapus grid, jadikan blok biasa */
-  position: relative;
-  overflow: visible;
   text-align: center;
-  /* PERBAIKAN: Overlap lebih dalam */
-  margin-bottom: -150px; 
+  position: relative;
+  overflow: visible; /* Biar gambar bisa keluar */
+  margin-bottom: -60px; /* Kurangi overlap biar ga terlalu jauh */
   z-index: 5;
+  margin-top: 80px; /* Kasih space buat gambar yang keluar */
 }
 
-/* PERBAIKAN: Layout CTA baru (terpusat & overlap) */
-.ctaImage {
+/* PERBAIKAN: Gambar keluar dari kotak hijau */
+.ctaImageWrapper {
   position: absolute;
-  top: -100px; /* Tarik gambar ke atas */
+  top: -120px; /* Tarik gambar ke atas keluar dari kotak */
   left: 50%;
   transform: translateX(-50%);
-  width: 220px;
-  height: 220px;
+  width: 250px;
+  height: 180px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  pointer-events: none;
 }
-.ctaImage > div {
-  position: absolute !important;
-  bottom: 0;
-  height: auto !important;
+
+.ctaImage {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.ctaImage img {
+  width: 100%;
+  height: auto;
+  max-height: 180px;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.2)); /* Tambah shadow biar lebih keliatan */
 }
 
 .ctaContent {
   max-width: 600px;
   margin: 0 auto;
+  position: relative;
+  z-index: 2;
+  padding-top: 40px; /* Kasih padding atas biar konten ga ketutup gambar */
 }
+
 .ctaContent h3 {
   font-family: var(--font-poppins);
   font-size: 1.8rem;
   font-weight: 700;
   margin-bottom: 1rem;
+  line-height: 1.3;
 }
+
 .ctaContent p {
   font-size: 1rem;
   opacity: 0.9;
   margin-bottom: 1.5rem;
   line-height: 1.6;
 }
+
 .ctaForm {
   background: rgba(255, 255, 255, 0.1);
-  padding: 0.5rem;
+  padding: 1rem;
   border-radius: 12px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   max-width: 400px;
   margin: 0 auto;
+  gap: 1rem;
 }
-.ctaForm span { font-weight: 500; padding-left: 1rem; }
+
+.ctaForm span {
+  font-weight: 500;
+  font-size: 0.9rem;
+  flex: 1;
+  text-align: left;
+}
+
 .ctaForm button {
   background: var(--white);
   color: var(--brand-green);
@@ -69,58 +99,73 @@
   border-radius: 8px;
   font-weight: 600;
   cursor: pointer;
-  transition: opacity 0.3s ease;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
+
 .ctaForm button:hover {
-  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-
-/* === MAIN FOOTER (FIXED) === */
+/* === MAIN FOOTER === */
 .mainFooter {
   background-color: var(--white);
-  /* PERBAIKAN: Padding atas lebih besar untuk CTA */
-  padding: 180px 0 4rem 0; 
-  /* PERBAIKAN: Shadow lebih pekat */
+  padding: 120px 0 4rem 0; /* Sesuaikan padding atas */
   box-shadow: 0 -10px 40px -15px rgba(0, 0, 0, 0.15);
+  position: relative;
+  z-index: 2;
 }
 
 .footerGrid {
   display: grid;
   grid-template-columns: 2fr 1fr 1.5fr;
   gap: 4rem;
+  align-items: start;
 }
 
 .footerCol {
-  color: var(--text-secondary); 
+  color: var(--text-secondary);
 }
+
 .footerCol h4 {
   font-size: 1.1rem;
   font-weight: 600;
   color: var(--text-primary);
   margin-bottom: 1.5rem;
 }
+
 .footerCol p {
   margin-bottom: 1rem;
   line-height: 1.7;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 0.5rem;
 }
+
 .footerCol p img {
   filter: none;
+  flex-shrink: 0;
+  margin-top: 0.2rem;
 }
+
 .footerCol ul {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
+
 .footerCol ul li {
   margin-bottom: 0.75rem;
 }
+
 .footerCol ul a {
   transition: color 0.3s ease;
   color: var(--text-secondary);
+  text-decoration: none;
 }
+
 .footerCol ul a:hover {
   color: var(--brand-green);
 }
@@ -133,6 +178,7 @@
   font-weight: 700;
   color: var(--text-primary);
   margin-bottom: 1rem;
+  text-decoration: none;
 }
 
 .socialIcons {
@@ -140,10 +186,21 @@
   gap: 1rem;
   margin-top: 1.5rem;
 }
+
+.socialIcons a {
+  display: flex;
+  transition: transform 0.3s ease;
+}
+
+.socialIcons a:hover {
+  transform: translateY(-2px);
+}
+
 .socialIcons img {
   filter: grayscale(100%) opacity(0.6);
   transition: filter 0.3s ease;
 }
+
 .socialIcons a:hover img {
   filter: none;
 }
@@ -153,8 +210,8 @@
   border-radius: 8px;
   overflow: hidden;
   margin-bottom: 1rem;
+  background: #f5f5f5;
 }
-
 
 /* === COPYRIGHT BAR === */
 .copyrightBar {
@@ -163,27 +220,224 @@
   padding: 1rem 0;
   text-align: center;
   font-size: 0.875rem;
+  position: relative;
+  z-index: 2;
 }
 
-/* === RESPONSIVE === */
-@media (max-width: 992px) {
-  .footer {
-    padding-top: 6rem;
-  }
-  .ctaBlock { 
-    margin-bottom: -100px; /* Kurangi overlap di tablet */
-  }
-  .footerGrid { 
-    grid-template-columns: 1fr; 
+/* === RESPONSIVE DESIGN - FIXED GAMBAR KELUAR === */
+@media (max-width: 1200px) {
+  .footerGrid {
+    gap: 3rem;
   }
 }
-@media (max-width: 768px) {
+
+@media (max-width: 992px) {
+  .footer {
+    padding-top: 5rem;
+  }
+  
   .ctaBlock {
-    padding-top: 100px;
+    margin-bottom: -80px;
+    padding: 2rem 1.5rem;
+    margin-top: 70px;
   }
-  .ctaImage {
+  
+  .ctaImageWrapper {
+    top: -100px;
+    width: 220px;
+    height: 160px;
+  }
+  
+  .ctaImage img {
+    max-height: 160px;
+  }
+  
+  .footerGrid {
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+  }
+  
+  .footerCol:first-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer {
+    padding-top: 4rem;
+  }
+  
+  .ctaBlock {
+    margin-bottom: -60px;
+    padding: 2rem 1rem;
+    margin-top: 60px;
+    border-radius: 16px;
+  }
+  
+  .ctaImageWrapper {
+    top: -80px;
     width: 180px;
-    height: 180px;
-    top: -90px;
+    height: 130px;
   }
+  
+  .ctaImage img {
+    max-height: 130px;
+  }
+  
+  .ctaContent {
+    padding-top: 30px;
+  }
+  
+  .ctaContent h3 {
+    font-size: 1.4rem;
+  }
+  
+  .ctaContent p {
+    font-size: 0.9rem;
+  }
+  
+  .ctaForm {
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1rem;
+  }
+  
+  .ctaForm span {
+    text-align: center;
+  }
+  
+  .ctaForm button {
+    width: 100%;
+    max-width: 200px;
+  }
+  
+  .mainFooter {
+    padding: 100px 0 3rem 0;
+  }
+  
+  .footerGrid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer {
+    padding-top: 3rem;
+  }
+  
+  .ctaBlock {
+    margin-bottom: -50px;
+    padding: 1.5rem 1rem;
+    margin-top: 50px;
+  }
+  
+  .ctaImageWrapper {
+    top: -60px;
+    width: 150px;
+    height: 110px;
+  }
+  
+  .ctaImage img {
+    max-height: 110px;
+  }
+  
+  .ctaContent {
+    padding-top: 20px;
+  }
+  
+  .ctaContent h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .ctaContent p {
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+  }
+  
+  .ctaForm {
+    padding: 0.75rem;
+  }
+  
+  .ctaForm span {
+    font-size: 0.85rem;
+  }
+  
+  .ctaForm button {
+    padding: 0.6rem 1.25rem;
+    font-size: 0.85rem;
+  }
+  
+  .mainFooter {
+    padding: 80px 0 2rem 0;
+  }
+  
+  .footerCol h4 {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .footerCol p {
+    font-size: 0.9rem;
+  }
+  
+  .footerCol ul a {
+    font-size: 0.9rem;
+  }
+  
+  .socialIcons {
+    gap: 0.75rem;
+  }
+  
+  .socialIcons img {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .mapContainer {
+    height: 120px;
+  }
+}
+
+/* === EXTRA SMALL DEVICES === */
+@media (max-width: 360px) {
+  .ctaImageWrapper {
+    top: -50px;
+    width: 130px;
+    height: 95px;
+  }
+  
+  .ctaImage img {
+    max-height: 95px;
+  }
+  
+  .ctaContent h3 {
+    font-size: 1.1rem;
+  }
+  
+  .ctaContent p {
+    font-size: 0.8rem;
+  }
+}
+
+/* === FIX FOR IMAGE POSITIONING === */
+.ctaImage > div {
+  position: relative !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.ctaImage > div > img {
+  object-fit: contain !important;
+}
+
+/* === ANIMASI UNTUK GAMBAR === */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.ctaImage img {
+  animation: float 6s ease-in-out infinite;
 }
