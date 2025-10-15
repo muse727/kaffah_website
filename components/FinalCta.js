@@ -23,7 +23,7 @@ const FinalCta = () => {
   }, []);
 
   const handleTokenClick = (jenjang) => {
-    const message = `Assalaamualaikum WR WB, saya ingin meminta token untuk pendaftaran PPDB SIT Al Mubarak ${jenjang}`;
+    const message = `saya ingin meminta token untuk pendaftaran PPDB SIT Al Mubarak ${jenjang}`;
     
     
     const adminNumbers = {
