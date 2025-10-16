@@ -10,8 +10,8 @@ const pricingData = {
   sd: {
     title: 'SD',
     cards: [
-      { title: 'Biaya pendaftaran dan Tes', price: 400000, icon: '/illustrations/biaya-pendaftaran.svg' },
-      { title: 'biaya Registrasi setelah tes', price: 13100000, icon: '/illustrations/biaya-daftar-ulang.svg' },
+      { title: 'Biaya Pendaftaran dan Tes', price: 400000, icon: '/illustrations/biaya-pendaftaran.svg' },
+      { title: 'Biaya Registrasi Setelah Tes', price: 13100000, icon: '/illustrations/biaya-daftar-ulang.svg' },
       { title: 'SPP', price: 750000, icon: '/illustrations/biaya-spp.svg' },
     ],
     rincian: ['Uang Pangkal', 'Uang Kegiatan 1 Tahun', 'Uang Seragam', 'Uang Buku', 'SPP Bulan Pertama'],
@@ -19,8 +19,8 @@ const pricingData = {
   smp: {
     title: 'SMP',
     cards: [
-      { title: 'Biaya pendaftaran dan Tes', price: 500000, icon: '/illustrations/biaya-pendaftaran.svg' },
-      { title: 'biaya Registrasi setelah tes', price: 15000000, icon: '/illustrations/biaya-daftar-ulang.svg' },
+      { title: 'Biaya Pendaftaran dan Tes', price: 500000, icon: '/illustrations/biaya-pendaftaran.svg' },
+      { title: 'Biaya Registrasi Setelah Tes', price: 15000000, icon: '/illustrations/biaya-daftar-ulang.svg' },
       { title: 'SPP', price: 750000, icon: '/illustrations/biaya-spp.svg' },
     ],
     rincian: ['Uang Pangkal', 'Uang Kegiatan 1 Tahun', 'Uang Seragam', 'Uang Buku', 'SPP Bulan Pertama'],
