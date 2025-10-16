@@ -27,8 +27,8 @@ const FinalCta = () => {
     
     
     const adminNumbers = {
-      sd: "6283891116376", // Admin SD
-      smp: "6289512322694" // Admin SMP
+      sd: "6289517036100", // Admin SD
+      smp: "6287826022864" // Admin SMP
     };
 
     const adminNumber = adminNumbers[jenjang];
@@ -97,11 +97,11 @@ const FinalCta = () => {
           <div className={styles.adminContacts}>
             <div className={styles.adminContact}>
               <strong>Admin SD:</strong> 
-              <span>0838-9111-6376</span>
+              <span>0895-1703-6100</span>
             </div>
             <div className={styles.adminContact}>
               <strong>Admin SMP:</strong> 
-              <span>0821-2598-1931</span>
+              <span>0878-2602-2864</span>
             </div>
           </div>
         </div>
