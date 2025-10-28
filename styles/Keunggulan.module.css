@@ -34,7 +34,7 @@
 .imageColumn {
   position: relative;
   width: 100%;
-  height: 550px; /* Sedikit lebih tinggi */
+  height: 610px; /* Sedikit lebih tinggi */
   align-self: end; /* MEMBUAT GAMBAR NEMPEL KE BAWAH */
 }
 
