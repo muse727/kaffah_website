@@ -144,9 +144,8 @@ const Navbar = () => {
                   <Link href="/unit-pendidikan/smpit" className={styles.dropdownLink}>
                     SMPIT Al Mubarak
                   </Link>
-                  <span className={`${styles.dropdownLink} ${styles.disabledLink}`}>
-                    LPQ Al Mubarak
-                  </span>
+                  <Link href="/unit-pendidikan/lpq" className={styles.dropdownLink}> LPQ Al Mubarak
+                  </Link>
                 </div>
               </div>
 
@@ -210,9 +209,9 @@ const Navbar = () => {
               <Link href="/unit-pendidikan/smpit" className={styles.mobileSubLink} onClick={closeMenu}>
                 SMPIT Al Mubarak
               </Link>
-              <span className={`${styles.mobileSubLink} ${styles.disabledLink}`}>
-                LPQ Al Mubarak
-              </span>
+              <Link href="/unit-pendidikan/lpq" className={styles.mobileSubLink} onClick={closeMenu}>
+              LPQ Al Mubarak
+              </Link>
             </div>
           </div>
 

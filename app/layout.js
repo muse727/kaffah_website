@@ -4,6 +4,7 @@ import 'aos/dist/aos.css'; // Pastikan AOS CSS tetap diimport
 import { AOSInit } from '../components/AOSInit'; // Komponen baru untuk inisialisasi AOS
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import Chatbot from '../components/Chatbot';
 
 // Konfigurasi Font dari Google Fonts
 const poppins = Poppins({
@@ -31,6 +32,7 @@ export default function RootLayout({ children }) {
         <Navbar />
         {children}
         <Footer />
+        <Chatbot />
       </body>
     </html>
   );
