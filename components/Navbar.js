@@ -150,6 +150,13 @@ const Navbar = () => {
               </div>
 
               <Link 
+              href="/juara" 
+              className={`${styles.navLink} ${pathname === '/juara' ? styles.activeLink : ''}`}
+              >
+              Prestasi
+              </Link>
+
+              <Link 
                 href="/berita" 
                 className={`${styles.navLink} ${pathname === '/berita' ? styles.activeLink : ''}`}
               >
@@ -214,6 +221,10 @@ const Navbar = () => {
               </Link>
             </div>
           </div>
+
+          <Link href="/juara" className={styles.mobileNavLink} onClick={closeMenu}>
+          Prestasi
+          </Link>
 
           <Link href="/berita" className={styles.mobileNavLink} onClick={closeMenu}>
             Berita

@@ -8,6 +8,7 @@ import styles from '../styles/FinalCta.module.css';
 const FinalCta = () => {
   const ctaRef = useRef(null);
   const [showTokenOptions, setShowTokenOptions] = useState(false);
+  const tokenSectionRef = useRef(null);
 
   useEffect(() => {
     gsap.from(ctaRef.current, {
@@ -22,9 +23,25 @@ const FinalCta = () => {
     });
   }, []);
 
+  // Close token options when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (tokenSectionRef.current && !tokenSectionRef.current.contains(event.target)) {
+        setShowTokenOptions(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('touchstart', handleClickOutside);
+    
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+    };
+  }, []);
+
   const handleTokenClick = (jenjang) => {
     const message = `saya ingin meminta token untuk pendaftaran PPDB SIT Al Mubarak ${jenjang}`;
-    
     
     const adminNumbers = {
       sd: "6289517036100", // Admin SD
@@ -33,9 +50,11 @@ const FinalCta = () => {
 
     const adminNumber = adminNumbers[jenjang];
     window.open(`https://wa.me/${adminNumber}?text=${encodeURIComponent(message)}`, '_blank');
+    setShowTokenOptions(false);
   };
 
-  const toggleTokenOptions = () => {
+  const toggleTokenOptions = (e) => {
+    e.stopPropagation();
     setShowTokenOptions(!showTokenOptions);
   };
 
@@ -49,10 +68,12 @@ const FinalCta = () => {
         
         <div className={styles.buttonGroup}>
           {/* Tombol Minta Token dengan Options */}
-          <div className={styles.tokenSection}>
+          <div className={styles.tokenSection} ref={tokenSectionRef}>
             <button 
               onClick={toggleTokenOptions}
               className={styles.tokenMainButton}
+              aria-expanded={showTokenOptions}
+              aria-label="Pilih jenis token"
             >
               💬 Minta Token
               <span className={`${styles.arrow} ${showTokenOptions ? styles.arrowUp : ''}`}>
@@ -65,12 +86,14 @@ const FinalCta = () => {
                 <button 
                   onClick={() => handleTokenClick('sd')}
                   className={styles.tokenOptionButton}
+                  aria-label="Minta token untuk SD"
                 >
                   🎒 Untuk SD
                 </button>
                 <button 
                   onClick={() => handleTokenClick('smp')}
                   className={styles.tokenOptionButton}
+                  aria-label="Minta token untuk SMP"
                 >
                   📚 Untuk SMP
                 </button>
@@ -83,6 +106,7 @@ const FinalCta = () => {
             target="_blank"
             rel="noopener noreferrer"
             className={styles.ctaButton}
+            aria-label="Pergi ke halaman pendaftaran PPDB"
           >
             🚀 DAFTAR SEKARANG
           </Link>
@@ -97,11 +121,15 @@ const FinalCta = () => {
           <div className={styles.adminContacts}>
             <div className={styles.adminContact}>
               <strong>Admin SD:</strong> 
-              <span>0895-1703-6100</span>
+              <a href="https://wa.me/6289517036100" target="_blank" rel="noopener noreferrer">
+                0895-1703-6100
+              </a>
             </div>
             <div className={styles.adminContact}>
               <strong>Admin SMP:</strong> 
-              <span>0878-2602-2864</span>
+              <a href="https://wa.me/6287826022864" target="_blank" rel="noopener noreferrer">
+                0878-2602-2864
+              </a>
             </div>
           </div>
         </div>

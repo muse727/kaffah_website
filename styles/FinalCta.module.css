@@ -1,76 +1,73 @@
 .section {
-  padding: 5rem 0 7rem 0;
+  padding: 6rem 2rem;
+  background: linear-gradient(135deg, var(--brand-green), #2a9d8f);
+  color: white;
   text-align: center;
-  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  position: relative;
+  overflow: hidden;
 }
 
 .container {
-  max-width: 800px; /* Sedikit diperlebar */
+  max-width: 800px;
   margin: 0 auto;
-  padding: 0 2rem;
+  position: relative;
+  z-index: 1;
 }
 
 .title {
-  font-family: var(--font-poppins);
-  font-size: 2.5rem;
+  font-size: 2.8rem;
   font-weight: 800;
-  color: var(--brand-green);
   margin-bottom: 1rem;
-  background: linear-gradient(135deg, var(--brand-green) 0%, #0d9488 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  line-height: 1.2;
 }
 
 .description {
-  font-family: var(--font-poppins);
-  font-size: 1.1rem;
-  color: var(--dark-gray);
-  margin-bottom: 2.5rem;
+  font-size: 1.2rem;
+  margin-bottom: 3rem;
+  opacity: 0.9;
   line-height: 1.6;
 }
 
+/* BUTTON GROUP */
 .buttonGroup {
   display: flex;
-  flex-direction: row; /* Default: horizontal */
   gap: 1.5rem;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   margin-bottom: 2rem;
-  flex-wrap: wrap; /* Jika tidak muat, akan wrap */
+  flex-wrap: wrap;
 }
 
-/* Token Section Styles */
+/* TOKEN SECTION */
 .tokenSection {
   position: relative;
-  flex: 1;
-  max-width: 300px;
+  display: inline-block;
+  z-index: 100; /* High z-index untuk mobile */
 }
 
 .tokenMainButton {
-  background: var(--white);
-  color: var(--brand-green);
-  font-family: var(--font-poppins);
-  font-size: 1.2rem;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  font-size: 1.1rem;
   font-weight: 600;
-  padding: 1.2rem 2rem;
-  border: 3px solid var(--brand-green);
-  border-radius: 16px;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  box-shadow: 0 5px 20px rgba(16, 113, 99, 0.2);
-  width: 100%;
+  transition: all 0.3s ease;
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 0.5rem;
+  min-height: 60px; /* Minimum touch target size */
+  min-width: 160px;
+  position: relative;
+  z-index: 101;
 }
 
 .tokenMainButton:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 30px rgba(16, 113, 99, 0.3);
-  background: var(--brand-green);
-  color: var(--white);
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
 }
 
 .arrow {
@@ -87,13 +84,12 @@
   top: 100%;
   left: 0;
   right: 0;
-  background: var(--white);
-  border: 2px solid var(--brand-green);
-  border-radius: 12px;
   margin-top: 0.5rem;
+  background: white;
+  border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  z-index: 10;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  z-index: 1000; /* Very high z-index */
   animation: slideDown 0.3s ease;
 }
 
@@ -109,151 +105,234 @@
 }
 
 .tokenOptionButton {
-  background: var(--white);
-  color: var(--brand-green);
-  font-family: var(--font-poppins);
+  display: block;
+  width: 100%;
+  padding: 1rem 1.5rem;
+  background: white;
+  border: none;
+  color: #333;
   font-size: 1rem;
   font-weight: 600;
-  padding: 1rem 2rem;
-  border: none;
   cursor: pointer;
   transition: all 0.2s ease;
-  width: 100%;
-  border-bottom: 1px solid #e2e8f0;
-}
-
-.tokenOptionButton:last-child {
-  border-bottom: none;
+  text-align: left;
+  min-height: 50px; /* Minimum touch target size */
+  position: relative;
+  z-index: 1001;
 }
 
 .tokenOptionButton:hover {
-  background: var(--brand-green);
-  color: var(--white);
+  background: #f5f5f5;
+  color: var(--brand-green);
 }
 
+.tokenOptionButton:active {
+  transform: scale(0.98);
+}
+
+/* CTA BUTTON */
 .ctaButton {
-  display: inline-block;
-  background: linear-gradient(135deg, var(--brand-green) 0%, #0d9488 100%);
-  color: var(--white);
-  font-family: var(--font-poppins);
-  font-size: 1.4rem;
-  font-weight: 800;
-  padding: 1.5rem 3rem;
-  border-radius: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  color: var(--brand-green);
+  padding: 1rem 2.5rem;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 700;
   text-decoration: none;
-  box-shadow: 0 10px 30px rgba(16, 113, 99, 0.4);
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  flex: 1;
-  max-width: 300px;
-  border: none;
-  cursor: pointer;
+  transition: all 0.3s ease;
+  min-height: 60px; /* Minimum touch target size */
+  min-width: 200px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
   position: relative;
-  overflow: hidden;
-}
-
-.ctaButton::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-  transition: left 0.5s;
-}
-
-.ctaButton:hover::before {
-  left: 100%;
+  z-index: 100;
 }
 
 .ctaButton:hover {
-  transform: translateY(-5px) scale(1.05);
-  box-shadow: 0 20px 40px rgba(16, 113, 99, 0.5);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+}
+
+.ctaButton:active {
+  transform: translateY(-1px);
 }
 
 .note {
-  font-family: var(--font-poppins);
-  font-size: 0.9rem;
-  color: var(--dark-gray);
-  font-style: italic;
-  margin-bottom: 2rem;
+  font-size: 1rem;
+  margin-bottom: 3rem;
+  opacity: 0.9;
 }
 
-/* Admin Info Styles */
 .adminInfo {
-  background: var(--white);
-  padding: 1.5rem;
-  border-radius: 12px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-  border: 2px solid #e2e8f0;
-  max-width: 400px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 2rem;
+  border-radius: 16px;
+  max-width: 500px;
   margin: 0 auto;
 }
 
 .adminInfo h3 {
-  font-family: var(--font-poppins);
-  font-size: 1.1rem;
-  color: var(--brand-green);
   margin-bottom: 1rem;
-  font-weight: 700;
+  font-size: 1.3rem;
 }
 
 .adminContacts {
   display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .adminContact {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-family: var(--font-poppins);
-  font-size: 0.9rem;
-  padding: 0.5rem 0;
+  flex-direction: column;
+  gap: 0.3rem;
 }
 
 .adminContact strong {
-  color: var(--dark-gray);
+  font-size: 0.9rem;
+  opacity: 0.8;
 }
 
-.adminContact span {
-  color: var(--brand-green);
+.adminContact a {
+  font-size: 1.1rem;
   font-weight: 600;
+  color: white;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
 }
 
-/* Responsive Design */
+.adminContact a:hover {
+  opacity: 0.8;
+}
+
+/* RESPONSIVE FIXES - CRITICAL FOR MOBILE */
 @media (max-width: 768px) {
   .section {
-    padding: 3rem 0 5rem 0;
+    padding: 4rem 1rem;
   }
-  
+
   .title {
-    font-size: 2rem;
+    font-size: 2.2rem;
   }
-  
+
   .description {
-    font-size: 1rem;
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
   }
-  
+
   .buttonGroup {
-    flex-direction: column; /* Pada layar kecil, tombol vertikal */
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .tokenSection {
-    max-width: 100%;
+    width: 100%;
   }
 
-  .tokenMainButton,
-  .ctaButton {
-    font-size: 1.1rem;
-    padding: 1.2rem 2rem;
-    max-width: 100%;
+  .tokenMainButton, .ctaButton {
+    width: 100%;
+    justify-content: center;
+    font-size: 1rem;
+    padding: 1rem 1.5rem;
+    min-height: 55px;
+  }
+
+  .tokenOptions {
+    width: 100%;
+    left: 0;
+    right: 0;
+  }
+
+  .adminContacts {
+    flex-direction: column;
+    gap: 1rem;
   }
 
   .adminContact {
-    flex-direction: column;
-    gap: 0.2rem;
-    text-align: center;
+    align-items: center;
   }
+}
+
+@media (max-width: 480px) {
+  .section {
+    padding: 3rem 1rem;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .description {
+    font-size: 1rem;
+  }
+
+  .tokenMainButton, .ctaButton {
+    min-height: 50px;
+    font-size: 0.95rem;
+  }
+
+  .adminInfo {
+    padding: 1.5rem;
+  }
+}
+
+/* FIX FOR TOUCH DEVICES */
+@media (hover: none) and (pointer: coarse) {
+  .tokenMainButton, .ctaButton, .tokenOptionButton {
+    -webkit-tap-highlight-color: transparent; /* Remove blue tap highlight */
+    cursor: pointer;
+  }
+
+  .tokenMainButton:hover, .ctaButton:hover {
+    transform: none; /* Disable hover effects on touch */
+  }
+
+  .tokenMainButton:active, .ctaButton:active {
+    transform: scale(0.98); /* Add press effect */
+  }
+
+  .tokenOptionButton:active {
+    background: #f0f0f0;
+  }
+}
+
+/* FIX FOR IOS SAFARI */
+@supports (-webkit-touch-callout: none) {
+  .tokenSection {
+    -webkit-transform: translate3d(0, 0, 0); /* Hardware acceleration */
+    transform: translate3d(0, 0, 0); /* Standard transform for compatibility */
+  }
+  
+  .tokenMainButton, .ctaButton {
+    -webkit-appearance: none; /* Remove default iOS styles */
+    appearance: none; /* Standard appearance for compatibility */
+    border-radius: 12px; /* Ensure border radius works */
+  }
+}
+
+/* Ensure buttons are clickable on all devices */
+.tokenMainButton,
+.ctaButton,
+.tokenOptionButton {
+  touch-action: manipulation; /* Improves touch responsiveness */
+  user-select: none; /* Prevent text selection */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+/* Prevent body scroll when dropdown is open on mobile */
+.bodyNoScroll {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+  height: 100%;
 }
