@@ -7,10 +7,7 @@ import Image from 'next/image';
 export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
-    { 
-      role: 'ai', 
-      text: 'Assalamualaikum! Ada yang bisa saya bantu seputar Yayasan Al Mubarak?'
-    }
+    { role: 'ai', text: 'Assalamualaikum! Ada yang bisa saya bantu seputar Yayasan Al Mubarak?' }
   ]);
   const [loading, setLoading] = useState(false);
   const [input, setInput] = useState('');
@@ -53,100 +50,56 @@ export default function Chatbot() {
   };
 
   return (
-    <>
-      {/* Chat Bubble */}
+    <div className={styles.chatbotContainer}>
+      {/* TOMBOL CHAT: KEMBALI PAKAI IMAGE */}
       <button 
-        className={`${styles.chatBubble} ${isOpen ? styles.chatBubbleHidden : ''}`}
-        onClick={() => setIsOpen(true)}
+        className={styles.chatBubble} 
+        onClick={() => setIsOpen(!isOpen)}
       >
-        <div className={styles.bubbleContent}>
-          {isOpen ? (
-            <Image src="/icons/close.svg" alt="Tutup" width={24} height={24} />
-          ) : (
-            <>
-              <Image src="/icons/chat-ai.svg" alt="Buka Chat" width={24} height={24} />
-              <span className={styles.notificationPulse}></span>
-            </>
-          )}
-        </div>
+        {isOpen ? (
+          // Ikon Close kita kecilkan ukurannya di sini (20x20)
+          <Image src="/icons/close.svg" alt="Tutup" width={20} height={20} />
+        ) : (
+          // Ikon Chat ukuran standar
+          <Image src="/icons/chat-ai.svg" alt="Buka Chat" width={32} height={32} />
+        )}
       </button>
 
-      {/* Chat Window */}
-      <div className={`${styles.chatWindow} ${isOpen ? styles.chatWindowVisible : ''}`}>
-        {/* Header */}
-        <div className={styles.chatHeader}>
-          <div className={styles.headerContent}>
-            <div className={styles.botAvatar}>
-              <Image src="/icons/chat-ai.svg" alt="AI" width={20} height={20} />
-            </div>
-            <div className={styles.headerText}>
-              <h3>AI Assistant Al Mubarak</h3>
-              <p>Ditenagai oleh Google AI</p>
-            </div>
+      {isOpen && (
+        <div className={styles.chatWindow}>
+          <div className={styles.chatHeader}>
+            <h3>AI Assistant Al Mubarak</h3>
+            <p>Ditenagai oleh Google AI</p>
           </div>
-          <button 
-            className={styles.minimizeBtn}
-            onClick={() => setIsOpen(false)}
-          >
-            <Image src="/icons/minimize.svg" alt="Minimize" width={18} height={18} />
-          </button>
-        </div>
-
-        {/* Messages */}
-        <div className={styles.messageList}>
-          {messages.map((msg, index) => (
-            <div 
-              key={index} 
-              className={`${styles.message} ${
-                msg.role === 'user' ? styles.userMessage : styles.aiMessage
-              } ${styles.messageSlideIn}`}
-            >
-              <div className={styles.messageBubble}>
+          <div className={styles.messageList}>
+            {messages.map((msg, index) => (
+              <div key={index} className={`${styles.message} ${msg.role === 'user' ? styles.userMessage : styles.aiMessage}`}>
                 {msg.text}
               </div>
-            </div>
-          ))}
-          {loading && (
-            <div className={`${styles.message} ${styles.aiMessage}`}>
-              <div className={styles.typingIndicator}>
-                <div className={styles.typingDot}></div>
-                <div className={styles.typingDot}></div>
-                <div className={styles.typingDot}></div>
+            ))}
+            {loading && (
+              <div className={`${styles.message} ${styles.aiMessage}`}>
+                <div className={styles.loadingDots}>
+                  <span></span><span></span><span></span>
+                </div>
               </div>
-            </div>
-          )}
-          <div ref={messagesEndRef} className={styles.scrollAnchor} />
-        </div>
-
-        {/* Input Form */}
-        <form className={styles.chatForm} onSubmit={handleSubmit}>
-          <div className={styles.inputWrapper}>
+            )}
+            <div ref={messagesEndRef} />
+          </div>
+          <form className={styles.chatForm} onSubmit={handleSubmit}>
             <input
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Tanya apa saja..."
               disabled={loading}
-              className={styles.messageInput}
             />
-            <button 
-              type="submit" 
-              disabled={loading}
-              className={`${styles.sendBtn} ${input.trim() ? styles.sendBtnActive : ''}`}
-            >
-              <Image src="/icons/send.svg" alt="Kirim" width={30} height={25} />
+            <button type="submit" disabled={loading}>
+              <Image src="/icons/send.svg" alt="Kirim" width={24} height={24} />
             </button>
-          </div>
-        </form>
-      </div>
-
-      {/* Backdrop */}
-      {isOpen && (
-        <div 
-          className={styles.overlay}
-          onClick={() => setIsOpen(false)}
-        />
+          </form>
+        </div>
       )}
-    </>
+    </div>
   );
 }
