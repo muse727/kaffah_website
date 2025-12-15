@@ -1,250 +1,135 @@
-// app/berita/[slug]/page.js
 import Image from 'next/image';
 import Link from 'next/link';
-import { fetchGraphQL } from '../../../lib/wordpress';
+// Import fetchREST dan fetchGraphQL
+import { fetchREST, fetchGraphQL } from '../../../lib/wordpress';
 import styles from '../../../styles/SinglePost.module.css';
 import PageWrapper from '../../../components/PageWrapper';
 
 export const dynamic = 'force-dynamic';
 
-// Fungsi utama untuk mengambil data post
+// Fungsi helper untuk ambil data via REST API
 async function getPostData(slug) {
   try {
-    console.log('🔍 Mencari post dengan slug:', slug);
+    // REST API endpoint untuk get post by slug
+    // _embed=true penting untuk dapat gambar dan author
+    const posts = await fetchREST(`/posts?slug=${slug}&_embed`);
     
-    const query = `
-      query GetPostBySlug($slug: String!) {
-        posts(where: {name: $slug}) {
-          nodes {
-            id
-            title
-            slug
-            date
-            content(format: RENDERED)
-            excerpt(format: RENDERED)
-            featuredImage {
-              node {
-                sourceUrl(size: LARGE)
-                altText
-              }
-            }
-            author {
-              node {
-                name
-              }
-            }
-          }
-        }
-      }
-    `;
-    
-    const variables = { slug };
-    console.log('📤 Mengirim variables:', variables);
-    
-    const data = await fetchGraphQL(query, variables);
-    
-    const post = data?.posts?.nodes?.[0];
-    
-    console.log('📊 Hasil query:', {
-      slug,
-      foundPosts: data?.posts?.nodes?.length || 0,
-      postExists: !!post,
-      postTitle: post?.title
-    });
-
-    return post;
-
+    // REST API mengembalikan array, kita ambil item pertama
+    if (posts && posts.length > 0) {
+      return posts[0];
+    }
+    return null;
   } catch (error) {
-    console.error('❌ Error fetch post:', error.message);
+    console.error("Gagal fetch REST:", error);
     return null;
   }
 }
 
-// Fungsi untuk mengambil post terbaru
+// Fungsi untuk sidebar (masih pakai GraphQL karena cuma butuh list)
 async function getRecentPosts() {
   try {
-    const recentPostsQuery = `
+    const query = `
       query GetRecentPosts {
         posts(first: 5, where: { orderby: { field: DATE, order: DESC } }) {
           nodes { 
-            id
-            title
-            slug
-            databaseId
-            featuredImage { 
-              node { 
-                sourceUrl(size: THUMBNAIL) 
-                altText
-              } 
-            } 
+            id, title, slug, 
+            featuredImage { node { sourceUrl(size: THUMBNAIL) } } 
           }
         }
       }
     `;
-    const data = await fetchGraphQL(recentPostsQuery);
+    const data = await fetchGraphQL(query);
     return data?.posts?.nodes || [];
   } catch (error) {
-    console.error("Gagal fetch recent posts:", error);
     return [];
   }
 }
 
-// PERBAIKAN: generateMetadata yang sederhana dan efektif
 export async function generateMetadata({ params }) {
-  try {
-    const { slug } = params;
+    // Await params dulu (Next.js 15 requirement)
+    const { slug } = await params;
+    const post = await getPostData(slug);
     
-    // Decode slug untuk judul yang lebih readable
-    const decodedSlug = decodeURIComponent(slug)
-      .split('-')
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ');
-    
-    return {
-      title: `${decodedSlug} | Berita Al Mubarak`,
-      description: `Baca artikel tentang ${decodedSlug} di Al Mubarak. Informasi terbaru dan terkini seputar kegiatan dan berita.`,
-    };
-  } catch (error) {
-    console.error('Error generating metadata:', error);
-    return {
-      title: 'Berita | Al Mubarak',
-      description: 'Artikel berita terbaru dari Al Mubarak',
-    };
-  }
-}
-
-const cleanExcerpt = (html) => {
-  if (!html) return '';
-  const text = html.replace(/<[^>]+>/g, '');
-  return text.length > 160 ? text.substring(0, 160) + '...' : text;
-};
-
-// PERBAIKAN: generateStaticParams dengan error handling
-export async function generateStaticParams() {
-  try {
-    console.log('🔄 Generating static params...');
-    
-    const query = `
-      query GetAllPostSlugs {
-        posts(first: 50, where: { orderby: { field: DATE, order: DESC } }) {
-          nodes {
-            slug
-          }
-        }
-      }
-    `;
-    
-    const data = await fetchGraphQL(query);
-    const posts = data?.posts?.nodes || [];
-    
-    console.log(`📝 Found ${posts.length} posts for static generation`);
-    
-    return posts.map((post) => ({
-      slug: post.slug,
-    }));
-  } catch (error) {
-    console.error('Error generating static params:', error);
-    return [];
-  }
-}
-
-export default async function SinglePostPage({ params }) {
-  const { slug } = await params;
-  
-  console.log('🚀 Loading page with slug:', slug);
-
-  let post = await getPostData(slug);
-
-  // Jika tidak ketemu dengan slug, coba approach lain
-  if (!post) {
-    console.log('❌ Post not found by slug, trying alternative approaches...');
-    
-    // Approach 2: Coba dengan decode URI slug
-    const decodedSlug = decodeURIComponent(slug);
-    if (decodedSlug !== slug) {
-      console.log('🔄 Trying with decoded slug:', decodedSlug);
-      post = await getPostData(decodedSlug);
+    if (post) {
+      return { title: `${post.title.rendered} | Al Mubarak` };
     }
-  }
+    return { title: 'Berita Tidak Ditemukan' };
+}
 
-  const recentPosts = await getRecentPosts();
+
+export default async function SinglePostPage(props) {
+  const params = await props.params;
+  const { slug } = params;
+  
+  // Ambil data paralel
+  const [post, recentPosts] = await Promise.all([
+    getPostData(slug),
+    getRecentPosts()
+  ]);
 
   if (!post) {
-    console.log('💥 Post still not found after all attempts');
     return (
-      <PageWrapper>
-        <main className="container" style={{textAlign: 'center', padding: '4rem 0'}}>
-          <h1>Artikel Tidak Ditemukan</h1>
-          <p>Maaf, artikel "{slug}" tidak dapat ditemukan.</p>
-          <div style={{marginTop: '2rem'}}>
-            <Link href="/berita" style={{
-              color: '#0070f3', 
-              textDecoration: 'none',
-              padding: '10px 20px',
-              border: '1px solid #0070f3',
-              borderRadius: '5px'
-            }}>
-              ← Kembali ke Berita
-            </Link>
-          </div>
-        </main>
-      </PageWrapper>
+        <PageWrapper>
+            <main className="container" style={{textAlign: 'center', padding: '4rem 0'}}>
+                <h1>Artikel Tidak Ditemukan</h1>
+                <p>Maaf, artikel yang Anda cari mungkin telah dihapus atau URL-nya salah.</p>
+            </main>
+        </PageWrapper>
     );
   }
 
-  // PERBAIKAN: Hapus tag <head> dan biarkan generateMetadata menangani metadata
+  // Data dari REST API strukturnya beda dengan GraphQL
+  // post.title.rendered, post.content.rendered, dll.
+  
+  const featuredImageUrl = post._embedded?.['wp:featuredmedia']?.[0]?.source_url;
+  const authorName = post._embedded?.author?.[0]?.name || 'Tim Redaksi';
+
   return (
     <PageWrapper>
-      <main className={styles.main}>
-        <div className={`${styles.articleContainer} container`}>
-          {/* Kolom Utama Artikel */}
-          <article className={styles.articleContent}>
-            <h1 className={styles.articleTitle}>{post.title}</h1>
-            
-            <div className={styles.metaInfo}>
-              <span>Oleh: {post.author?.node?.name || 'Tim Redaksi'}</span>
-              <span>
-                {new Date(post.date).toLocaleDateString('id-ID', { 
-                  day: 'numeric', 
-                  month: 'long', 
-                  year: 'numeric' 
-                })}
-              </span>
-            </div>
-
-            {post.featuredImage?.node?.sourceUrl && (
-              <div className={styles.featuredImageWrapper}>
-                <Image 
-                  src={post.featuredImage.node.sourceUrl}
-                  alt={post.featuredImage.node.altText || post.title}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 80vw"
-                  style={{ objectFit: 'cover' }}
-                  priority
-                />
+        <main className={styles.main}>
+          <div className={`${styles.articleContainer} container`}>
+            <article className={styles.articleContent}>
+              <h1 className={styles.articleTitle} dangerouslySetInnerHTML={{ __html: post.title.rendered }} />
+              
+              <div className={styles.metaInfo}>
+                <span>Oleh: {authorName}</span>
+                <span>
+                  {new Date(post.date).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}
+                </span>
               </div>
-            )}
 
-            <div 
-              className={styles.articleBody}
-              dangerouslySetInnerHTML={{ __html: post.content }}
-            />
-          </article>
+              {featuredImageUrl && (
+                <div className={styles.featuredImageWrapper}>
+                  <Image 
+                    src={featuredImageUrl}
+                    alt={post.title.rendered}
+                    fill
+                    sizes="80vw"
+                    style={{ objectFit: 'cover' }}
+                    priority
+                  />
+                </div>
+              )}
+              
+              <div 
+                className={styles.articleBody}
+                dangerouslySetInnerHTML={{ __html: post.content.rendered }}
+              />
+            </article>
 
-          {/* Sidebar */}
-          <aside className={styles.sidebar}>
-            <h3>Berita Lainnya</h3>
-            <div className={styles.sidebarPostList}>
-              {recentPosts
-                .filter(recent => recent.slug !== slug)
-                .slice(0, 4)
-                .map(recent => (
+            <aside className={styles.sidebar}>
+              <h3>Berita Lainnya</h3>
+              <div className={styles.sidebarPostList}>
+                {recentPosts
+                  .filter(p => p.slug !== slug)
+                  .slice(0, 4)
+                  .map(recent => (
                   recent.featuredImage?.node?.sourceUrl && (
                     <Link href={`/berita/${recent.slug}`} key={recent.id} className={styles.sidebarPostCard}>
                       <div className={styles.sidebarCardImage}>
                         <Image
                           src={recent.featuredImage.node.sourceUrl}
-                          alt={recent.featuredImage.node.altText || recent.title}
+                          alt={recent.title}
                           fill
                           sizes="100px"
                           style={{ objectFit: 'cover' }}
@@ -255,12 +140,11 @@ export default async function SinglePostPage({ params }) {
                       </div>
                     </Link>
                   )
-                ))
-              }
-            </div>
-          </aside>
-        </div>
-      </main>
+                ))}
+              </div>
+            </aside>
+          </div>
+        </main>
     </PageWrapper>
   );
 }
