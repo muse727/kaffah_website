@@ -7,9 +7,19 @@ import Confetti from 'react-confetti'; // Import ini bro
 
 // --- DATA LOKAL SISWA ---
 const DATA_SISWA = [
-  { no: "24001", nama: "Ahmad Zaki", unit: "SMPIT", asal: "SDIT Al Hidayah", status: "LULUS" },
-  { no: "24002", nama: "Siti Aminah", unit: "SMPIT", asal: "SDN 01 Pagi", status: "LULUS" },
-  { no: "24003", nama: "Budi Santoso", unit: "SMPIT", asal: "SDIT Al Mubarak", status: "TIDAK LULUS" },
+  { no: "001", nama: "Ahmad Zaki", unit: "SMPIT", asal: "SDIT Al Hidayah", status: "LULUS" },
+  { no: "002", nama: "Adiba Claretta Jasmine", unit: "SMPIT", asal: "SDIT Kaffah Islamic School", status: "LULUS" },
+  { no: "003", nama: "Alfi Zahrin Qurrotul'aini", unit: "SMPIT", asal: "SDIT Al Mubarak", status: "LULUS" },
+  { no: "004", nama: "Abiyan Arka Qurrachman", unit: "SMPIT", asal: "SDIT Al Mubarak", status: "LULUS" },
+  { no: "005", nama: "Khansa Sabina Arosyidin", unit: "SMPIT", asal: "SDN Sumur Batu 01 Pagi", status: "LULUS" },
+  { no: "006", nama: "Aurelia Khansa Azzahra", unit: "SMPIT", asal: "SDN Cempaka Putih Barat 07", status: "LULUS" },
+  { no: "007", nama: "Gaza Haidar Althaf Agustian", unit: "SMPIT", asal: "SDIT Al Mubarak", status: "LULUS" },
+  { no: "008", nama: "Khaylila Sidqia Adran", unit: "SMPIT", asal: "SDIT Al Mubarak", status: "LULUS" },
+  { no: "009", nama: " Jihan Ramadhani Herdiansyah", unit: "SMPIT", asal: "SDIT Al Mubarak", status: "LULUS" },
+  
+
+
+
 ];
 
 export default function PengumumanPage() {
