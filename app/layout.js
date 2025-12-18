@@ -5,6 +5,7 @@ import { AOSInit } from '../components/AOSInit'; // Komponen baru untuk inisiali
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Chatbot from '../components/Chatbot';
+import WakafPopup from '../components/WakafPopup';
 
 // Konfigurasi Font dari Google Fonts
 const poppins = Poppins({
@@ -30,6 +31,7 @@ export default function RootLayout({ children }) {
       <body className={`${poppins.variable} ${roboto.variable}`}>
         <AOSInit /> {/* <--- POSISI BENAR, di dalam body */}
         <Navbar />
+        <WakafPopup />
         {children}
         <Footer />
         <Chatbot />

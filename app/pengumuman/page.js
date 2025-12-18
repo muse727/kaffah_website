@@ -78,7 +78,8 @@ export default function PengumumanPage() {
         
         <div className={styles.titleSection}>
           <h1>Pengumuman Kelulusan</h1>
-          <p>Masukkan Nomor Peserta atau Nama Lengkap untuk melihat hasil seleksi.</p>
+          <p>Masukkan Nomor Peserta atau Nama Lengkap untuk melihat hasil s
+eleksi.</p>
         </div>
 
         {/* Input Pencarian */}

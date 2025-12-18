@@ -1,0 +1,42 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// 1. Tabel Kampanye (Gedung, Masjid, dll)
+model WakafCampaign {
+  id                Int      @id @default(autoincrement())
+  title             String
+  description       String?  @db.Text
+  targetAmount      Decimal  @db.Decimal(15, 2)
+  collectedAmount   Decimal  @default(0) @db.Decimal(15, 2)
+  imageUrl          String?
+  isActive          Boolean  @default(true)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  
+  transactions      WakafTransaction[]
+}
+
+// 2. Tabel Transaksi (Donatur)
+model WakafTransaction {
+  id              Int      @id @default(autoincrement())
+  invoiceId       String   @unique // Contoh: WKF-20251218-XYZ
+  wakifName       String   @default("Hamba Allah")
+  wakifPhone      String?
+  amount          Decimal  @db.Decimal(15, 2)
+  status          String   @default("pending") // pending, paid, failed
+  paymentUrl      String?  @db.Text // Link bayar DOKU
+  niatDoa         String?  @db.Text
+  paidAt          DateTime?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  // Relasi ke Campaign
+  campaignId      Int
+  campaign        WakafCampaign @relation(fields: [campaignId], references: [id])
+}
