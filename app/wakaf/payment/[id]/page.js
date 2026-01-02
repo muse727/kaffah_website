@@ -151,7 +151,7 @@ export default function PaymentPage() {
                     {/* Ganti src logo BSI jika perlu */}
                     <span style={{fontWeight:'800', color:'#1a5f51', fontSize:'1.2rem', display:'block', marginBottom:'5px'}}>BSI</span>
                     <div className={styles.bankNumber}>7253874184</div>
-                    <div className={styles.bankName}>A.n Yayasan Wakfiah Al Mubarak</div>
+                    <div className={styles.bankName}>A.n  Wakaf Pendidikan Yayasan Wakfiah Al Mubarak</div>
                 </div>
                 <button onClick={() => copyToClipboard('7253874184')} className={styles.copyBtn}>
                     SALIN
