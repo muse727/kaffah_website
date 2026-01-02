@@ -36,8 +36,8 @@ export default function WakafPopup() {
         
         <div className={styles.imagePlaceholder}>
           {/* Nanti ganti pakai foto pembangunan asli */}
-          <div style={{width:'100%', height:'100%', display:'flex', alignItems:'center', justifyContent:'center', color:'#aaa'}}>
-            FOTO PEMBANGUNAN
+          <div className={styles.image}>
+            <Image src="/images/sekolah-renov.png" alt="Pembangunan Sekolah" width={300} height={200} />
           </div>
         </div>
 

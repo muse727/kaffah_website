@@ -1,0 +1,197 @@
+/* Container Payment */
+.container {
+  min-height: 100vh;
+  background-color: #f8fafc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  font-family: 'Inter', sans-serif;
+}
+
+.card {
+  width: 100%;
+  max-width: 480px;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+  padding: 2.5rem;
+  border: 1px solid #f1f5f9;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.timerLabel {
+  font-size: 0.9rem;
+  color: #64748b;
+  margin-bottom: 8px;
+}
+
+.timerBox {
+  display: inline-block;
+  background-color: #fef2f2;
+  color: #ef4444;
+  font-weight: 700;
+  font-size: 1.5rem;
+  padding: 8px 20px;
+  border-radius: 12px;
+  font-variant-numeric: tabular-nums; /* Biar angka gak goyang pas timer jalan */
+}
+
+.summary {
+  text-align: center;
+  padding-bottom: 2rem;
+  border-bottom: 2px dashed #e2e8f0;
+  margin-bottom: 2rem;
+}
+
+.summaryTitle {
+  font-size: 1rem;
+  color: #64748b;
+  margin-bottom: 0.5rem;
+}
+
+.summaryAmount {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #1a5f51;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+.summaryId {
+  display: inline-block;
+  margin-top: 10px;
+  background: #e6fffa;
+  color: #1a5f51;
+  padding: 4px 12px;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+/* Bank Section */
+.bankSection {
+  margin-bottom: 2rem;
+}
+
+.bankLabel {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: 12px;
+}
+
+.bankCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #e2e8f0;
+  padding: 16px;
+  border-radius: 12px;
+  background: #ffffff;
+  transition: border-color 0.2s;
+}
+
+.bankCard:hover {
+  border-color: #1a5f51;
+}
+
+.bankLogo {
+  height: 28px;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.bankNumber {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1e293b;
+  font-family: monospace;
+  letter-spacing: 0.5px;
+}
+
+.bankName {
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+.copyBtn {
+  background: none;
+  border: none;
+  color: #1a5f51;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+.copyBtn:hover {
+  background-color: #e6fffa;
+}
+
+/* Upload Section */
+.uploadSection {
+  margin-top: 1rem;
+}
+
+.uploadLabel {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: 10px;
+}
+
+.fileInput {
+  width: 100%;
+  padding: 12px;
+  border: 2px dashed #cbd5e1;
+  border-radius: 12px;
+  background: #f8fafc;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #475569;
+  margin-bottom: 20px;
+  transition: all 0.2s;
+}
+
+.fileInput:hover {
+  border-color: #1a5f51;
+  background: #f0fdfa;
+}
+
+.submitBtn {
+  width: 100%;
+  padding: 16px;
+  background-color: #1a5f51;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  box-shadow: 0 4px 6px -1px rgba(26, 95, 81, 0.2);
+}
+
+.submitBtn:hover:not(:disabled) {
+  background-color: #134e42;
+}
+
+.submitBtn:disabled {
+  background-color: #94a3b8;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.loading {
+  text-align: center;
+  color: #64748b;
+  font-weight: 500;
+}

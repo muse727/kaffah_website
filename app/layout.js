@@ -1,23 +1,24 @@
 import { Poppins, Roboto } from 'next/font/google';
 import '../styles/globals.css';
-import 'aos/dist/aos.css'; // Pastikan AOS CSS tetap diimport
-import { AOSInit } from '../components/AOSInit'; // Komponen baru untuk inisialisasi AOS
+import 'aos/dist/aos.css';
+import { AOSInit } from '../components/AOSInit';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Chatbot from '../components/Chatbot';
 import WakafPopup from '../components/WakafPopup';
+import { AuthProvider } from './providers'; // Import sudah ada
 
-// Konfigurasi Font dari Google Fonts
+// Konfigurasi Font ... (sama seperti sebelumnya)
 const poppins = Poppins({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
-  variable: '--font-poppins', // Kita gunakan sebagai CSS Variable
+  variable: '--font-poppins',
 });
 
 const roboto = Roboto({
   subsets: ['latin'],
   weight: ['400', '500', '700'],
-  variable: '--font-roboto', // Kita gunakan sebagai CSS Variable
+  variable: '--font-roboto',
 });
 
 export const metadata = {
@@ -29,12 +30,16 @@ export default function RootLayout({ children }) {
   return (
     <html lang="id">
       <body className={`${poppins.variable} ${roboto.variable}`}>
-        <AOSInit /> {/* <--- POSISI BENAR, di dalam body */}
-        <Navbar />
-        <WakafPopup />
-        {children}
-        <Footer />
-        <Chatbot />
+        {/* 👇 BUNGKUS SEMUANYA DENGAN AUTHPROVIDER DISINI 👇 */}
+        <AuthProvider>
+            <AOSInit />
+            <Navbar />
+            <WakafPopup />
+            {children}
+            <Footer />
+            <Chatbot />
+        </AuthProvider>
+        {/* 👆 TUTUP AUTHPROVIDER DISINI 👆 */}
       </body>
     </html>
   );

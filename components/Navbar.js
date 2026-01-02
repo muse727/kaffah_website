@@ -157,6 +157,13 @@ const Navbar = () => {
               </Link>
 
               <Link 
+                href="/wakaf" 
+                className={`${styles.navLink} ${pathname === '/wakaf' ? styles.activeLink : ''}`}
+              >
+                Wakaf
+              </Link>
+
+              <Link 
                 href="/berita" 
                 className={`${styles.navLink} ${pathname === '/berita' ? styles.activeLink : ''}`}
               >
@@ -224,6 +231,9 @@ const Navbar = () => {
 
           <Link href="/juara" className={styles.mobileNavLink} onClick={closeMenu}>
           Prestasi
+          </Link>
+          <Link href="/wakaf" className={styles.mobileNavLink} onClick={closeMenu}>
+            Wakaf
           </Link>
 
           <Link href="/berita" className={styles.mobileNavLink} onClick={closeMenu}>

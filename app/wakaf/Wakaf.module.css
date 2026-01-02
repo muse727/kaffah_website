@@ -1,0 +1,313 @@
+/* Container Utama */
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  background: #fff;
+  min-height: 100vh;
+  padding-bottom: 50px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Hero */
+.heroSection { 
+  background: #fff; 
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+.heroImage { 
+  width: 100%; 
+  height: 220px; 
+  background: #f5f5f5; 
+  overflow: hidden;
+  position: relative;
+}
+.heroImage img { 
+  width: 100%; 
+  height: 100%; 
+  object-fit: cover; 
+}
+.heroContent { 
+  padding: 1.5rem 1.5rem 0; 
+}
+.campaignTitle { 
+  font-size: 1.3rem; 
+  font-weight: 600; 
+  color: #333; 
+  margin-bottom: 1.25rem; 
+  line-height: 1.4; 
+}
+
+/* Progress */
+.statsRow { 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: baseline; 
+  margin-bottom: 10px; 
+}
+.amountCollected { 
+  font-size: 1.2rem; 
+  font-weight: 700; 
+  color: #1a5f51; 
+}
+.amountTarget { 
+  font-size: 0.9rem; 
+  color: #666; 
+}
+.progressBarBg { 
+  width: 100%; 
+  height: 8px; 
+  background: #eee; 
+  border-radius: 4px; 
+  overflow: hidden; 
+  margin-bottom: 10px;
+}
+.progressBarFill { 
+  height: 100%; 
+  background: #1a5f51; 
+  border-radius: 4px; 
+  transition: width 0.5s; 
+}
+.metaStats { 
+  display: flex; 
+  justify-content: space-between; 
+  margin-top: 8px; 
+  font-size: 0.9rem; 
+  color: #666; 
+}
+.shareBtn { 
+  width: 100%; 
+  padding: 12px; 
+  margin-top: 20px; 
+  border: 1px solid #ddd; 
+  background: #fff; 
+  border-radius: 8px; 
+  font-weight: 600; 
+  cursor: pointer; 
+  color: #555;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 0.95rem;
+}
+
+/* Tabs */
+.tabsNav { 
+  display: flex; 
+  border-bottom: 1px solid #eee; 
+  background: #fff;
+}
+.tabBtn { 
+  flex: 1; 
+  padding: 16px; 
+  background: none; 
+  border: none; 
+  font-weight: 500; 
+  color: #777; 
+  cursor: pointer; 
+  border-bottom: 2px solid transparent;
+  font-size: 0.95rem;
+  transition: all 0.2s;
+}
+.tabBtn:hover {
+  color: #1a5f51;
+}
+.activeTab { 
+  color: #1a5f51; 
+  border-bottom-color: #1a5f51;
+  font-weight: 600;
+}
+.contentBody { 
+  padding: 20px; 
+  min-height: 200px; 
+  line-height: 1.6;
+  color: #444;
+}
+
+/* RAB Styles */
+.rabCard { 
+  background: #f8f9fa; 
+  padding: 20px; 
+  border-radius: 10px; 
+  border: 1px solid #eaeaea; 
+  margin-top: 20px; 
+}
+.rabTitle { 
+  margin: 0 0 15px 0; 
+  font-size: 1rem; 
+  color: #333; 
+  font-weight: 600;
+}
+.rabList { 
+  list-style: none; 
+  padding: 0; 
+  margin: 0; 
+}
+.rabItem { 
+  display: flex; 
+  justify-content: space-between; 
+  padding: 10px 0; 
+  border-bottom: 1px solid #eee; 
+  font-size: 0.9rem; 
+  color: #555; 
+}
+.rabTotal { 
+  display: flex; 
+  justify-content: space-between; 
+  padding: 12px 0; 
+  border-top: 2px solid #ddd; 
+  font-weight: 700; 
+  color: #1a5f51; 
+  margin-top: 5px; 
+  font-size: 1rem;
+}
+.rabNote { 
+  font-size: 0.85rem; 
+  color: #888; 
+  margin-top: 10px; 
+  text-align: right;
+}
+
+/* Donatur List */
+.donorItem { 
+  display: flex; 
+  gap: 12px; 
+  padding: 14px 0; 
+  border-bottom: 1px solid #f5f5f5; 
+}
+.donorAvatar { 
+  width: 42px; 
+  height: 42px; 
+  background: #e8f5f2; 
+  color: #1a5f51; 
+  border-radius: 50%; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  font-weight: 600; 
+  font-size: 0.9rem;
+}
+.donorInfo { 
+  flex: 1;
+}
+.donorName { 
+  font-weight: 600; 
+  font-size: 0.95rem; 
+  color: #333; 
+  margin-bottom: 4px;
+}
+.donorDate { 
+  font-weight: 400; 
+  font-size: 0.8rem; 
+  color: #999; 
+  margin-left: 6px;
+}
+.donorAmount { 
+  font-size: 0.9rem; 
+  color: #1a5f51; 
+  font-weight: 600; 
+  margin-bottom: 6px;
+}
+.donorDoa { 
+  background: #f9f9f9; 
+  padding: 10px; 
+  border-radius: 6px; 
+  font-size: 0.9rem; 
+  color: #555; 
+  margin-top: 8px; 
+  font-style: italic;
+  line-height: 1.5;
+}
+
+/* Form Wakaf */
+.donationBox { 
+  padding: 20px; 
+  background: #fff; 
+  border-top: 1px solid #f0f0f0;
+  margin-top: 20px;
+}
+.sectionTitle { 
+  font-size: 1.05rem; 
+  font-weight: 600; 
+  margin-bottom: 15px; 
+  color: #333; 
+}
+.gridNominal { 
+  display: grid; 
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 12px; 
+  margin-bottom: 20px; 
+}
+.nominalBtn { 
+  padding: 14px; 
+  border: 1px solid #ddd; 
+  background: #fff; 
+  border-radius: 8px; 
+  cursor: pointer; 
+  font-weight: 500; 
+  color: #555; 
+  transition: all 0.2s; 
+  font-size: 0.95rem;
+}
+.nominalBtn:hover {
+  border-color: #bbb;
+}
+.nominalActive { 
+  border-color: #1a5f51 !important; 
+  background: #f0f9f7; 
+  color: #1a5f51; 
+  font-weight: 600;
+}
+.inputCustom { 
+  width: 100%; 
+  padding: 14px; 
+  margin-bottom: 15px; 
+  border: 1px solid #ddd; 
+  border-radius: 8px; 
+  font-size: 1rem; 
+  outline: none; 
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+.inputCustom:focus { 
+  border-color: #1a5f51; 
+}
+.niatBox { 
+  display: flex; 
+  gap: 12px; 
+  align-items: flex-start; 
+  margin: 20px 0; 
+  background: #f9f9f9; 
+  padding: 16px; 
+  border-radius: 8px; 
+  border: 1px solid #eee;
+}
+.checkbox {
+  margin-top: 3px;
+  accent-color: #1a5f51;
+}
+.niatText { 
+  font-size: 0.9rem; 
+  color: #555; 
+  line-height: 1.5; 
+}
+.submitBtn { 
+  width: 100%; 
+  padding: 16px; 
+  background: #1a5f51; 
+  color: #fff; 
+  border: none; 
+  border-radius: 8px; 
+  font-weight: 600; 
+  font-size: 1rem; 
+  cursor: pointer; 
+  transition: background 0.3s; 
+  margin-top: 10px;
+}
+.submitBtn:disabled { 
+  background: #ccc; 
+  cursor: not-allowed; 
+}
+.submitBtn:hover:not(:disabled) { 
+  background: #144d41; 
+}

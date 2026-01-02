@@ -1,128 +1,143 @@
 "use client";
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import PageWrapper from '../../components/PageWrapper';
 import styles from '../../styles/Wakaf.module.css';
 import Swal from 'sweetalert2';
+import { FiShare2 } from 'react-icons/fi';
 
 export default function WakafPage() {
-  // --- STATE MANAGEMENT ---
-  const [activeTab, setActiveTab] = useState('cerita'); // Options: cerita | kabar | donatur
-  const [loadingPay, setLoadingPay] = useState(false);
+  const router = useRouter();
+  const [activeTab, setActiveTab] = useState('cerita');
+  const [loading, setLoading] = useState(false);
   
-  // State Data Realtime (Default sebelum fetch)
   const [campaignData, setCampaignData] = useState({
-    title: "Memuat Data...",
-    target: 0,
-    collected: 0,
-    donorCount: 0,
-    donors: [],
-    description: "Sedang mengambil data terbaru...",
-    // Default dummy kalo API belum connect, tapi nanti ketimpa fetch
+    title: "Pembangunan Ruang Kelas & Aula 3 Lantai SDIT Al Mubarak",
+    target: 3197531396, 
+    collected: 0, 
+    donorCount: 0, 
+    donors: []
   });
 
-  // State Form Input
-  const [amount, setAmount] = useState(100000); // Default 100rb
+  const [amount, setAmount] = useState(100000);
   const [customAmount, setCustomAmount] = useState('');
   const [nama, setNama] = useState('');
   const [wa, setWa] = useState('');
   const [doa, setDoa] = useState('');
   const [isNiatChecked, setIsNiatChecked] = useState(false);
 
-  // --- 1. FETCH DATA REALTIME (Pas Web Dibuka) ---
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch('/api/wakaf');
+        const json = await res.json();
+        if (json.success) {
+          setCampaignData(prev => ({
+            ...prev, 
+            collected: json.data.collected,
+            donorCount: json.data.donorCount,
+            donors: json.data.donors
+          }));
+        }
+      } catch (err) { 
+        console.error("Error fetching data", err); 
+      }
+    };
     fetchData();
   }, []);
 
-  const fetchData = async () => {
-    try {
-      const res = await fetch('/api/wakaf');
-      const json = await res.json();
-      if (json.success) {
-        setCampaignData(json.data);
-      }
-    } catch (err) {
-      console.error("Gagal ambil data API", err);
-    }
-  };
-
-  // Logic Progress Bar (Max 100%)
   const percentage = campaignData.target > 0 
-    ? Math.min((campaignData.collected / campaignData.target) * 100, 100) 
-    : 0;
-
-  // Logic Nominal Akhir (Pilihan vs Custom)
+    ? Math.min((campaignData.collected / campaignData.target) * 100, 100) : 0;
   const finalAmount = amount > 0 ? amount : parseInt(customAmount || 0);
 
-  // --- 2. FITUR SHARE ---
   const handleShare = () => {
-    const url = window.location.href;
-    navigator.clipboard.writeText(url);
-    Swal.fire({
-      icon: 'success',
-      title: 'Link Disalin!',
-      text: 'Silakan bagikan ke WhatsApp atau media sosial.',
-      timer: 1500,
-      showConfirmButton: false
+    navigator.clipboard.writeText(window.location.href);
+    Swal.fire({ 
+      icon: 'success', 
+      title: 'Link Disalin!', 
+      timer: 1500, 
+      showConfirmButton: false, 
+      toast: true, 
+      position: 'top-end' 
     });
   };
 
-  // --- 3. HANDLE DONASI (POST KE API) ---
-  const handlePayment = async () => {
-    if (!finalAmount || finalAmount < 10000) {
-        Swal.fire({ icon: 'warning', title: 'Nominal Kurang', text: 'Minimal wakaf Rp 10.000 ya kak :)' });
-        return;
+  const handleNext = async () => {
+    if (!finalAmount || finalAmount < 10000) { 
+      Swal.fire({ 
+        icon: 'warning', 
+        text: 'Minimal Wakaf Rp 10.000' 
+      }); 
+      return; 
+    }
+    
+    if (!nama.trim()) { 
+      Swal.fire({ 
+        icon: 'warning', 
+        text: 'Nama wajib diisi' 
+      }); 
+      return; 
+    }
+    
+    if (!wa.trim()) { 
+      Swal.fire({ 
+        icon: 'warning', 
+        text: 'Nomor WhatsApp wajib diisi' 
+      }); 
+      return; 
     }
 
-    setLoadingPay(true);
-    const payload = { 
-        amount: finalAmount, 
-        wakif_name: nama, 
-        wakif_phone: wa, 
-        niat_doa: doa 
-    };
-
+    setLoading(true);
     try {
-      const res = await fetch('/api/wakaf', { 
-        method: 'POST', 
-        headers: { 'Content-Type': 'application/json' }, 
-        body: JSON.stringify(payload) 
+      const res = await fetch('/api/wakaf', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          amount: finalAmount, 
+          wakif_name: nama.trim(), 
+          wakif_phone: wa.trim(), 
+          niat_doa: doa.trim(), 
+          unit: 'RENOVASI GEDUNG' 
+        })
       });
+      
       const data = await res.json();
 
-      if (res.ok && data.success) {
-        Swal.fire({
-            icon: 'success',
-            title: 'Bismillah!',
-            text: 'Mengarahkan ke pembayaran aman...',
-            timer: 2000,
-            showConfirmButton: false
-        }).then(() => {
-            // Redirect ke DOKU
-            window.location.href = data.data.paymentUrl;
-        });
+      if (data.success) {
+        router.push(`/wakaf/payment/${data.id}`);
       } else {
-        Swal.fire({ icon: 'error', title: 'Gagal', text: data.message });
+        Swal.fire({ 
+          icon: 'error', 
+          title: 'Gagal', 
+          text: data.message || 'Gagal memproses data' 
+        });
       }
-    } catch (error) {
-      Swal.fire({ icon: 'error', title: 'Error Koneksi', text: 'Cek internet kamu ya.' });
+    } catch (e) {
+      Swal.fire({ 
+        icon: 'error', 
+        title: 'Error', 
+        text: 'Koneksi bermasalah' 
+      });
     } finally {
-      setLoadingPay(false);
+      setLoading(false);
     }
   };
 
-  // --- 4. RENDER UI ---
   return (
     <PageWrapper>
       <div className={styles.container}>
         
-        {/* === HERO SECTION === */}
+        {/* HERO SECTION */}
         <div className={styles.heroSection}>
           <div className={styles.heroImage}>
-             {/* Ganti src ini dengan foto sekolah asli nanti */}
-             <img src="/images/sekolah-renov.jpg" alt="Renovasi Sekolah" onError={(e) => {
-                 e.target.onerror = null; 
-                 e.target.parentNode.innerHTML = '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#888;background:#eee;">FOTO RENOVASI SEKOLAH</div>'
-             }} />
+            <img 
+              src="/images/sekolah-renov.png" 
+              alt="Pembangunan Sekolah" 
+              onError={(e) => {
+                e.target.style.display = 'none';
+                e.target.parentElement.innerHTML = '<div style="width:100%;height:100%;background:#f5f5f5;display:flex;align-items:center;justify-content:center;color:#888;font-size:0.9rem">Gambar Pembangunan</div>';
+              }} 
+            />
           </div>
           
           <div className={styles.heroContent}>
@@ -130,124 +145,123 @@ export default function WakafPage() {
             
             <div className={styles.progressWrapper}>
               <div className={styles.statsRow}>
-                <span className={styles.amountCollected}>Rp {campaignData.collected.toLocaleString()}</span>
-                <span className={styles.amountTarget}>dari Rp {campaignData.target.toLocaleString()}</span>
+                <span className={styles.amountCollected}>
+                  Rp {campaignData.collected.toLocaleString('id-ID')}
+                </span>
+                <span className={styles.amountTarget}>
+                  dari Rp {campaignData.target.toLocaleString('id-ID')}
+                </span>
               </div>
               
               <div className={styles.progressBarBg}>
-                <div className={styles.progressBarFill} style={{ width: `${percentage}%` }}></div>
+                <div 
+                  className={styles.progressBarFill} 
+                  style={{ width: `${percentage}%` }}
+                ></div>
               </div>
               
               <div className={styles.metaStats}>
-                <span><strong>{campaignData.donorCount}</strong> Orang Baik</span>
+                <span>
+                  <strong>{campaignData.donorCount}</strong> Orang Baik
+                </span>
                 <span>{percentage.toFixed(1)}% Terkumpul</span>
               </div>
             </div>
-
+            
             <button className={styles.shareBtn} onClick={handleShare}>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
-              Bagikan Kebaikan
+              <FiShare2 /> Bagikan Kebaikan
             </button>
           </div>
         </div>
 
-        {/* === TABS NAVIGATION === */}
+        {/* TABS NAVIGATION */}
         <div className={styles.tabsNav}>
-          {['Cerita', 'Kabar Terbaru', 'Doa & Donatur'].map((tab) => {
-            const key = tab.split(' ')[0].toLowerCase(); // cerita, kabar, doa
-            return (
-              <button 
-                key={key}
-                onClick={() => setActiveTab(key)}
-                className={`${styles.tabBtn} ${activeTab === key ? styles.active : ''}`}
-              >
-                {tab}
-              </button>
-            )
-          })}
+          <button 
+            className={`${styles.tabBtn} ${activeTab === 'cerita' ? styles.activeTab : ''}`}
+            onClick={() => setActiveTab('cerita')}
+          >
+            Cerita
+          </button>
+          <button 
+            className={`${styles.tabBtn} ${activeTab === 'kabar' ? styles.activeTab : ''}`}
+            onClick={() => setActiveTab('kabar')}
+          >
+            Kabar Terbaru
+          </button>
+          <button 
+            className={`${styles.tabBtn} ${activeTab === 'doa' ? styles.activeTab : ''}`}
+            onClick={() => setActiveTab('doa')}
+          >
+            Doa & Donatur
+          </button>
         </div>
 
-        {/* === TAB CONTENT === */}
+        {/* TAB CONTENT */}
         <div className={styles.contentBody}>
-          
-          {/* TAB 1: CERITA (Data Real dari RAB PDF) */}
           {activeTab === 'cerita' && (
-            <div style={{lineHeight: '1.6', color: '#444'}}>
-              <p><strong>Assalamualaikum Warahmatullahi Wabarakatuh.</strong></p>
-              <p>Ayah Bunda dan Orang Baik, saat ini SIT Al-Mubarak sedang melakukan renovasi besar untuk kenyamanan belajar santri. Kondisi bangunan saat ini membutuhkan perbaikan mendesak di beberapa sektor vital.</p>
+            <div>
+              <p><strong>Bismillah, Mari Bangun Peradaban.</strong></p>
+              <p>
+                SIT Al-Mubarak sedang berikhtiar membangun <strong>Ruang Kelas & Aula 3 Lantai</strong> untuk menunjang kenyamanan para santri penghafal Quran.
+                Dengan fasilitas yang memadai, diharapkan proses belajar mengajar dan penghafalan Al-Quran 
+                dapat berjalan lebih optimal.
+              </p>
               
               <div className={styles.rabCard}>
-                <h4 className={styles.rabTitle}>Rincian Kebutuhan Dana (RAB)</h4>
+                <h4 className={styles.rabTitle}>Ringkasan RAB Pembangunan</h4>
                 <ul className={styles.rabList}>
                   <li className={styles.rabItem}>
-                    <span>🛠️ Persiapan & Bongkaran</span>
-                    <span className={styles.rabPrice}>Rp 7.336.000</span>
+                    <span>🏗️ Persiapan & Pekerjaan Tanah</span>
+                    <span className={styles.rabPrice}>Rp 32.299.600</span>
                   </li>
                   <li className={styles.rabItem}>
-                    <span>🧱 Pasangan & Sanitasi (WC/Toren)</span>
-                    <span className={styles.rabPrice}>Rp 34.300.000</span>
+                    <span>🏢 Pekerjaan Lantai 1 (Lengkap)</span>
+                    <span className={styles.rabPrice}>Rp 938.757.481</span>
                   </li>
                   <li className={styles.rabItem}>
-                    <span>🎨 Pengecatan (Dinding & Plafon)</span>
-                    <span className={styles.rabPrice}>Rp 28.000.000</span>
-                  </li>
-                  <li className={styles.rabItem}>
-                    <span>⚡ Instalasi Listrik & Lampu</span>
-                    <span className={styles.rabPrice}>Rp 4.800.000</span>
-                  </li>
-                  <li className={styles.rabItem}>
-                    <span>🚛 Pembersihan Puing</span>
-                    <span className={styles.rabPrice}>Rp 2.460.000</span>
+                    <span>🏢 Pekerjaan Lantai 2 & 3 (Lengkap)</span>
+                    <span className={styles.rabPrice}>Rp 2.258.773.915</span>
                   </li>
                   <li className={styles.rabTotal}>
                     <span>TOTAL KEBUTUHAN</span>
-                    <span>Rp 76.896.000</span>
+                    <span>Rp 3.197.531.396</span>
                   </li>
                 </ul>
-                <p style={{fontSize:'0.75rem', color:'#888', marginTop:'10px', fontStyle:'italic', textAlign:'right'}}>
-                  *Sesuai Dokumen RAB Renovasi 2025
-                </p>
+                <p className={styles.rabNote}>*Sesuai dokumen RAB 2025</p>
               </div>
             </div>
           )}
 
-          {/* TAB 2: KABAR (Empty State) */}
           {activeTab === 'kabar' && (
-            <div style={{textAlign:'center', padding:'30px 10px'}}>
-              <div style={{fontSize:'3rem', marginBottom:'10px', opacity:0.5}}>📢</div>
-              <h4 style={{margin:'0 0 10px 0', color:'#555'}}>Belum Ada Kabar Terbaru</h4>
-              <p style={{color:'#888', fontSize:'0.9rem'}}>
-                Update mengenai pencairan dana dan progres renovasi fisik akan ditampilkan di sini secara transparan.
-              </p>
+            <div style={{textAlign: 'center', padding: '30px', color: '#94a3b8'}}>
+              <p>Belum ada kabar terbaru.</p>
             </div>
           )}
 
-          {/* TAB 3: DONATUR (Fetch dari DB) */}
           {activeTab === 'doa' && (
             <div>
               {campaignData.donors.length === 0 ? (
-                <div style={{textAlign:'center', padding:'20px', color:'#888'}}>
-                  Belum ada donatur. <br/><strong>Jadilah Orang Baik pertama!</strong>
+                <div style={{textAlign: 'center', color: '#94a3b8', padding: '20px'}}>
+                  Belum ada donatur. Jadilah yang pertama!
                 </div>
               ) : (
-                campaignData.donors.map((donor, idx) => (
-                  <div key={idx} className={styles.donorItem}>
+                campaignData.donors.map((donor, index) => (
+                  <div key={index} className={styles.donorItem}>
                     <div className={styles.donorAvatar}>
                       {donor.wakifName.charAt(0).toUpperCase()}
                     </div>
                     <div className={styles.donorInfo}>
                       <div className={styles.donorName}>
                         {donor.wakifName} 
-                        <span className={styles.donorDate}>• {new Date(donor.createdAt).toLocaleDateString()}</span>
+                        <span className={styles.donorDate}>
+                          • {new Date(donor.createdAt).toLocaleDateString('id-ID')}
+                        </span>
                       </div>
                       <div className={styles.donorAmount}>
-                        Berwakaf Rp {Number(donor.amount).toLocaleString()}
+                        Rp {Number(donor.amount).toLocaleString('id-ID')}
                       </div>
                       {donor.niatDoa && (
-                        <div className={styles.donorDoa}>
-                          "{donor.niatDoa}"
-                          <div style={{marginTop:'3px', fontSize:'0.7rem', color:'#1a5f51', fontWeight:'bold'}}>Aamiin</div>
-                        </div>
+                        <div className={styles.donorDoa}>"{donor.niatDoa}"</div>
                       )}
                     </div>
                   </div>
@@ -257,73 +271,92 @@ export default function WakafPage() {
           )}
         </div>
 
-        {/* === FORM DONASI === */}
+        {/* DONATION FORM */}
         <div className={styles.donationBox}>
-          <h3 className={styles.sectionTitle}>Pilih Nominal Wakaf</h3>
-          
+          <h3 className={styles.sectionTitle}>1. Pilih Nominal Wakaf</h3>
           <div className={styles.gridNominal}>
-            {[50000, 100000, 200000, 500000, 1000000, 0].map((val) => (
-              <button
-                key={val}
-                className={`${styles.nominalBtn} ${amount === val ? styles.active : ''}`}
-                onClick={() => { setAmount(val); setCustomAmount(''); }}
+            {[50000, 100000, 200000, 500000, 1000000].map((val) => (
+              <button 
+                key={val} 
+                className={`${styles.nominalBtn} ${amount === val ? styles.nominalActive : ''}`} 
+                onClick={() => { 
+                  setAmount(val); 
+                  setCustomAmount(''); 
+                }}
               >
-                {val === 0 ? 'Nominal Lain' : `Rp ${val.toLocaleString()}`}
+                Rp {val.toLocaleString('id-ID')}
               </button>
             ))}
+            <button 
+              className={`${styles.nominalBtn} ${amount === 0 ? styles.nominalActive : ''}`} 
+              onClick={() => { 
+                setAmount(0); 
+                setCustomAmount(''); 
+              }}
+            >
+              Nominal Lain
+            </button>
           </div>
-
+          
           {amount === 0 && (
             <input 
               type="number" 
-              placeholder="Masukkan nominal (Min Rp 10.000)"
-              className={styles.inputCustom}
-              value={customAmount}
-              onChange={(e) => { setCustomAmount(e.target.value); setAmount(0); }}
+              placeholder="Min Rp 10.000" 
+              className={styles.inputCustom} 
+              value={customAmount} 
+              onChange={(e) => { 
+                setCustomAmount(e.target.value); 
+                setAmount(0); 
+              }}
+              min="10000"
             />
           )}
 
-          <div style={{marginTop: '1.5rem'}}>
-            <h3 className={styles.sectionTitle}>Data Pewakaf</h3>
+          <div style={{marginTop: '24px'}}>
+            <h3 className={styles.sectionTitle}>2. Data Pewakaf</h3>
             <input 
-                type="text" placeholder="Nama Lengkap (Hamba Allah)" 
-                className={styles.inputCustom}
-                value={nama} onChange={(e) => setNama(e.target.value)}
+              type="text" 
+              placeholder="Nama Lengkap (Hamba Allah)" 
+              className={styles.inputCustom} 
+              value={nama} 
+              onChange={(e) => setNama(e.target.value)} 
             />
             <input 
-                type="text" placeholder="Nomor WhatsApp (08xxx)" 
-                className={styles.inputCustom}
-                value={wa} onChange={(e) => setWa(e.target.value)}
+              type="tel" 
+              placeholder="Nomor WhatsApp (Aktif)" 
+              className={styles.inputCustom} 
+              value={wa} 
+              onChange={(e) => setWa(e.target.value)} 
             />
             <textarea 
-              placeholder="Tulis Doa (Akan muncul di tab Doa)" 
-              className={styles.inputCustom} style={{height: '80px', resize:'none'}} 
-              value={doa} onChange={(e) => setDoa(e.target.value)}
+              placeholder="Tulis Doa (Opsional)" 
+              className={styles.inputCustom} 
+              style={{height: '100px', resize: 'none'}} 
+              value={doa} 
+              onChange={(e) => setDoa(e.target.value)} 
             />
           </div>
 
           <div className={styles.niatBox}>
             <input 
-              type="checkbox" id="niatCheck" 
-              checked={isNiatChecked} onChange={(e) => setIsNiatChecked(e.target.checked)}
-              style={{marginTop: '3px', cursor:'pointer'}}
+              type="checkbox" 
+              id="niatCheck" 
+              className={styles.checkbox} 
+              checked={isNiatChecked} 
+              onChange={(e) => setIsNiatChecked(e.target.checked)} 
             />
             <label htmlFor="niatCheck" className={styles.niatText}>
-              Bismillah, saya niat mewakafkan harta ini karena Allah Ta’ala untuk pembangunan sekolah dan kemaslahatan umat.
+              Bismillah, saya niat mewakafkan harta ini untuk pembangunan sekolah karena Allah Ta'ala.
             </label>
           </div>
 
           <button 
             className={styles.submitBtn} 
-            disabled={!finalAmount || !isNiatChecked || loadingPay}
-            onClick={handlePayment}
+            disabled={!finalAmount || !isNiatChecked || loading || finalAmount < 10000} 
+            onClick={handleNext}
           >
-            {loadingPay ? 'Memproses...' : `Lanjut Pembayaran (Rp ${finalAmount.toLocaleString()})`}
+            {loading ? 'Memproses...' : 'Lanjut Pembayaran ➔'}
           </button>
-          
-          <div style={{textAlign:'center', marginTop:'15px', fontSize:'0.75rem', color:'#adb5bd'}}>
-            Pembayaran diverifikasi otomatis oleh sistem
-          </div>
         </div>
 
       </div>
