@@ -2,87 +2,101 @@ import UnitHero from '../../../components/UnitHero';
 import AboutSection from '../../../components/AboutSection';
 import VideoSection from '../../../components/VideoSection';
 import VisiMisiSection from '../../../components/VisiMisiSection';
+import TujuanSection from '../../../components/TujuanSection'; // <-- Import Baru
 import EkstrakurikulerSection from '../../../components/EkstrakurikulerSection';
 import GaleriSection from '../../../components/GaleriSection';
-import styles from '../../../styles/GaleriSection.module.css'; // Untuk layout galeri
+import styles from '../../../styles/GaleriSection.module.css';
 
-// --- SAYA SIAPKAN CONTOH KONTEN UNTUK LPQ ---
-// (Nanti kamu ganti ini dengan konten asli)
+// --- DATA KONTEN LPQ ---
 
-// 1. Data Hero
+// 1. Hero
 const lpqHeroData = {
   schoolName: 'LPQ AL MUBARAK',
-  tagline: 'MENCETAK GENERASI CINTA AL-QURAN',
+  tagline: 'MEMBENTUK GENERASI QUR\'ANI',
   images: [
     { src: '/images/lpq-hero-1.jpg', alt: 'Santri LPQ Mengaji' },
-    { src: '/images/lpq-hero-2.jpg', alt: 'Wisuda Tahfizh LPQ' },
+    { src: '/images/lpq-hero-2.jpg', alt: 'Suasana Belajar LPQ' },
   ],
   registerLink: '/pendaftaran',
 };
 
-// 2. Data "Tentang Kami"
+// 2. Tentang Kami (Sejarah & Profil)
 const lpqAboutData = {
-  subtitle: 'LPQ Al Mubarak',
-  title: 'Tentang Lembaga',
-  summaryText: 'Lembaga Pendidikan Al-Quran (LPQ) Al Mubarak adalah program yang difokuskan untuk memberantas buta huruf Al-Quran dan mencetak generasi yang fasih membaca, menghafal, dan mengamalkan Al-Quran.',
-  fullText: `Lembaga Pendidikan Al-Quran (LPQ) Al Mubarak adalah program yang difokuskan untuk memberantas buta huruf Al-Quran dan mencetak generasi yang fasih membaca, menghafal, dan mengamalkan Al-Quran.
-  
-Kami menerima santri dari berbagai usia, mulai dari anak-anak hingga dewasa, dengan metode pengajaran yang mudah, cepat, dan menyenangkan.
-  
-Program kami meliputi Tahsin, Tahfizh, dan Tadabbur Al-Quran yang dibimbing langsung oleh asatidz dan asatidzah yang kompeten di bidangnya.`,
+  subtitle: 'Profil Lembaga',
+  title: 'Sejarah & Transformasi',
+  summaryText: 'LPQ Al Mubarak adalah wajah baru dari TPA Al Mubarak yang kini hadir kembali dengan semangat revitalisasi untuk memberantas buta huruf Al-Quran bagi segala usia.',
+  fullText: `LPQ Al Mubarak berlokasi strategis di Jl. Pramuka Sari III No.24, Rawasari, Jakarta Pusat. Lembaga ini merupakan transformasi dari TPA Al Mubarak yang telah berdiri sejak tahun 2000-an.
+
+Setelah sempat vakum saat pandemi Covid-19, kami bangkit kembali dengan nama baru: Lembaga Pendidikan Qur'an (LPQ) Al Mubarak, yang diresmikan pada Senin, 29 Juli 2024.
+
+Berbeda dengan sebelumnya, kini kami membuka kesempatan belajar Al-Quran untuk semua jenjang umur, dengan target pembukaan kelas dari pagi hingga malam hari, demi memfasilitasi kebutuhan umat akan ilmu Al-Quran.`,
   imageSrc: '/images/lpq-about.jpg',
   imageAlt: 'Kegiatan Belajar Mengajar LPQ Al Mubarak',
 };
 
-// 3. Data Sambutan (bisa Kepala LPQ atau Ketua Yayasan)
+// 3. Tujuan (Section Baru)
+const lpqTujuanData = {
+  title: 'TUJUAN KAMI',
+  items: [
+    'Menguatkan keimanan dan ketaqwaan kepada Allah SWT dengan pemahaman yang benar.',
+    'Memberikan pengetahuan teori dan praktek yang benar tentang tata-cara beribadah.',
+    'Menanamkan dan membiasakan perilaku/akhlak yang sesuai dengan tuntunan Islam.',
+    'Mendidik dan melatih membaca Al-Qur’an dengan baik sesuai kaidah ilmu tajwid.',
+  ]
+};
+
+// 4. Sambutan
 const lpqVideoData = {
   subtitle: 'LPQ Al Mubarak',
   title: 'Sambutan Pimpinan',
   principalImage: '/images/pimpinan-lpq.png',
-  vimeoUrl: 'https://player.vimeo.com/video/YOUR_VIMEO_ID_LPQ', // <-- GANTI DENGAN ID VIDEO VIMEO LPQ
+  vimeoUrl: 'https://player.vimeo.com/video/YOUR_VIMEO_ID_LPQ',
 };
 
-// 4. Data Visi Misi (Kita pakai Visi Misi Yayasan yang sudah ada)
+// 5. Visi Misi
 const lpqVisiData = {
-  title: 'VISI YAYASAN',
-  text: 'Menjadi pusat peradaban Islam yang unggul, melahirkan generasi pemimpin Rabbani yang berkontribusi positif bagi umat dan bangsa.',
+  title: 'VISI LEMBAGA',
+  text: '"Membentuk Generasi Qur\'ani yang pandai dalam membaca, menulis, menghafal, memahami dan mengamalkan Al-Qur\'an."',
   image: {
-    src: '/images/siswi-sdit.png', // Pakai gambar yang sudah ada
-    alt: 'Visi Yayasan',
+    src: '/images/siswi-sdit.png',
+    alt: 'Visi LPQ',
   },
 };
 
 const lpqMisiData = {
-  title: 'MISI YAYASAN',
+  title: 'MISI LEMBAGA',
   items: [
-    'Menyelenggarakan pendidikan berkualitas yang mengintegrasikan ilmu, iman, dan akhlak.',
-    'Mengembangkan program sosial dan dakwah yang memberdayakan masyarakat.',
-    'Membangun kemitraan strategis untuk memperluas jangkauan manfaat yayasan.',
-    'Mengelola aset wakaf secara profesional, amanah, dan produktif.',
+    'Menanamkan rasa cinta kepada Allah SWT, Rasulullah SAW dan Al-Qur\'an.',
+    'Menanamkan dasar-dasar aqidah Islamiyyah yang benar.',
+    'Menanamkan dasar-dasar akhlak mulia kepada para santri.',
+    'Menjadikan santri pandai membaca Al-Qur\'an dengan baik dan benar.',
+    'Menjadikan santri pandai menulis Al-Qur\'an dengan rapi dan benar.',
+    'Membimbing santri menghafal Al-Qur\'an (Target 30 Juz).',
+    'Mengajarkan pemahaman isi kandungan Al-Qur\'an.',
+    'Mendorong pengamalan nilai-nilai Al-Qur\'an dalam kehidupan sehari-hari.',
   ],
   image: {
-    src: '/images/siswa-sdit.png', // Pakai gambar yang sudah ada
-    alt: 'Misi Yayasan',
+    src: '/images/siswa-sdit.png',
+    alt: 'Misi LPQ',
   },
 };
 
-// 5. Data Kegiatan Pendukung (Ekskul)
+// 6. Ekskul
 const lpqEkskulData = [
-  { name: 'Kaligrafi', icon: '/icons/ekskul/kaligrafi.svg' },
-  { name: 'Hadrah', icon: '/icons/ekskul/hadrah.svg' },
-  { name: 'Qiroah', icon: '/icons/ekskul/qiroah.svg' },
-  // ... (tambahkan kegiatan lain jika ada)
+  { name: 'Tahsin', icon: '/icons/ekskul/kaligrafi.svg' },
+  { name: 'Tahfizh', icon: '/icons/ekskul/qiroah.svg' },
+  { name: 'Tilawah', icon: '/icons/ekskul/hadrah.svg' },
 ];
 
-// 6. Data Galeri
+// 7. Galeri
 const lpqGalleryData = {
   subtitle: 'Galeri LPQ',
   title: 'Momen Kegiatan Santri',
-  description: 'Dokumentasi kegiatan belajar dan wisuda tahfizh.',
+  description: 'Dokumentasi kegiatan belajar mengajar dan kebersamaan di LPQ Al Mubarak.',
   images: [
-    { src: '/images/galeri-lpq/foto-1.jpg', alt: 'Wisuda Tahfizh', span: styles.span_2x2 },
-    { src: '/images/galeri-lpq/foto-2.jpg', alt: 'Belajar Mengaji', span: '' },
-    { src: '/images/galeri-lpq/foto-3.jpg', alt: 'Belajar Kaligrafi', span: '' },
+    { src: '/images/galeri-lpq/foto-1.jpg', alt: 'Suasana Kelas', span: styles.span_2x2 },
+    { src: '/images/galeri-lpq/foto-2.jpg', alt: 'Setoran Hafalan', span: '' },
+    { src: '/images/galeri-lpq/foto-3.jpg', alt: 'Kegiatan Bersama', span: '' },
   ],
 };
 
@@ -91,11 +105,13 @@ export default function LpqPage() {
     <>
       <UnitHero {...lpqHeroData} />
       <AboutSection {...lpqAboutData} />
+      {/* Masukkan Section Tujuan Di Sini */}
+      <TujuanSection title={lpqTujuanData.title} items={lpqTujuanData.items} />
       <VideoSection {...lpqVideoData} />
       <VisiMisiSection visiData={lpqVisiData} misiData={lpqMisiData} />
       <EkstrakurikulerSection 
-        subtitle="LPQ Al Mubarak"
-        title="Kegiatan Pendukung"
+        subtitle="Program & Kegiatan"
+        title="Fokus Pembelajaran"
         data={lpqEkskulData}
       />
       <GaleriSection {...lpqGalleryData} />

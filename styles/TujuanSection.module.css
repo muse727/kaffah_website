@@ -1,0 +1,217 @@
+/* styles/TujuanSection.module.css */
+.section {
+  padding: 100px 0;
+  background: linear-gradient(135deg, #f8fcf8 0%, #f0f9f6 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #107163, #1a9a85);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.title {
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: #1a1a1a;
+  margin-bottom: 15px;
+  background: linear-gradient(90deg, #107163, #1a9a85);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.subtitle {
+  color: #6b7280;
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 20px auto 0;
+  line-height: 1.6;
+}
+
+.underline {
+  width: 120px;
+  height: 4px;
+  background: linear-gradient(90deg, #107163, #1a9a85);
+  margin: 0 auto;
+  border-radius: 2px;
+  position: relative;
+}
+
+.underline::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60%;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 30px;
+}
+
+/* Tablet */
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .title {
+    font-size: 3rem;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 35px;
+  }
+}
+
+.card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 
+    0 4px 20px rgba(16, 113, 99, 0.05),
+    0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(16, 113, 99, 0.1);
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #107163, #1a9a85);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  border-color: rgba(16, 113, 99, 0.2);
+  box-shadow: 
+    0 12px 32px rgba(16, 113, 99, 0.12),
+    0 4px 8px rgba(0, 0, 0, 0.06);
+}
+
+.card:hover::before {
+  transform: scaleX(1);
+}
+
+.cardContent {
+  padding: 35px 25px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.numberContainer {
+  margin-bottom: 25px;
+  position: relative;
+}
+
+.number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #107163, #1a9a85);
+  color: white;
+  font-size: 1.6rem;
+  font-weight: 800;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  box-shadow: 
+    0 4px 15px rgba(16, 113, 99, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.card:hover .number {
+  transform: scale(1.1);
+  box-shadow: 
+    0 6px 20px rgba(16, 113, 99, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.number::after {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  border-radius: 50%;
+  border: 2px solid rgba(16, 113, 99, 0.1);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.2);
+    opacity: 0;
+  }
+}
+
+.text {
+  color: #374151;
+  line-height: 1.8;
+  font-size: 1.05rem;
+  text-align: center;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Animation for cards on load */
+.card {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Stagger animation for cards */
+.card:nth-child(1) { animation-delay: 0.1s; }
+.card:nth-child(2) { animation-delay: 0.2s; }
+.card:nth-child(3) { animation-delay: 0.3s; }
+.card:nth-child(4) { animation-delay: 0.4s; }
+.card:nth-child(5) { animation-delay: 0.5s; }
+.card:nth-child(6) { animation-delay: 0.6s; }
+.card:nth-child(7) { animation-delay: 0.7s; }
+.card:nth-child(8) { animation-delay: 0.8s; }
