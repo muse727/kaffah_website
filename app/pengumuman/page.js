@@ -72,7 +72,7 @@ export default function PengumumanPage() {
         <div className="text-center mb-8">
           <span className={styles.badge}>PORTAL RESMI 2026</span>
           <h1 className={styles.mainTitle}>Wisuda Tahfizh Al-Qur'an</h1>
-          <p className={styles.subTitle}>Yayasan Al-Mubarak</p>
+          <p className={styles.subTitle}>SIT Al Mubarak</p>
         </div>
         
         {/* Search Box */}
