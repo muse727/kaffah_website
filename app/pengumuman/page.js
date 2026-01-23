@@ -3,19 +3,21 @@
 import { useState } from 'react';
 import styles from './Pengumuman.module.css';
 import confetti from 'canvas-confetti';
-import { FiSearch, FiDownload, FiCheckCircle } from 'react-icons/fi';
+import { FiSearch, FiDownload, FiCheckCircle, FiInfo } from 'react-icons/fi';
 
 export default function PengumumanPage() {
   const [inputNama, setInputNama] = useState('');
   const [hasil, setHasil] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  // --- FUNGSI CARI ---
   const handleCekKelulusan = async (e) => {
     e.preventDefault();
     setLoading(true);
     setHasil(null);
 
     try {
+      // Pastikan API ini benar sesuai yang lu buat
       const response = await fetch('/api/cek-kelulusan', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -28,11 +30,14 @@ export default function PengumumanPage() {
         setHasil({ status: 'NOT_FOUND' });
       } else {
         setHasil(data);
-        tampilkanConfetti();
+        // LOGIKA BARU: Cuma LULUS yang dapet Confetti
+        if (data.status === 'LULUS') {
+            tampilkanConfetti();
+        }
       }
     } catch (error) {
       console.error(error);
-      alert("Error sistem.");
+      alert("Terjadi kesalahan sistem, silakan coba lagi.");
     } finally {
       setLoading(false);
     }
@@ -89,42 +94,74 @@ export default function PengumumanPage() {
             />
           </div>
           <button type="submit" className={styles.button} disabled={loading}>
-            {loading ? 'Mencari...' : 'Cek Status'}
+            {loading ? 'Mencari Data...' : 'Cek Status'}
           </button>
         </form>
 
         {hasil && (
           <div className={styles.resultContainer}>
+            
+            {/* KASUS 1: DATA TIDAK DITEMUKAN */}
             {hasil.status === 'NOT_FOUND' ? (
               <div className={styles.notFoundCard}>
                 ❌ Mohon maaf, data santri tidak ditemukan.
               </div>
             ) : (
-              <div className={styles.successCard}>
+              
+              // KASUS 2 & 3: DATA KETEMU (LULUS ATAU BELUM)
+              // Kita cek statusnya buat nentuin warna kartu
+              <div className={hasil.status === 'LULUS' ? styles.successCard : styles.pendingCard}>
+                
                 <div className={styles.cardHeader}>
-                  <h2 className={styles.congratsTitle}>Barakallah Fiikum!</h2>
+                  <h2 className={hasil.status === 'LULUS' ? styles.congratsTitle : styles.spiritTitle}>
+                    {hasil.status === 'LULUS' ? "BARAKALLAH FIIKUM!" : "TETAP SEMANGAT!"}
+                  </h2>
+                  
                   <p className={styles.santriName}>{hasil.nama}</p>
-                  <div className={styles.verifiedBadge}>
-                     <FiCheckCircle /> Terverifikasi Lulus
+                  
+                  {/* Badge Status */}
+                  <div className={hasil.status === 'LULUS' ? styles.verifiedBadge : styles.pendingBadge}>
+                     {hasil.status === 'LULUS' ? <FiCheckCircle /> : <FiInfo />} 
+                     {hasil.status === 'LULUS' ? "Terverifikasi Lulus" : "Belum Lulus"}
                   </div>
                 </div>
-                
-                {/* Frame Emas buat Poster */}
-                <div className={styles.posterFrame}>
-                  {hasil.posterUrl ? (
-                    <img src={hasil.posterUrl} alt="Poster Kelulusan" className={styles.posterImage} />
-                  ) : (
-                    <div className="p-10 bg-gray-100 text-gray-500">Poster belum tersedia.</div>
-                  )}
-                </div>
 
-                <div className={styles.quoteBox}>
-                  "Sebaik-baik kalian adalah yang mempelajari Al-Qur'an dan mengajarkannya."
-                </div>
+                {/* --- LOGIKA TAMPILAN KONTEN --- */}
+                {hasil.status === 'LULUS' ? (
+                    /* KONTEN JIKA LULUS */
+                    <>
+                        <div className={styles.posterFrame}>
+                          {hasil.posterUrl ? (
+                            <img src={hasil.posterUrl} alt="Poster Kelulusan" className={styles.posterImage} />
+                          ) : (
+                            <div className="p-10 bg-gray-100 text-gray-500 italic">Poster sedang dalam proses upload oleh admin.</div>
+                          )}
+                        </div>
 
-                <button onClick={handleDownload} className={styles.downloadBtn}>
-                  <FiDownload className="mr-2" /> Download Poster Digital
-                </button>
+                        <div className={styles.quoteBox}>
+                          "Sebaik-baik kalian adalah yang mempelajari Al-Qur'an dan mengajarkannya."
+                        </div>
+
+                        {hasil.posterUrl && (
+                            <button onClick={handleDownload} className={styles.downloadBtn}>
+                            <FiDownload className="mr-2" /> Download Poster Digital
+                            </button>
+                        )}
+                    </>
+                ) : (
+                    /* KONTEN JIKA BELUM LULUS (GAK ADA POSTER) */
+                    <>
+                        <div className={styles.messageBox}>
+                            <p className={styles.messageText}>
+                                "{hasil.pesan || "Kegagalan bukanlah akhir. Ini adalah teguran sayang dari Allah agar kamu lebih dekat lagi dengan Al-Qur'an. Teruslah murajaah!"}"
+                            </p>
+                        </div>
+                        <div className={styles.quoteBox} style={{marginTop: '1rem'}}>
+                          Insya Allah kesempatan masih terbuka lebar di wisuda berikutnya.
+                        </div>
+                    </>
+                )}
+
               </div>
             )}
           </div>
