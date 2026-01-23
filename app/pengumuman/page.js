@@ -1,196 +1,135 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from 'react';
-import styles from '../../styles/Pengumuman.module.css';
-import PageWrapper from '../../components/PageWrapper';
-import Confetti from 'react-confetti'; // Import ini bro
-
-// --- DATA LOKAL SISWA ---
-const DATA_SISWA = [
-  { no: "001", nama: "Ahmad Zaki", unit: "SMPIT", asal: "SDIT Al Hidayah", status: "LULUS" },
-  { no: "002", nama: "Adiba Claretta Jasmine", unit: "SMPIT", asal: "SDIT Kaffah Islamic School", status: "LULUS" },
-  { no: "003", nama: "Alfi Zahrin Qurrotul'aini", unit: "SMPIT", asal: "SDIT Al Mubarak", status: "LULUS" },
-  { no: "004", nama: "Abiyan Arka Qurrachman", unit: "SMPIT", asal: "SDIT Al Mubarak", status: "LULUS" },
-  { no: "005", nama: "Khansa Sabina Arosyidin", unit: "SMPIT", asal: "SDN Sumur Batu 01 Pagi", status: "LULUS" },
-  { no: "006", nama: "Aurelia Khansa Azzahra", unit: "SMPIT", asal: "SDN Cempaka Putih Barat 07", status: "LULUS" },
-  { no: "007", nama: "Gaza Haidar Althaf Agustian", unit: "SMPIT", asal: "SDIT Al Mubarak", status: "LULUS" },
-  { no: "008", nama: "Khaylila Sidqia Adran", unit: "SMPIT", asal: "SDIT Al Mubarak", status: "LULUS" },
-  { no: "009", nama: " Jihan Ramadhani Herdiansyah", unit: "SMPIT", asal: "SDIT Al Mubarak", status: "LULUS" },
-  
-
-
-
-];
+import { useState } from 'react';
+import styles from './Pengumuman.module.css';
+import confetti from 'canvas-confetti';
+import { FiSearch, FiDownload, FiCheckCircle } from 'react-icons/fi';
 
 export default function PengumumanPage() {
-  const [search, setSearch] = useState('');
-  const [result, setResult] = useState(null);
-  const [hasSearched, setHasSearched] = useState(false);
+  const [inputNama, setInputNama] = useState('');
+  const [hasil, setHasil] = useState(null);
   const [loading, setLoading] = useState(false);
-  
-  // State untuk ukuran layar (biar confetti pas)
-  const [windowDimension, setWindowDimension] = useState({ width: 0, height: 0 });
 
-  // Ambil ukuran layar saat pertama kali load
-  useEffect(() => {
-    setWindowDimension({
-      width: window.innerWidth,
-      height: window.innerHeight
-    });
-  }, []);
-
-  const handleSearch = (e) => {
+  const handleCekKelulusan = async (e) => {
     e.preventDefault();
-    if (!search.trim()) return;
-
     setLoading(true);
-    setResult(null);
-    setHasSearched(false);
+    setHasil(null);
 
-    setTimeout(() => {
-      const found = DATA_SISWA.find(siswa => 
-        siswa.no === search.trim() || 
-        siswa.nama.toLowerCase().includes(search.toLowerCase())
-      );
-      
-      setResult(found || null);
-      setHasSearched(true);
+    try {
+      const response = await fetch('/api/cek-kelulusan', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nama: inputNama }),
+      });
+
+      const data = await response.json();
+
+      if (data.status === 'NOT_FOUND') {
+        setHasil({ status: 'NOT_FOUND' });
+      } else {
+        setHasil(data);
+        tampilkanConfetti();
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Error sistem.");
+    } finally {
       setLoading(false);
-    }, 800);
+    }
+  };
+
+  const tampilkanConfetti = () => {
+    var duration = 3 * 1000;
+    var animationEnd = Date.now() + duration;
+    var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+    var interval = setInterval(function() {
+      var timeLeft = animationEnd - Date.now();
+      if (timeLeft <= 0) { return clearInterval(interval); }
+      var particleCount = 50 * (timeLeft / duration);
+      confetti({ ...defaults, particleCount, origin: { x: Math.random(), y: Math.random() - 0.2 }, colors: ['#FFD700', '#006400', '#FFFFFF'] });
+    }, 250);
+  };
+
+  const handleDownload = () => {
+    if (!hasil?.posterUrl) return;
+    const link = document.createElement('a');
+    link.href = hasil.posterUrl;
+    link.download = `Poster-Wisuda-${hasil.nama}.jpg`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   return (
-    <PageWrapper>
-      {/* CONFETTI HANYA MUNCUL KALAU LULUS */}
-      {result && result.status === 'LULUS' && (
-        <div className={styles.confettiWrapper}>
-          <Confetti 
-            width={windowDimension.width} 
-            height={windowDimension.height} 
-            recycle={false} // Confetti berhenti setelah beberapa detik (biar gak berat)
-            numberOfPieces={500} // Jumlah kertasnya
-            gravity={0.2}
-          />
-        </div>
-      )}
+    <div className={styles.container}>
+      {/* Background Ornament Pattern */}
+      <div className={styles.patternOverlay}></div>
 
-      <div className={styles.container}>
+      <div className={styles.contentWrapper}>
         
-        <div className={styles.titleSection}>
-          <h1>Pengumuman Kelulusan</h1>
-          <p>Masukkan Nomor Peserta atau Nama Lengkap untuk melihat hasil s
-eleksi.</p>
+        {/* Header Premium */}
+        <div className="text-center mb-8">
+          <span className={styles.badge}>PORTAL RESMI 2026</span>
+          <h1 className={styles.mainTitle}>Wisuda Tahfizh Al-Qur'an</h1>
+          <p className={styles.subTitle}>Yayasan Al-Mubarak</p>
         </div>
-
-        {/* Input Pencarian */}
-        <div className={styles.searchBox}>
-          <form onSubmit={handleSearch} className={styles.inputGroup}>
-            <input 
-              type="text" 
-              placeholder="Contoh: 24001 atau Ahmad" 
+        
+        {/* Search Box */}
+        <form onSubmit={handleCekKelulusan} className={styles.searchBox}>
+          <div className={styles.inputWrapper}>
+            <FiSearch className={styles.searchIcon} />
+            <input
+              type="text"
+              placeholder="Masukkan Nama Lengkap Santri..."
+              value={inputNama}
+              onChange={(e) => setInputNama(e.target.value)}
               className={styles.input}
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              required
             />
-            <button type="submit" className={styles.button} disabled={loading}>
-              {loading ? 'Memeriksa Data...' : 'Cek Kelulusan'}
-            </button>
-          </form>
-        </div>
+          </div>
+          <button type="submit" className={styles.button} disabled={loading}>
+            {loading ? 'Mencari...' : 'Cek Status'}
+          </button>
+        </form>
 
-        {/* --- TAMPILAN HASIL --- */}
-        {result && (
-          <div className={styles.resultCard}>
-            
-            {/* Header Status */}
-            <div className={`${styles.cardHeader} ${result.status === 'LULUS' ? styles.lulus : styles.tidakLulus}`}>
-              <h2 className={styles.statusText}>
-                {result.status === 'LULUS' ? 'LULUS' : 'MOHON MAAF'}
-              </h2>
-            </div>
-            
-            <div className={styles.cardBody}>
-              {/* Data Siswa */}
-              <h3 className={styles.studentName}>{result.nama}</h3>
-              <span className={styles.studentId}>No. Peserta: {result.no}</span>
-              
-              <table className={styles.detailTable}>
-                <tbody>
-                  <tr><td>Unit Tujuan</td><td>: <strong>{result.unit}</strong></td></tr>
-                  <tr><td>Asal Sekolah</td><td>: {result.asal}</td></tr>
-                </tbody>
-              </table>
-
-              {/* --- SURAT KEPUTUSAN (Hanya Muncul Jika Lulus) --- */}
-              {result.status === 'LULUS' && (
-                <div className={styles.announcementBox}>
-                  <span className={styles.bismillah}>Bismillahirrahmaanirrahiim</span>
-                  
-                  {/* Animasi Shimmer di sini */}
-                  <h3 className={styles.shimmerText}>✨✨ SELAMAT ✨✨</h3>
-                  
-                  <p>
-                    Ananda dinyatakan <strong>LULUS</strong> tes observasi dan diterima menjadi siswa 
-                    <strong> {result.unit} Al Mubarak</strong> Tahun Pelajaran 2026/2027.
-                  </p>
-
-                  <p>
-                    Selanjutnya Ayah/Bunda beserta Ananda wajib melakukan <strong>lapor diri</strong> pada:
-                    <br />
-                    📅 <strong>Hari:</strong> Rabu - Jum'at (17-19 Desember 2025)
-                    <br />
-                    ⏰ <strong>Jam:</strong> 08.00 - 15.00 WIB
-                    <br />
-                    📍 <strong>Lokasi:</strong> Kantor SMPIT Al Mubarak Lantai III
-                  </p>
-
-                  <p>
-                    <strong>Catatan Penting:</strong>
-                    <br/>
-                    1. Saat melapor diri, ada <strong>Pakta Integritas</strong> yang harus ditandatangani Ayah/Bunda.
-                    <br/>
-                    2. Mohon siapkan <strong>materai 10.000</strong> (jika tidak membawa, sekolah menyediakan dengan biaya Rp 12.000).
-                    <br/>
-                    3. Lembar Pakta Integritas akan dishare di grup WA.
-                    <br/>
-                    4. Setelah tanda tangan Pakta Integritas, siswa langsung melakukan <strong>pengukuran seragam</strong>.
-                  </p>
-
-                  <p className={styles.warningText}>
-                    ⚠️ Jika tidak melakukan lapor diri pada waktu yang telah ditentukan tanpa konfirmasi ke panitia, maka dinyatakan MENGUNDURKAN DIRI.
-                  </p>
-
-                  <p>
-                    Demikian informasi ini disampaikan. Atas perhatian dan kerjasamanya diucapkan terima kasih. 
-                    <br/><em>Jazaakallah khair.</em>
-                  </p>
-
-                  <div className={styles.signature}>
-                    Tertanda,<br/>
-                    Panitia SPMB
+        {hasil && (
+          <div className={styles.resultContainer}>
+            {hasil.status === 'NOT_FOUND' ? (
+              <div className={styles.notFoundCard}>
+                ❌ Mohon maaf, data santri tidak ditemukan.
+              </div>
+            ) : (
+              <div className={styles.successCard}>
+                <div className={styles.cardHeader}>
+                  <h2 className={styles.congratsTitle}>Barakallah Fiikum!</h2>
+                  <p className={styles.santriName}>{hasil.nama}</p>
+                  <div className={styles.verifiedBadge}>
+                     <FiCheckCircle /> Terverifikasi Lulus
                   </div>
                 </div>
-              )}
-
-              {/* Pesan Jika Tidak Lulus */}
-              {result.status !== 'LULUS' && (
-                <div style={{marginTop: '2rem', color: '#666'}}>
-                  <p>Tetap semangat! Masih banyak jalan menuju kesuksesan.</p>
+                
+                {/* Frame Emas buat Poster */}
+                <div className={styles.posterFrame}>
+                  {hasil.posterUrl ? (
+                    <img src={hasil.posterUrl} alt="Poster Kelulusan" className={styles.posterImage} />
+                  ) : (
+                    <div className="p-10 bg-gray-100 text-gray-500">Poster belum tersedia.</div>
+                  )}
                 </div>
-              )}
 
-            </div>
+                <div className={styles.quoteBox}>
+                  "Sebaik-baik kalian adalah yang mempelajari Al-Qur'an dan mengajarkannya."
+                </div>
+
+                <button onClick={handleDownload} className={styles.downloadBtn}>
+                  <FiDownload className="mr-2" /> Download Poster Digital
+                </button>
+              </div>
+            )}
           </div>
         )}
-
-        {/* Not Found */}
-        {hasSearched && !result && !loading && (
-          <div className={styles.notFound}>
-            Data tidak ditemukan. Mohon periksa kembali Nomor Peserta atau Nama.
-          </div>
-        )}
-
       </div>
-    </PageWrapper>
+    </div>
   );
 }

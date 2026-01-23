@@ -1,0 +1,344 @@
+.container {
+  min-height: 100vh;
+  background-color: #f3f4f6;
+  display: flex;
+  justify-content: center;
+  /* JARAK AMAN DARI NAVBAR */
+  padding-top: 140px; 
+  padding-bottom: 4rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.card {
+  background: white;
+  width: 100%;
+  max-width: 700px;
+  border-radius: 1.5rem;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+}
+
+/* HEADER MEWAH */
+.header {
+  background: #107163; /* Ijo SIT */
+  padding: 2.5rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.header::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-image: url('https://www.transparenttextures.com/patterns/arabesque.png');
+  opacity: 0.1;
+  pointer-events: none;
+}
+
+.title {
+  font-size: 1.8rem;
+  color: #ffffff;
+  font-weight: 800;
+  font-family: 'Times New Roman', serif;
+  margin-bottom: 0.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.subtitle {
+  color: #a7f3d0;
+  font-size: 0.95rem;
+  position: relative;
+  z-index: 2;
+}
+
+.formBody {
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* STATUS TOGGLE (KARTU BESAR) */
+.statusContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.statusCard {
+  border: 2px solid #e5e7eb;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background: white;
+}
+
+.statusCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+}
+
+.activeLulus {
+  border-color: #107163;
+  background-color: #f0fdf4;
+  color: #107163;
+  box-shadow: 0 4px 12px rgba(16, 113, 99, 0.2);
+}
+
+.activeBelum {
+  border-color: #f59e0b;
+  background-color: #fffbeb;
+  color: #b45309;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.2);
+}
+
+.statusIcon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.statusText {
+  font-weight: 800;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* INPUT FORM */
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.label {
+  font-weight: 700;
+  color: #374151;
+  font-size: 0.95rem;
+}
+
+.input, .select, .textarea {
+  padding: 1rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 0.8rem;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.2s;
+  background: #f9fafb;
+  width: 100%;
+}
+
+.input:focus, .select:focus, .textarea:focus {
+  border-color: #107163;
+  background: white;
+  box-shadow: 0 0 0 4px rgba(16, 113, 99, 0.1);
+}
+
+/* UPLOAD BOX */
+.uploadBox {
+  border: 2px dashed #d1d5db;
+  border-radius: 1rem;
+  padding: 2.5rem;
+  cursor: pointer;
+  background: #f9fafb;
+  transition: all 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.uploadBox:hover {
+  border-color: #107163;
+  background: #f0fdf4;
+}
+
+.previewImage {
+  height: 150px;
+  border-radius: 0.8rem;
+  object-fit: cover;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  margin-bottom: 1rem;
+}
+
+/* TOMBOL SIMPAN */
+.submitBtn {
+  margin-top: 1rem;
+  background: linear-gradient(to right, #107163, #0d5e52);
+  color: white;
+  font-weight: bold;
+  font-size: 1.1rem;
+  padding: 1.2rem;
+  border-radius: 1rem;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s;
+  box-shadow: 0 10px 20px -5px rgba(16, 113, 99, 0.4);
+}
+
+.submitBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 30px -5px rgba(16, 113, 99, 0.5);
+}
+
+.submitBtn:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.backLink {
+  text-align: center;
+  color: #6b7280;
+  font-size: 0.9rem;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  font-weight: 600;
+}
+
+.backLink:hover {
+  color: #107163;
+}
+
+/* --- TABEL HISTORY BARU (GANTENG) --- */
+.historySection {
+  background: #f8fafc;
+  border-top: 2px dashed #e2e8f0;
+  padding: 2rem;
+  margin-top: 1rem;
+}
+
+.historyHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.historyTitle {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #1e293b;
+}
+
+.refreshBtn {
+  background: white;
+  border: 1px solid #cbd5e1;
+  color: #475569;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s;
+  font-weight: 600;
+}
+
+.refreshBtn:hover {
+  border-color: #107163;
+  color: #107163;
+  background: #f0fdf4;
+}
+
+.tableContainer {
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+}
+
+.customTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.customTable th {
+  background: #f1f5f9;
+  color: #475569;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  padding: 1rem 1.5rem;
+  text-align: left;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.customTable td {
+  padding: 1rem 1.5rem;
+  color: #334155;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.customTable tr:last-child td {
+  border-bottom: none;
+}
+
+.customTable tr:hover {
+  background-color: #f8fafc;
+}
+
+.badgeLulus {
+  background: #dcfce7;
+  color: #166534;
+  padding: 0.3rem 0.8rem;
+  border-radius: 99px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  display: inline-block;
+}
+
+.badgeBelum {
+  background: #ffedd5;
+  color: #9a3412;
+  padding: 0.3rem 0.8rem;
+  border-radius: 99px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  display: inline-block;
+}
+
+.linkLihat {
+  color: #2563eb;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+
+.linkLihat:hover {
+  text-decoration: underline;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 3rem;
+  color: #94a3b8;
+  font-style: italic;
+}
+
+@media (max-width: 640px) {
+  .statusContainer {
+    grid-template-columns: 1fr;
+  }
+}

@@ -25,3 +25,14 @@ model Admin {
   username String @unique
   password String // Ini nanti isinya hash (acak), bukan text biasa
 }
+
+model HasilUjian {
+  id        Int      @id @default(autoincrement())
+  nama      String
+  juz       String?  // Ganti jadi String? (Optional) biar kalau Belum Lulus ga error
+  predikat  String?  // Ganti jadi String? (Optional)
+  status    String   @default("LULUS")
+  posterUrl String?
+  pesan     String?  // <--- TAMBAHIN INI BRO
+  createdAt DateTime @default(now())
+}
