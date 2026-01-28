@@ -104,6 +104,29 @@ export default function InputTahfizhPage() {
     }
   };
 
+  const handleDelete = async (id, nama) => {
+    // Konfirmasi dulu biar gak salah hapus
+    if (!confirm(`Yakin ingin menghapus data "${nama}"?`)) return;
+
+    try {
+      const res = await fetch('/api/admin/delete-santri', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id }),
+      });
+
+      if (res.ok) {
+        alert("✅ Data berhasil dihapus!");
+        fetchHistory(); // Refresh tabel otomatis
+      } else {
+        alert("❌ Gagal menghapus data.");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Terjadi kesalahan.");
+    }
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.card}>
@@ -231,18 +254,20 @@ export default function InputTahfizhPage() {
             </div>
             
             <div className={styles.tableContainer}>
-                <table className={styles.customTable}>
+               <table className={styles.customTable}>
                     <thead>
                         <tr>
                             <th>Nama Santri</th>
                             <th>Status Kelulusan</th>
                             <th style={{textAlign: 'center'}}>Poster</th>
+                            {/* KOLOM BARU */}
+                            <th style={{textAlign: 'center'}}>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         {historyData.length === 0 ? (
                             <tr>
-                                <td colSpan="3" className={styles.emptyState}>
+                                <td colSpan="4" className={styles.emptyState}>
                                   Belum ada data inputan hari ini.
                                 </td>
                             </tr>
@@ -265,6 +290,23 @@ export default function InputTahfizhPage() {
                                         ) : (
                                             <span style={{color:'#cbd5e1'}}>-</span>
                                         )}
+                                    </td>
+                                    {/* TOMBOL HAPUS (MERAH) */}
+                                    <td style={{textAlign: 'center'}}>
+                                        <button 
+                                          onClick={() => handleDelete(item.id, item.nama)}
+                                          style={{
+                                            background: '#ef4444', 
+                                            color: 'white', 
+                                            padding: '5px 10px', 
+                                            borderRadius: '5px', 
+                                            border: 'none',
+                                            cursor: 'pointer',
+                                            fontSize: '0.8rem'
+                                          }}
+                                        >
+                                          🗑️ Hapus
+                                        </button>
                                     </td>
                                 </tr>
                             ))
