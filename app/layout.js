@@ -1,14 +1,12 @@
+// app/layout.js
 import { Poppins, Roboto } from 'next/font/google';
 import '../styles/globals.css';
 import 'aos/dist/aos.css';
 import { AOSInit } from '../components/AOSInit';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
-import Chatbot from '../components/Chatbot';
-import WakafPopup from '../components/WakafPopup';
-import { AuthProvider } from './providers'; // Import sudah ada
+import { AuthProvider } from './providers'; 
+import ClientWrapper from '../components/ClientWrapper'; // 👈 Import Satpam kita
 
-// Konfigurasi Font ... (sama seperti sebelumnya)
+// Konfigurasi Font
 const poppins = Poppins({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
@@ -30,16 +28,14 @@ export default function RootLayout({ children }) {
   return (
     <html lang="id">
       <body className={`${poppins.variable} ${roboto.variable}`}>
-        {/* 👇 BUNGKUS SEMUANYA DENGAN AUTHPROVIDER DISINI 👇 */}
         <AuthProvider>
             <AOSInit />
-            <Navbar />
-            <WakafPopup />
-            {children}
-            <Footer />
-            <Chatbot />
+            {/* 👇 Serahkan urusan layouting ke Satpam kita 👇 */}
+            <ClientWrapper>
+              {children}
+            </ClientWrapper>
+            {/* 👆 Selesai 👆 */}
         </AuthProvider>
-        {/* 👆 TUTUP AUTHPROVIDER DISINI 👆 */}
       </body>
     </html>
   );

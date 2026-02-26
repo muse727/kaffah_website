@@ -1,8 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import ReCAPTCHA from "react-google-recaptcha"; // 👈 Import reCAPTCHA
 import styles from './login.module.css'; // Import CSS Module
 
 export default function LoginPage() {
@@ -11,21 +12,37 @@ export default function LoginPage() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  
+  // 👇 Referensi buat nangkep nilai kotak centang Google 👇
+  const recaptchaRef = useRef(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
     setLoading(true);
 
+    // 1. Cek dulu apakah centang robot udah diklik
+    const recaptchaValue = recaptchaRef.current?.getValue();
+    if (!recaptchaValue) {
+      setError('Tolong centang "I am not a robot" dulu bro!');
+      setLoading(false);
+      return;
+    }
+
+    // 2. Lempar data (termasuk token captcha) ke mesin NextAuth
     const res = await signIn('credentials', {
       username,
       password,
+      recaptchaToken: recaptchaValue, // 👈 Token rahasia dikirim ke satpam
       redirect: false,
     });
 
     if (res?.error) {
-      setError('Username atau Password salah bro!');
+      // Tampilkan error cerdas dari backend (misal: "Akun digembok 15 menit")
+      setError(res.error);
       setLoading(false);
+      // Reset centang recaptcha kalau gagal login biar bisa diklik lagi
+      recaptchaRef.current?.reset(); 
     } else {
       router.push('/admin-dashboard');
     }
@@ -68,6 +85,14 @@ export default function LoginPage() {
               className={styles.input}
               placeholder="••••••••"
               required
+            />
+          </div>
+
+          {/* 👇 KOTAK GOOGLE RECAPTCHA MUNCUL DI SINI 👇 */}
+          <div style={{ display: 'flex', justifyContent: 'center', marginTop: '0.5rem' }}>
+            <ReCAPTCHA
+              ref={recaptchaRef}
+              sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
             />
           </div>
 

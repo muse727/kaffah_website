@@ -2,7 +2,8 @@
 import { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import Swal from 'sweetalert2';
-import styles from '../../../../styles/Payment.module.css'; // Pastikan path ke styles/Payment.module.css benar
+import { MdAccountBalance, MdQrCodeScanner } from 'react-icons/md'; 
+import styles from '../../../../styles/Payment.module.css'; 
 
 export default function PaymentPage() {
   const params = useParams();
@@ -11,24 +12,20 @@ export default function PaymentPage() {
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [timeLeft, setTimeLeft] = useState("");
+  const [metodeBayar, setMetodeBayar] = useState('bank');
 
   // Fetch Data Invoice
   useEffect(() => {
-    if (!params.id) return; // Jangan fetch kalau ID belum ada
-
+    if (!params.id) return;
     const fetchData = async () => {
       try {
         const res = await fetch(`/api/wakaf/${params.id}`);
-        
-        // Cek dulu status response
         if (!res.ok) {
             console.error("Gagal fetch:", res.status, res.statusText);
             Swal.fire("Error", "Gagal memuat data transaksi", "error");
             return;
         }
-
         const json = await res.json();
-        
         if (json.success) {
             setData(json.data);
         } else {
@@ -39,10 +36,8 @@ export default function PaymentPage() {
         console.error("Network Error:", err);
       }
     };
-
     fetchData();
   }, [params.id, router]);
-
 
   // Logic Timer 24 Jam
   useEffect(() => {
@@ -65,6 +60,7 @@ export default function PaymentPage() {
     return () => clearInterval(interval);
   }, [data]);
 
+  // 👇 INI MESIN YANG TADI GUA POTONG (UDAH BALIK) 👇
   const handleUpload = async () => {
     if (!file) return Swal.fire({ icon:'warning', text: 'Pilih foto bukti transfer dulu ya kak' });
     setLoading(true);
@@ -77,7 +73,6 @@ export default function PaymentPage() {
       const json = await res.json();
       
       if (json.success) {
-        // --- UPDATE DI SINI: TAMPILAN DOA ---
         Swal.fire({
             icon: 'success', 
             title: 'Alhamdulillah, Jazakumullah Khairan!', 
@@ -99,9 +94,8 @@ export default function PaymentPage() {
             confirmButtonColor: '#1a5f51',
             allowOutsideClick: false
         }).then(() => {
-            router.push('/wakaf'); // Balik ke halaman utama setelah Aamiin
+            router.push('/wakaf'); 
         });
-        // ------------------------------------
 
       } else {
         Swal.fire('Gagal Upload', json.message, 'error');
@@ -143,25 +137,77 @@ export default function PaymentPage() {
             </div>
         </div>
 
-        {/* Bank Info */}
-        <div className={styles.bankSection}>
-            <div className={styles.bankLabel}>Silakan Transfer ke:</div>
-            <div className={styles.bankCard}>
-                <div>
-                    {/* Ganti src logo BSI jika perlu */}
-                    <span style={{fontWeight:'800', color:'#1a5f51', fontSize:'1.2rem', display:'block', marginBottom:'5px'}}>BSI</span>
-                    <div className={styles.bankNumber}>7253874184</div>
-                    <div className={styles.bankName}>A.n  Wakaf Pendidikan Yayasan Wakfiah Al Mubarak</div>
-                </div>
-                <button onClick={() => copyToClipboard('7253874184')} className={styles.copyBtn}>
-                    SALIN
-                </button>
-            </div>
+        {/* TAB PILIH METODE */}
+        <div style={{ display: 'flex', gap: '10px', margin: '20px 0', padding: '0 20px' }}>
+          <button 
+            onClick={() => setMetodeBayar('bank')}
+            style={{
+              flex: 1, padding: '12px', borderRadius: '10px', 
+              border: metodeBayar === 'bank' ? '2px solid #1a5f51' : '1px solid #e2e8f0',
+              background: metodeBayar === 'bank' ? '#f0fdf4' : 'white',
+              color: metodeBayar === 'bank' ? '#1a5f51' : '#64748b',
+              fontWeight: '600', cursor: 'pointer', transition: 'all 0.3s',
+              display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px'
+            }}
+          >
+            <MdAccountBalance size={22} /> Transfer Bank
+          </button>
+          <button 
+            onClick={() => setMetodeBayar('qris')}
+            style={{
+              flex: 1, padding: '12px', borderRadius: '10px', 
+              border: metodeBayar === 'qris' ? '2px solid #1a5f51' : '1px solid #e2e8f0',
+              background: metodeBayar === 'qris' ? '#f0fdf4' : 'white',
+              color: metodeBayar === 'qris' ? '#1a5f51' : '#64748b',
+              fontWeight: '600', cursor: 'pointer', transition: 'all 0.3s',
+              display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px'
+            }}
+          >
+            <MdQrCodeScanner size={22} /> Scan QRIS
+          </button>
         </div>
+
+        {/* KONTEN PEMBAYARAN */}
+        {metodeBayar === 'bank' ? (
+          <div className={styles.bankSection}>
+              <div className={styles.bankLabel}>Silakan Transfer ke:</div>
+              <div className={styles.bankCard}>
+                  <div>
+                      <span style={{fontWeight:'800', color:'#1a5f51', fontSize:'1.2rem', display:'block', marginBottom:'5px'}}>BSI</span>
+                      <div className={styles.bankNumber}>7253874184</div>
+                      <div className={styles.bankName}>A.n  Wakaf Pendidikan Yayasan Wakfiah Al Mubarak</div>
+                  </div>
+                  <button onClick={() => copyToClipboard('7253874184')} className={styles.copyBtn}>
+                      SALIN
+                  </button>
+              </div>
+          </div>
+        ) : (
+          <div className={styles.bankSection} style={{ textAlign: 'center' }}>
+              <div className={styles.bankLabel}>Scan QRIS di bawah ini:</div>
+              <p style={{ fontSize: '0.85rem', color: '#666', marginBottom: '15px' }}>Buka m-Banking atau e-Wallet Anda (Gopay, Dana, dll), lalu scan gambar ini.</p>
+              
+              <div style={{ 
+                background: 'white', 
+                padding: '15px', 
+                borderRadius: '15px', 
+                display: 'inline-block', 
+                border: '2px dashed #1a5f51',
+                width: '100%',
+                maxWidth: '340px' 
+              }}>
+                  <img 
+                    src="/qris-bsi.jpeg" 
+                    alt="QRIS Yayasan Al Mubarak" 
+                    style={{ width: '100%', height: 'auto', objectFit: 'contain', borderRadius: '8px' }} 
+                  />
+              </div>
+          </div>
+        )}
 
         {/* Upload Form */}
         <div className={styles.uploadSection}>
-            <label className={styles.uploadLabel}>Upload Bukti Transfer</label>
+            <label className={styles.uploadLabel}>Upload Bukti {metodeBayar === 'qris' ? 'Scan/Bayar' : 'Transfer'}</label>
             <input 
                 type="file" 
                 accept="image/*" 

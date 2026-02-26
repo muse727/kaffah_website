@@ -21,9 +21,19 @@ model Wakaf {
 }
 
 model Admin {
-  id       Int    @id @default(autoincrement())
-  username String @unique
-  password String // Ini nanti isinya hash (acak), bukan text biasa
+  id            Int       @id @default(autoincrement())
+  name          String
+  username      String    @unique
+  password      String
+  role          String    @default("SUPERADMIN")
+  
+  // Baris yang sempet ilang:
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @default(now()) @updatedAt
+  
+  // Sistem Keamanan (Brute Force):
+  failedLogins  Int       @default(0)
+  lockoutUntil  DateTime?
 }
 
 model HasilUjian {
@@ -34,5 +44,21 @@ model HasilUjian {
   status    String   @default("LULUS")
   posterUrl String?
   pesan     String?  // <--- TAMBAHIN INI BRO
+  createdAt DateTime @default(now())
+}
+
+model ActivityLog {
+  id          Int      @id @default(autoincrement())
+  adminName   String   // Nama admin yang ngelakuin aksi
+  action      String   // Misal: "KONFIRMASI", "HAPUS DONASI", "TAMBAH ADMIN"
+  description String   @db.Text // Penjelasan detail: "Mengkonfirmasi donasi Budi Rp 100.000"
+  createdAt   DateTime @default(now())
+}
+
+model KabarTerbaru {
+  id        Int      @id @default(autoincrement())
+  judul     String
+  konten    String   @db.Text
+  gambar    String?  // Opsional, kalau mau upload foto progres pembangunan
   createdAt DateTime @default(now())
 }
