@@ -16,17 +16,30 @@ export default function QrDirektur() {
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
     const img = new Image();
+    
     img.onload = () => {
-      canvas.width = img.width;
-      canvas.height = img.height;
+      // 👇 TRIK HD: Kita kali lipat ukurannya 10x biar resolusinya tembus 2000px!
+      const scale = 10; 
+      canvas.width = img.width * scale;
+      canvas.height = img.height * scale;
+
+      // 👇 Wajib dikasih background putih, kalau transparan suka eror jadi hitam di Word
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Gambar ulang SVG-nya dengan ukuran raksasa
+      ctx.scale(scale, scale);
       ctx.drawImage(img, 0, 0);
+      
       const pngFile = canvas.toDataURL("image/png");
       const downloadLink = document.createElement("a");
-      downloadLink.download = "Tanda_Tangan_Digital_Direktur.png";
-      downloadLink.href = `${pngFile}`;
+      downloadLink.download = "Tanda_Tangan_Digital_Direktur_HD.png"; // Nama file baru
+      downloadLink.href = pngFile;
       downloadLink.click();
     };
-    img.src = `data:image/svg+xml;base64,${btoa(svgData)}`;
+    
+    // Pake encodeURIComponent biar karakter SVG gak ada yang corrupt
+    img.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svgData);
   };
 
   return (
