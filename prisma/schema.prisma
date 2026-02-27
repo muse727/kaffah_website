@@ -11,6 +11,7 @@ datasource db {
 model Wakaf {
   id          Int      @id @default(autoincrement())
   nama        String
+  kelas       String?
   whatsapp    String
   nominal     Int
   message     String?
@@ -22,7 +23,7 @@ model Wakaf {
 
 model Admin {
   id            Int       @id @default(autoincrement())
-  name          String
+  name          String    @default("Admin Yayasan")
   username      String    @unique
   password      String
   role          String    @default("SUPERADMIN")

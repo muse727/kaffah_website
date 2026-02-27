@@ -28,6 +28,7 @@ export default function WakafPage() {
   const [wa, setWa] = useState('');
   const [doa, setDoa] = useState('');
   const [isNiatChecked, setIsNiatChecked] = useState(false);
+  const [kelas, setKelas] = useState('');
 
   useEffect(() => {
     const fetchDataDonasi = async () => {
@@ -274,6 +275,13 @@ export default function WakafPage() {
           <div style={{marginTop: '24px'}}>
             <h3 className={styles.sectionTitle}>2. Data Pewakaf</h3>
             <input type="text" placeholder="Nama Lengkap (Hamba Allah)" className={styles.inputCustom} value={nama} onChange={(e) => setNama(e.target.value)} />
+            <input 
+  type="text" 
+  placeholder="Asal Kelas (Opsional, contoh: 1A, 2B)" 
+  className={styles.inputCustom} 
+  value={kelas} 
+  onChange={(e) => setKelas(e.target.value)} 
+/>
             <input type="tel" placeholder="Nomor WhatsApp (Aktif)" className={styles.inputCustom} value={wa} onChange={(e) => setWa(e.target.value)} />
             <textarea placeholder="Tulis Doa (Opsional)" className={styles.inputCustom} style={{height: '100px', resize: 'none'}} value={doa} onChange={(e) => setDoa(e.target.value)} />
           </div>

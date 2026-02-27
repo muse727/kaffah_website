@@ -26,10 +26,8 @@ export default function AdminDashboard() {
   const [lastUpdated, setLastUpdated] = useState('');
 
   const [selectedIds, setSelectedIds] = useState([]);
-
-  // 👇 STATE BARU BUAT PAGINATION 👇
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10; // 👈 Bisa lu ganti jadi 20 atau 50 per halaman
+  const itemsPerPage = 10; 
 
   useEffect(() => {
     if (status === 'unauthenticated') router.push('/login');
@@ -55,7 +53,8 @@ export default function AdminDashboard() {
   useEffect(() => {
     let results = listWakaf.filter(item =>
       item.nama.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.whatsapp.includes(searchTerm)
+      item.whatsapp.includes(searchTerm) ||
+      (item.kelas && item.kelas.toLowerCase().includes(searchTerm.toLowerCase()))
     );
     
     if (filterStatus !== 'ALL') results = results.filter(item => item.status === filterStatus);
@@ -67,10 +66,9 @@ export default function AdminDashboard() {
     }
     
     setFilteredList(results);
-    setCurrentPage(1); // 👈 Reset ke halaman 1 tiap kali filter diganti
+    setCurrentPage(1); 
   }, [searchTerm, listWakaf, filterStatus, startDate, endDate]);
 
-  // 👇 LOGIC MEMOTONG DATA BUAT HALAMAN SAAT INI 👇
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredList.slice(indexOfFirstItem, indexOfLastItem);
@@ -84,11 +82,15 @@ export default function AdminDashboard() {
     return formatted;
   };
 
-  const handleApprove = async (id, nama, whatsapp, nominal) => {
-    // (Kode approve tetap sama)
+  const handleApprove = async (id, nama, whatsapp, nominal, kelas) => {
     const { value: confirmed } = await Swal.fire({
       title: 'Konfirmasi Donasi',
-      html: `<div style="text-align: left; padding: 1rem 0;"><p><strong>Nama:</strong> ${nama}</p><p><strong>Nominal:</strong> ${formatRupiah(nominal)}</p></div><p>Apakah donasi ini sudah diverifikasi?</p>`,
+      html: `<div style="text-align: left; padding: 1rem 0;">
+              <p><strong>Nama:</strong> ${nama}</p>
+              <p><strong>Kelas:</strong> ${kelas || 'Umum'}</p>
+              <p><strong>Nominal:</strong> ${formatRupiah(nominal)}</p>
+             </div>
+             <p>Apakah donasi ini sudah diverifikasi?</p>`,
       icon: 'question', showCancelButton: true, confirmButtonText: 'Ya, Konfirmasi', cancelButtonText: 'Batal'
     });
     if (!confirmed) return;
@@ -108,7 +110,6 @@ export default function AdminDashboard() {
   };
 
   const handleDelete = async (id, nama) => {
-    // (Kode delete tetap sama)
     const { value: confirmed } = await Swal.fire({ title: 'Hapus Data?', text: `Yakin ingin menghapus ${nama}?`, icon: 'warning', showCancelButton: true, confirmButtonText: 'Ya, Hapus!' });
     if (!confirmed) return;
     try {
@@ -139,7 +140,6 @@ export default function AdminDashboard() {
     } else { Swal.fire('Info', 'Tidak ada bukti bayar.', 'info'); }
   };
 
-  // 👇 LOGIC CHECKBOX: Cuma milih/hapus centang di halaman yang TAMPIL SEKARANG 👇
   const handleSelectAll = (e) => {
     if (e.target.checked) {
       const currentPageIds = currentItems.map(item => item.id);
@@ -155,16 +155,12 @@ export default function AdminDashboard() {
     else setSelectedIds([...selectedIds, id]);
   };
 
-  // 👇 LOGIC DOWNLOAD ZIP (BISA PILIHAN / BISA SEMUA) 👇
   const handleDownloadBulk = async (downloadAll = false) => {
     let itemsToDownload = [];
-    
     if (downloadAll) {
-      // Ambil SEMUA data hasil filter (Abaikan checkbox, abaikan halaman)
       itemsToDownload = filteredList.filter(item => item.buktiBayar);
       if (itemsToDownload.length === 0) return Swal.fire('Oops', 'Tidak ada satupun bukti bayar di rentang tanggal ini.', 'info');
     } else {
-      // Ambil yang dicentang aja
       itemsToDownload = filteredList.filter(item => selectedIds.includes(item.id) && item.buktiBayar);
       if (itemsToDownload.length === 0) return Swal.fire('Oops', 'Data yang dipilih tidak memiliki bukti bayar.', 'warning');
     }
@@ -195,7 +191,10 @@ export default function AdminDashboard() {
   const exportToExcel = () => {
     if (filteredList.length === 0) return Swal.fire('Kosong', 'Tidak ada data', 'info');
     const dataToExport = filteredList.map((item, index) => ({
-      'No': index + 1, 'Tanggal': new Date(item.createdAt).toLocaleDateString('id-ID'), 'Waktu': new Date(item.createdAt).toLocaleTimeString('id-ID'), 'Nama Donatur': item.nama, 'WhatsApp': item.whatsapp, 'Nominal': item.nominal, 'Status': item.status
+      'No': index + 1, 'Tanggal': new Date(item.createdAt).toLocaleDateString('id-ID'), 'Waktu': new Date(item.createdAt).toLocaleTimeString('id-ID'), 
+      'Nama Donatur': item.nama, 
+      'Kelas': item.kelas || 'Umum', // 👇 Masuk ke Excel
+      'WhatsApp': item.whatsapp, 'Nominal': item.nominal, 'Status': item.status
     }));
     const worksheet = XLSX.utils.json_to_sheet(dataToExport);
     const workbook = XLSX.utils.book_new();
@@ -227,8 +226,6 @@ export default function AdminDashboard() {
            <div className={styles.tableTitleArea}>
               <h3 className={styles.tableTitle}>Daftar Transaksi</h3>
               <span className={styles.badgeCount}>{filteredList.length} Transaksi</span>
-              
-              {/* TOMBOL DOWNLOAD Pilihan (Muncul kalau ada yg dicentang) */}
               {selectedIds.length > 0 && (
                 <button onClick={() => handleDownloadBulk(false)} style={{ marginLeft: '1rem', padding: '0.4rem 1rem', background: '#3b82f6', color: 'white', border: 'none', borderRadius: '20px', fontSize: '0.8rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 'bold' }}>
                   <FiArchive /> Download {selectedIds.length} Pilihan (ZIP)
@@ -248,11 +245,10 @@ export default function AdminDashboard() {
               </select>
               <div className={styles.searchWrapper}>
                  <FiSearch className={styles.searchIcon} />
-                 <input type="text" placeholder="Cari nama atau WA..." className={styles.searchInput} value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+                 <input type="text" placeholder="Cari donatur, WA, atau Kelas..." className={styles.searchInput} value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
               </div>
               <div className={styles.actionButtonsGroup}>
                  <button onClick={fetchData} className={styles.btnRefresh} title="Refresh"><FiRefreshCw /></button>
-                 {/* 👇 TOMBOL DOWNLOAD SEMUA BUKTI 👇 */}
                  <button onClick={() => handleDownloadBulk(true)} style={{ padding: '0.6rem 1rem', background: '#eab308', color: 'white', border: 'none', borderRadius: '12px', fontSize: '0.85rem', fontWeight: '600', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem' }} title="Download Semua Bukti Bayar">
                     <FiArchive /> Semua Bukti
                  </button>
@@ -266,34 +262,26 @@ export default function AdminDashboard() {
             <thead>
               <tr>
                 <th width="5%" style={{ textAlign: 'center' }}>
-                  {/* Centang semua HANYA DI HALAMAN INI */}
-                  <input type="checkbox" 
-                    onChange={handleSelectAll} 
-                    checked={currentItems.length > 0 && currentItems.every(item => selectedIds.includes(item.id))} 
-                    style={{ transform: 'scale(1.2)', cursor: 'pointer' }}
-                  />
+                  <input type="checkbox" onChange={handleSelectAll} checked={currentItems.length > 0 && currentItems.every(item => selectedIds.includes(item.id))} style={{ transform: 'scale(1.2)', cursor: 'pointer' }} />
                 </th>
                 <th width="12%">Tanggal</th>
-                <th width="20%">Donatur</th>
-                <th width="15%">Nominal</th>
-                <th width="15%">Bukti</th>
-                <th width="13%">Status</th>
+                <th width="18%">Donatur</th>
+                {/* 👇 Header Kelas Baru 👇 */}
+                <th width="10%">Kelas</th>
+                <th width="12%">Nominal</th>
+                <th width="12%">Bukti</th>
+                <th width="11%">Status</th>
                 <th width="20%">Aksi</th>
               </tr>
             </thead>
             <tbody>
-              {/* 👇 PAKAI currentItems, BUKAN filteredList 👇 */}
               {currentItems.length === 0 ? (
-                <tr><td colSpan="7" className={styles.emptyState}><div className={styles.emptyStateContent}><FiSearch size={40} className={styles.emptyIcon} /><p>Tidak ada data transaksi yang ditemukan.</p></div></td></tr>
+                <tr><td colSpan="8" className={styles.emptyState}><div className={styles.emptyStateContent}><FiSearch size={40} className={styles.emptyIcon} /><p>Tidak ada data transaksi yang ditemukan.</p></div></td></tr>
               ) : (
                 currentItems.map((item) => (
                   <tr key={item.id} style={{ backgroundColor: selectedIds.includes(item.id) ? '#f0f9ff' : 'transparent' }}>
                     <td style={{ textAlign: 'center' }}>
-                       <input type="checkbox" 
-                         checked={selectedIds.includes(item.id)} 
-                         onChange={() => handleSelectOne(item.id)}
-                         style={{ transform: 'scale(1.2)', cursor: 'pointer' }}
-                       />
+                       <input type="checkbox" checked={selectedIds.includes(item.id)} onChange={() => handleSelectOne(item.id)} style={{ transform: 'scale(1.2)', cursor: 'pointer' }} />
                     </td>
                     <td>
                       <div className={styles.tdDate}>{new Date(item.createdAt).toLocaleDateString('id-ID', {day: '2-digit', month: 'short', year: 'numeric'})}</div>
@@ -301,16 +289,18 @@ export default function AdminDashboard() {
                     </td>
                     <td>
                       <div className={styles.tdName}>{item.nama}</div>
-                      <div className={styles.waWrapper}>
-                        <MdOutlineWhatsapp className={styles.waIcon} /><span className={styles.waNumber}>{item.whatsapp}</span>
-                      </div>
+                      <div className={styles.waWrapper}><MdOutlineWhatsapp className={styles.waIcon} /><span className={styles.waNumber}>{item.whatsapp}</span></div>
+                    </td>
+                    {/* 👇 Tampilan Kelas Baru 👇 */}
+                    <td>
+                      <span style={{ fontSize: '0.85rem', color: '#475569', background: '#f1f5f9', padding: '4px 8px', borderRadius: '6px', fontWeight: '600' }}>
+                        {item.kelas || 'Umum'}
+                      </span>
                     </td>
                     <td className={styles.tdNominal}>{formatRupiah(item.nominal)}</td>
                     <td>
                       {item.buktiBayar ? (
-                        <button onClick={() => viewProof(item.buktiBayar, item.nama)} className={styles.btnProof}>
-                            <FiImage /> Lihat
-                        </button>
+                        <button onClick={() => viewProof(item.buktiBayar, item.nama)} className={styles.btnProof}><FiImage /> Lihat</button>
                       ) : <span className={styles.noProof}>-</span>}
                     </td>
                     <td>
@@ -319,7 +309,7 @@ export default function AdminDashboard() {
                     <td>
                       <div className={styles.tableActions}>
                          {item.status === 'PENDING' ? (
-                           <button className={styles.btnApprove} onClick={() => handleApprove(item.id, item.nama, item.whatsapp, item.nominal)}><FiCheckCircle /> Konfirmasi</button>
+                           <button className={styles.btnApprove} onClick={() => handleApprove(item.id, item.nama, item.whatsapp, item.nominal, item.kelas)}><FiCheckCircle /> Konfirmasi</button>
                          ) : (<div className={styles.approvedStatus}><FiCheckCircle /> OK</div>)}
                          <button onClick={() => handleDelete(item.id, item.nama)} className={styles.btnDelete}><FiTrash2 /></button>
                       </div>
@@ -331,32 +321,15 @@ export default function AdminDashboard() {
           </table>
         </div>
 
-        {/* 👇 FOOTER PAGINATION (NAVIGASI HALAMAN) 👇 */}
         {totalPages > 1 && (
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem 1.5rem', borderTop: '1px solid #e2e8f0', background: '#f8fafc' }}>
             <span style={{ fontSize: '0.85rem', color: '#64748b' }}>
               Menampilkan <strong>{indexOfFirstItem + 1}</strong> - <strong>{Math.min(indexOfLastItem, filteredList.length)}</strong> dari <strong>{filteredList.length}</strong> data
             </span>
             <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-              <button 
-                onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-                disabled={currentPage === 1}
-                style={{ padding: '0.5rem 1rem', borderRadius: '8px', border: '1px solid #cbd5e1', background: currentPage === 1 ? '#f1f5f9' : 'white', color: currentPage === 1 ? '#94a3b8' : '#334155', cursor: currentPage === 1 ? 'not-allowed' : 'pointer', fontSize: '0.85rem', fontWeight: '500', transition: 'all 0.2s' }}
-              >
-                Sebelumnya
-              </button>
-              
-              <span style={{ fontSize: '0.9rem', fontWeight: '600', color: '#1e293b', margin: '0 0.5rem' }}>
-                {currentPage} / {totalPages}
-              </span>
-              
-              <button 
-                onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-                disabled={currentPage === totalPages}
-                style={{ padding: '0.5rem 1rem', borderRadius: '8px', border: '1px solid #cbd5e1', background: currentPage === totalPages ? '#f1f5f9' : 'white', color: currentPage === totalPages ? '#94a3b8' : '#334155', cursor: currentPage === totalPages ? 'not-allowed' : 'pointer', fontSize: '0.85rem', fontWeight: '500', transition: 'all 0.2s' }}
-              >
-                Selanjutnya
-              </button>
+              <button onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))} disabled={currentPage === 1} style={{ padding: '0.5rem 1rem', borderRadius: '8px', border: '1px solid #cbd5e1', background: currentPage === 1 ? '#f1f5f9' : 'white', color: currentPage === 1 ? '#94a3b8' : '#334155', cursor: currentPage === 1 ? 'not-allowed' : 'pointer', fontSize: '0.85rem', fontWeight: '500', transition: 'all 0.2s' }}>Sebelumnya</button>
+              <span style={{ fontSize: '0.9rem', fontWeight: '600', color: '#1e293b', margin: '0 0.5rem' }}>{currentPage} / {totalPages}</span>
+              <button onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))} disabled={currentPage === totalPages} style={{ padding: '0.5rem 1rem', borderRadius: '8px', border: '1px solid #cbd5e1', background: currentPage === totalPages ? '#f1f5f9' : 'white', color: currentPage === totalPages ? '#94a3b8' : '#334155', cursor: currentPage === totalPages ? 'not-allowed' : 'pointer', fontSize: '0.85rem', fontWeight: '500', transition: 'all 0.2s' }}>Selanjutnya</button>
             </div>
           </div>
         )}
