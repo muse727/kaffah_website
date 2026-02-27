@@ -7,7 +7,7 @@ import styles from '../dashboard.module.css';
 export default function QrDirektur() {
   // 👇 INI LINK YANG BAKAL KEKUNCI DI DALAM QR CODE 👇
   // (Nanti kalau udah di VPS, ganti localhost ini pake domain lu, misal: https://sitalmubarak.com/validasi/direktur)
-  const validationUrl = "http://localhost:3000/validasi/direktur";
+  const validationUrl = "https://sitalmubarak.com/validasi/direktur";
 
   // Fungsi buat download QR Code-nya jadi file gambar (PNG)
   const downloadQR = () => {
