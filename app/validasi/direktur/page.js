@@ -15,7 +15,6 @@ export default function ValidasiDirektur() {
   }, []);
 
   return (
-    // 👇 PADDING ATASNYA GUA NAIKIN JADI 160px BIAR GAK KETABRAK NAVBAR 👇
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-start', minHeight: '100vh', background: '#f8fafc', fontFamily: 'sans-serif', padding: '160px 1rem 4rem' }}>
        {/* Anti Klik Kanan se-halaman */}
        <div 
@@ -43,8 +42,8 @@ export default function ValidasiDirektur() {
                justifyContent: 'center', 
                alignItems: 'center',
                margin: '15px auto',
-               maxWidth: '250px',
-               overflow: 'hidden', // Biar watermark gak keluar batas
+               maxWidth: '350px', // 👈 UDAH GUA LEBARIN JADI 350px BIAR LEGA
+               overflow: 'hidden',
                padding: '10px'
              }}>
                
@@ -53,7 +52,7 @@ export default function ValidasiDirektur() {
                  src="/ttd-direktur.png" 
                  alt="Tanda Tangan Direktur"
                  style={{ 
-                   height: '90px', 
+                   height: '250px', // 👈 UDAH GUA NAIKIN JADI 150px BIAR GEDE & JELAS
                    objectFit: 'contain',
                    userSelect: 'none', 
                    pointerEvents: 'none', 
@@ -61,6 +60,8 @@ export default function ValidasiDirektur() {
                    position: 'relative',
                    zIndex: 1
                  }}
+                 onContextMenu={(e) => e.preventDefault()}
+                 onDragStart={(e) => e.preventDefault()}
                />
 
                {/* 2. Kaca Pelindung + Text Watermark di atas TTD */}
@@ -72,14 +73,14 @@ export default function ValidasiDirektur() {
                    display: 'flex',
                    justifyContent: 'center',
                    alignItems: 'center',
-                   pointerEvents: 'auto' // Klik kanan bakal mentok di div ini, gak kena gambar
+                   pointerEvents: 'auto'
                  }}
                  onContextMenu={(e) => e.preventDefault()}
                >
                  {/* Text Watermark Miring Transparan */}
                  <div style={{
                    transform: 'rotate(-15deg)',
-                   color: 'rgba(16, 113, 99, 0.12)', // Warna hijau yayasan tapi transparan banget
+                   color: 'rgba(16, 113, 99, 0.12)', 
                    fontSize: '1.4rem',
                    fontWeight: '900',
                    letterSpacing: '2px',
