@@ -61,7 +61,7 @@ export default function QrDirektur() {
               value={validationUrl}
               size={200}
               level={"H"} // Keamanan tinggi biar tetep bisa discan walau agak burem
-              fgColor={"#0f172a"} // Warna barcode hitam pekat
+              fgColor={"#000000"} // Warna barcode hitam pekat
             />
           </div>
 
