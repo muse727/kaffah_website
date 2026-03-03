@@ -264,7 +264,7 @@ export default function WakafPage() {
         <div className={styles.donationBox}>
           <h3 className={styles.sectionTitle}>1. Pilih Nominal Wakaf</h3>
           <div className={styles.gridNominal}>
-            {[50000, 100000, 200000, 500000, 1000000].map((val) => (
+            {[100000, 500000, 1000000, 5000000, 10000000].map((val) => (
               <button key={val} className={`${styles.nominalBtn} ${amount === val ? styles.nominalActive : ''}`} onClick={() => { setAmount(val); setCustomAmount(''); }}>Rp {val.toLocaleString('id-ID')}</button>
             ))}
             <button className={`${styles.nominalBtn} ${amount === 0 ? styles.nominalActive : ''}`} onClick={() => { setAmount(0); setCustomAmount(''); }}>Nominal Lain</button>
