@@ -7,28 +7,16 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
-model Wakaf {
-  id          Int      @id @default(autoincrement())
-  nama        String
-  kelas       String?
-  whatsapp    String
-  nominal     Int
-  message     String?
-  unit        String?
-  status      String   @default("UNPAID") // UNPAID (Belum Upload), PENDING (Sudah Upload), SUCCESS (Diterima)
-  buktiBayar  String?
-  createdAt   DateTime @default(now())
-}
-
+// ==========================================
+// 1. TABEL ADMIN (Buat Login)
+// ==========================================
 model Admin {
   id            Int       @id @default(autoincrement())
-  name          String    @default("Admin Yayasan")
+  name          String    @default("Admin Kaffah")
   username      String    @unique
   password      String
   role          String    @default("SUPERADMIN")
   
-  // Baris yang sempet ilang:
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @default(now()) @updatedAt
   
@@ -37,29 +25,77 @@ model Admin {
   lockoutUntil  DateTime?
 }
 
-model HasilUjian {
-  id        Int      @id @default(autoincrement())
-  nama      String
-  juz       String?  // Ganti jadi String? (Optional) biar kalau Belum Lulus ga error
-  predikat  String?  // Ganti jadi String? (Optional)
-  status    String   @default("LULUS")
-  posterUrl String?
-  pesan     String?  // <--- TAMBAHIN INI BRO
-  createdAt DateTime @default(now())
-}
-
-model ActivityLog {
+// ==========================================
+// 2. TABEL BERITA & ARTIKEL
+// ==========================================
+model Berita {
   id          Int      @id @default(autoincrement())
-  adminName   String   // Nama admin yang ngelakuin aksi
-  action      String   // Misal: "KONFIRMASI", "HAPUS DONASI", "TAMBAH ADMIN"
-  description String   @db.Text // Penjelasan detail: "Mengkonfirmasi donasi Budi Rp 100.000"
+  title       String
+  slug        String   @unique
+  content     String   @db.Text
+  author      String   @default("Tim Redaksi")
+  status      String   @default("PUBLISHED") // BISA: DRAFT / PUBLISHED
+  image       String?  // Link foto sampul
+  
   createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
-model KabarTerbaru {
+// ==========================================
+// 3. TABEL DATA JUARA / PRESTASI
+// ==========================================
+model Juara {
+  id          Int      @id @default(autoincrement())
+  title       String   
+  student     String   
+  category    String   
+  year        String   
+  image       String?  
+  
+  // 🔥 TAMBAHAN DETAIL LENGKAP
+  competition String?  // Nama Lomba Spesifik
+  organizer   String?  // Penyelenggara
+  location    String?  // Tempat
+  date        String?  // Tanggal Lengkap
+  description String?  @db.Text // Deskripsi
+  achievements String? // Pencapaian (pisahkan dengan koma)
+  teacher     String?  // Pembimbing
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ==========================================
+// 4. TABEL TESTIMONI WALI MURID
+// ==========================================
+model Testimoni {
   id        Int      @id @default(autoincrement())
-  judul     String
-  konten    String   @db.Text
-  gambar    String?  // Opsional, kalau mau upload foto progres pembangunan
+  name      String
+  title     String
+  quote     String   @db.Text
+  thumbnail String?  // Foto gede di kiri
+  avatar    String?  // Foto profil kecil
+  videoUrl  String?  // Link YouTube (Opsional)
+  
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Tim {
+  id        Int      @id @default(autoincrement())
+  name      String   // Nama Lengkap
+  position  String   // Jabatan (Ex: Guru Matematika)
+  category  String   // Kategori (Manajemen, Guru KIS 1, dll)
+  image     String?  // Foto Profil
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model PengaturanHero {
+  id        Int      @id @default(1)
+  tipe      String   // Bakal isinya "IMAGE" atau "VIDEO"
+  mediaUrl  String   // Alamat videonya/fotonya
+  
+  updatedAt DateTime @updatedAt
 }

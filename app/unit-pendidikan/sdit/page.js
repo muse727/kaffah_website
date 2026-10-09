@@ -1,80 +1,72 @@
 import UnitHero from '../../../components/UnitHero';
 import AboutSection from '../../../components/AboutSection';
-import VideoSection from '../../../components/VideoSection';
 import VisiMisiSection from '../../../components/VisiMisiSection';
 import NilaiUnggulSection from '../../../components/NilaiUnggulSection';
 import StackingPrograms from '../../../components/StackingPrograms';
 import GaleriSection from '../../../components/GaleriSection';
-import styles from '../../../styles/GaleriSection.module.css';
 import EkstrakurikulerSection from '../../../components/EkstrakurikulerSection';
+import SambutanKepsek from '../../../components/SambutanKepsek'; // Komponen Baru!
+import styles from '../../../styles/GaleriSection.module.css';
 
-
+// DATA HERO
 const sditData = {
-  schoolName: 'SD IT AL MUBARAK',
-  tagline: 'BERTAQWA MANDIRI CERDAS KREATIF',
+  schoolName: 'KAFFAH ISLAMIC SCHOOL 1',
+  tagline: 'SEKOLAH QURANI - GENERASI RABBANI',
   images: [
-    { src: '/images/sdit-hero-1.jpg', alt: 'Kegiatan Wisuda SDIT Al Mubarak' },
-    { src: '/images/sdit-hero-2.jpg', alt: 'Kegiatan Belajar Mengajar SDIT Al Mubarak' },
-    { src: '/images/sdit-hero-3.jpg', alt: 'Kegiatan Olahraga SDIT Al Mubarak' },
-    { src: '/images/sdit-hero-4.jpg', alt: 'Kegiatan Seni SDIT Al Mubarak' },
+    { src: '/images/sdit-hero-1.jpg', alt: 'Kegiatan Wisuda SDIT Kaffah' },
+    { src: '/images/sdit-hero-2.jpg', alt: 'Kegiatan Belajar Mengajar SDIT Kaffah' },
+    { src: '/images/sdit-hero-3.jpg', alt: 'Kegiatan Olahraga SDIT Kaffah' },
+    { src: '/images/sdit-hero-4.jpg', alt: 'Kegiatan Seni SDIT Kaffah' },
   ],
-  registerLink: '/pendaftaran', // Arahkan ke halaman pendaftaran
+  registerLink: '/pendaftaran',
 };
 
-// Data untuk About Section
+// DATA ABOUT
 const sditAboutData = {
-  subtitle: 'SDIT Al Mubarak',
+  subtitle: 'Kaffah Islamic School 1',
   title: 'Tentang Kami',
-  summaryText: `SDIT AL Mubarak merupakan sekolah Islam yang memiliki paradigma bahwa semua siswa cerdas, pembelajaran berbasis Fun and Active Learning sebagai pijakan dalam menjalankan proses Kegiatan Belajar Mengajar, hal ini menjadi “RUH” bagi para guru dalam mendidik para siswa/i.`,
-  fullText: `SDIT AL Mubarak merupakan sekolah Islam yang memiliki paradigma bahwa semua siswa cerdas,  pembelajaran berbasis Fun and Active Learning sebagai pijakan dalam menjalankan proses Kegiatan Belajar Mengajar, hal ini menjadi “RUH” bagi para guru dalam mendidik para siswa/i.
-
-Berdiri sejak 2003 sampai dengan sekarang, telah ter-akreditasi oleh BAN SM (Badan Akreditasi Nasional Sekolah/Madrasah) dengan predikat Akreditasi A (Amat Baik).
-
-SDIT Al Mubarak terus melakukan digitalisasi sekolah guna meningkatkan mutu pembelajaran sekolah.Pendidikan  Karakter menjadi pondasi mewujudkan peserta didik yang beradab, cerdas dan berprestasi. Pengembangan minta dan bakat terus didorong agar kemampuan yang dimiliki dapat terasa dengan baik sehingga memiliki kemampuan yang terampil.
-
-Melibatkan seluruh stakeholder dalam meningkatkan mutu pendidikan dalam bentuk kolaborasi, monitoring dan evaluasi menjadi kegiatan rutin dilaksanakan, agar visi misi sekolah dapat terwujud dengan nilai-nilai unggul di dalamnya.`,
-  imageSrc: '/images/sdit-about.jpg', // <-- Ganti dengan path gambar kamu
-  imageAlt: 'Siswa-siswi SDIT Al Mubarak',
+  summaryText: `SDIT Kaffah Islamic School merupakan salah satu sekolah dasar Islam terpadu yang berdiri di atas tanah wakaf KH. Fathullah Harun. Didirikan pada tahun 2016 sebagai wujud kepedulian terhadap pentingnya pendidikan Islam yang berkualitas, menjawab tantangan zaman sekaligus menjaga nilai-nilai keislaman.`,
+  fullText: `SDIT Kaffah Islamic School merupakan salah satu sekolah dasar Islam terpadu yang berdiri di atas tanah wakaf KH. Fathullah Harun. Sekolah ini didirikan pada tahun 2016 sebagai wujud kepedulian terhadap pentingnya pendidikan Islam yang berkualitas, yang mampu menjawab tantangan zaman sekaligus menjaga nilai-nilai keislaman.\n\nNama sekolah dilekatkan pada sosok ulama besar Betawi, KH. Fathullah Harun bin H. Harun bin H. Murtadho, seorang tokoh ulama kharismatik yang telah berkiprah luas dalam dakwah Islam, tidak hanya di Jakarta tetapi juga hingga ke negeri jiran, Malaysia. Dengan semangat perjuangan dan keteladanan beliau, SDIT Kaffah Islamic School hadir untuk mewujudkan generasi Qurani yang Rabbani, berakhlak mulia, cerdas, mandiri, serta siap menghadapi tantangan global.\n\nDalam pelaksanaannya, sekolah ini menekankan keterpaduan antara ilmu pengetahuan umum, nilai-nilai agama Islam, serta pengembangan keterampilan peserta didik. Branding yang diusung adalah “Sekolah Qurani – Generasi Rabbani”, yang bermakna bahwa seluruh aktivitas pembelajaran, kegiatan kokurikuler, maupun ekstrakurikuler diintegrasikan dengan nilai-nilai Al-Qur’an, sehingga peserta didik tidak hanya unggul secara akademik, tetapi juga memiliki kepribadian Islami yang kuat.`,
+  imageSrc: '/images/sdit-about.jpg',
+  imageAlt: 'Siswa-siswi Kaffah 1',
 };
 
-// Data untuk Video Section
-const sditVideoData = {
-  subtitle: 'SDIT Al Mubarak',
-  title: 'Sambutan Kepala Sekolah',
-  principalImage: '/images/kepala-sekolah.png', // <-- Siapkan foto kepala sekolah
-  vimeoUrl: 'https://player.vimeo.com/video/1125395017', // <-- GANTI DENGAN ID VIDEO VIMEO
+// DATA SAMBUTAN KEPSEK
+const sditSambutanData = {
+  namaKepsek: 'Muslih Heriyanto, S.Pd., M.M.',
+  fotoKepsek: '/images/kepala-sekolah.png',
+  paragraf: [
+    "Bismillahirrahmanirrahiim. Assalamu’alaikum wr.wb.",
+    "Welcome to SDIT Kaffah Islamic School, Alhamdulillahirobil ‘aalamiin. Puji syukur atas ni’mat yang Allah SWT berikan kepada kita semua. Kami sangat berterima kasih kepada Bapak dan Ibu sekalian telah mempercayai kami menjadi partner dalam membimbing dan mendidik anak-anaknya. Kami berusaha untuk menjalankan amanah ini dengan baik agar pertanggungjawaban di hadapan Allah SWT kelak menjadi ringan.",
+    "Memasuki era 4.0 ini yang penuh dengan kompetisi, kita perlu menyiapkan mental anak-anak kita agar mampu bersaing dengan baik yang memiliki moral/adab islami, kemandirian, kecerdasan, dan juga kreatifitas-inovasi sesuai tumbuh kembangnya.",
+    "Setiap siswa SDIT Kaffah Islamic School memiliki hak untuk berprestasi dan mendapatkan perhatian yang baik. Sehingga kerjasama antara sekolah dengan para orang tua siswa dalam menjalankan program sekolah sangat penting.",
+    "Sekali lagi kami ucapkan selamat datang di SDIT Kaffah Islamic School. Marilah bekerjasama agar anak-anak kita dapat berkembang dengan baik sehingga menjadi insan yang berakhlakul karimah, penghafal qur’an, bertaqwa dan cerdas."
+  ]
 };
 
-// BUAT DATA VISI & MISI KHUSUS UNTUK SDIT DI SINI
+// DATA VISI MISI
 const sditVisiData = {
-  title: 'VISI',
-  text: '“Menjadi Lembaga Pendidikan Islam yang Unggul Sehingga Mewujudkan Peserta Didik yang Bertaqwa, Mandiri, Cerdas, Kreatif dan Kompetitif”',
-  image: {
-    src: '/images/siswi-sdit.png',
-    alt: 'Siswi SDIT Al Mubarak',
-  },
+  title: 'VISI KAFFAH',
+  text: '“Menjadikan sekolah qurani dalam mencetak generasi rabbani menuju peradaban bangsa yang Islami”',
+  image: { src: '/images/siswi-sdit.png', alt: 'Siswi Kaffah' },
 };
 
 const sditMisiData = {
-  title: 'MISI',
+  title: 'MISI KAFFAH',
   items: [
-    'Meningkatkan tuntunan rohani dan agama dalam bingkai SIT.',
-    'Meningkatkan kemampuan, keaktifan dan kekreatifan SDM.',
-    'Menciptakan pelajaran yang kreatif, inovatif, kooperatif dan menyenangkan.',
-    'Melaksanakan pengembangan kompetisi siswa yang terukur melalui kegiatan intrakurikuler dan ekstrakurikuler.',
-    'Mewujudkan sarana dan prasarana sekolah yang ideal dan futuristik.',
-    'Menciptakan lingkungan sekolah sebagai tempat pengembangan wawasan sosial, wawasan kebangsaan, dan pengembangan budaya islami.',
+    'Memadukan (integrated) pendidikan umum dan pendidikan agama menjadi satu jalinan kurikulum.',
+    'Menciptakan lingkungan belajar yang harmonis dan proses pembelajaran yang aktif, kreatif, inovatif, efektif, dan menyenangkan.',
+    'Mempersiapkan lulusan peserta didik berprestasi dan berkarakter Islami “taqwa, mandiri, cerdas dan kreatif”.',
+    'Melakukan pembinaan keagamaan, pengembangan potensi dan bimbingan konseling.',
+    'Memberikan jaminan layanan yang prima dan profesional dalam mendukung proses belajar dan bekerja.',
   ],
-  image: {
-    src: '/images/siswa-sdit.png',
-    alt: 'Siswa SDIT Al Mubarak',
-  },
+  image: { src: '/images/siswa-sdit.png', alt: 'Siswa Kaffah' },
 };
 
-// DATA UNTUK GALERI SDIT
+// DATA GALERI
 const sditGalleryData = {
   subtitle: 'Galeri Kegiatan',
-  title: 'Momen Berharga di SDIT Al Mubarak',
+  title: 'Momen Berharga di Kaffah 1',
   description: 'Lihat lebih dekat keceriaan dan proses belajar siswa-siswi kami.',
   images: [
     { src: '/images/galeri/foto-1.jpg', alt: 'Kegiatan 1', span: styles.span_2x2 },
@@ -87,6 +79,7 @@ const sditGalleryData = {
   ],
 };
 
+// DATA EKSKUL
 const sditEkskulData = [
   { name: 'Silat', icon: '/icons/ekskul/silat.png' },
   { name: 'Panahan', icon: '/icons/ekskul/panahan.png' },
@@ -103,35 +96,13 @@ const sditEkskulData = [
 export default function SditPage() {
   return (
     <>
-      <UnitHero
-        schoolName={sditData.schoolName}
-        tagline={sditData.tagline}
-        images={sditData.images}
-        registerLink={sditData.registerLink}
-      />
-      <AboutSection
-        subtitle={sditAboutData.subtitle}
-        title={sditAboutData.title}
-        summaryText={sditAboutData.summaryText}
-        fullText={sditAboutData.fullText}
-        imageSrc={sditAboutData.imageSrc}
-        imageAlt={sditAboutData.imageAlt}
-      />
-      <VideoSection
-        subtitle={sditVideoData.subtitle}
-        title={sditVideoData.title}
-        principalImage={sditVideoData.principalImage}
-        vimeoUrl={sditVideoData.vimeoUrl}
-      />
-      
+      <UnitHero {...sditData} />
+      <AboutSection {...sditAboutData} />
+      <SambutanKepsek data={sditSambutanData} />
       <VisiMisiSection visiData={sditVisiData} misiData={sditMisiData} />
       <NilaiUnggulSection />
       <StackingPrograms />
-      <EkstrakurikulerSection 
-        subtitle="SDIT Al Mubarak"
-        title="Ekstrakurikuler Unggulan"
-        data={sditEkskulData}
-      />
+      <EkstrakurikulerSection subtitle="Kaffah Islamic School 1" title="Ekstrakurikuler Unggulan" data={sditEkskulData} />
       <GaleriSection {...sditGalleryData} />
     </>
   );

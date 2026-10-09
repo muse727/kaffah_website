@@ -45,7 +45,7 @@
 .card:hover {
   transform: translateY(-8px);
   box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-  border-color: var(--brand-green);
+  border-color: var(--brand-primary);
 }
 
 .iconWrapper {

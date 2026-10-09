@@ -4,11 +4,18 @@
   --background: #F9FAFB;
   --text-primary: #1F2937;
   --text-secondary: #6B7280;
-  --brand-green: #107163;
-  --icon-bg: #E0F2F1;
+  
+  /* 🔥 Warna Utama (Biru Sekolah Baru) */
+  --brand-primary: #32BAFA; 
+  
+  /* 🔥 Background Icon (Biru Super Muda/Transparan) */
+  --icon-bg: #E6F4FA; 
+  
   --white: #FFFFFF;
   --border-color: #E5E7EB;
-  --dark-bg: #107163;
+  
+  /* 🔥 Background Gelap (Samain aja sama warna utama) */
+  --dark-bg: #32BAFA; 
 }
 
 /* 2. CSS Reset */
@@ -22,7 +29,6 @@
 html,
 body {
   width: 100%;
- 
 }
 
 body {
@@ -46,9 +52,6 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
 }
 
-
-
-
 /* 4. Container (Pembungkus Konten) */
 .container {
   width: 100%;
@@ -58,4 +61,3 @@ h1, h2, h3, h4, h5, h6 {
   padding-left: 24px;
   padding-right: 24px;
 }
-

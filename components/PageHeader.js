@@ -6,7 +6,9 @@ const PageHeader = ({ title, tagline, buttonPrimary, buttonSecondary }) => {
   return (
     <section className={styles.headerSection}>
       <div className={styles.overlay}></div>
-      <div className="container" data-aos="fade-up">
+      
+      {/* 🔥 FIX: Gua ganti class-nya pakai headerContent biar bisa di-lock di tengah */}
+      <div className={styles.headerContent} data-aos="fade-up">
         <h1 className={styles.title}>{title}</h1>
         <p className={styles.tagline}>{tagline}</p>
         <div className={styles.buttonGroup}>

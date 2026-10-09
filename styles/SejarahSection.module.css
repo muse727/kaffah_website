@@ -1,6 +1,7 @@
 .sejarahSection {
   padding: 6rem 0;
-  background: linear-gradient(135deg, var(--brand-green) 0%, #1a7368 100%);
+  /* 🔥 FIX GRADASI: Samain persis kayak Visi Misi biar nyambung! (Biru Cerah ke Biru Dongker) */
+  background: linear-gradient(135deg, var(--brand-primary) 0%, #0F6DA1 100%);
   position: relative;
   overflow: hidden;
 }
@@ -162,7 +163,8 @@
 }
 
 .modalContent {
-  background: var(--brand-green);
+  /* 🔥 FIX GRADASI MODAL: Samain persis kayak background utama biar elegan */
+  background: linear-gradient(135deg, #32BAFA 0%, #0F6DA1 100%);
   color: #fff;
   padding: 2rem;
   border-radius: 20px;

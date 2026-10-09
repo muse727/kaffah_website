@@ -11,7 +11,7 @@
 }
 
 .pricingBlock {
-  background-color: var(--brand-green);
+  background-color: var(--brand-primary);
   border-radius: 32px;
   padding: 3rem 4rem;
   position: relative;
@@ -78,7 +78,7 @@
 
 .tabButton.active {
   background: var(--white);
-  color: var(--brand-green);
+  color: var(--brand-primary);
   box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 

@@ -77,7 +77,7 @@ export default function QrDirektur() {
             <FiDownload /> Download QR Code (PNG)
           </button>
 
-          <div style={{ marginTop: '1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', fontSize: '0.8rem', color: '#107163', fontWeight: '600' }}>
+          <div style={{ marginTop: '1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', fontSize: '0.8rem', color: '#32BAFA', fontWeight: '600' }}>
             <FiShield /> Terenkripsi & Terlindungi
           </div>
         </div>

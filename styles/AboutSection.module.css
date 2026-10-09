@@ -25,7 +25,8 @@
 
 .subtitle {
   display: inline-block;
-  background: linear-gradient(135deg, var(--brand-green), #2a9d8f);
+  /* 🔥 FIX WARNA: Ganti gradasi ke Biru Cerah (#32BAFA) dan Biru Gelap (#128BCE) */
+  background: linear-gradient(135deg, #32BAFA, #128BCE);
   color: #fff;
   padding: 0.5rem 1.5rem;
   border-radius: 99px;
@@ -53,7 +54,8 @@
 
 /* READ MORE BUTTON - FIX FOR MOBILE */
 .readMoreButton {
-  background: linear-gradient(135deg, var(--brand-green), #2a9d8f);
+  /* 🔥 FIX WARNA: Tombolnya juga samain gradasinya */
+  background: linear-gradient(135deg, #32BAFA, #128BCE);
   color: #fff;
   border: none;
   padding: 1rem 2.5rem;
@@ -85,7 +87,8 @@
 
 .readMoreButton:hover {
   transform: translateY(-3px);
-  box-shadow: 0 10px 25px rgba(16, 113, 99, 0.3);
+  /* 🔥 FIX WARNA HOVER: Shadow-nya juga diganti RGB Biru (50, 186, 250) */
+  box-shadow: 0 10px 25px rgba(50, 186, 250, 0.4);
 }
 
 .readMoreButton:active {
@@ -144,7 +147,8 @@
 }
 
 .closeButton:hover {
-  background: var(--brand-green);
+  /* 🔥 FIX WARNA CLOSE: Pas disorot mouse jadi biru cerah */
+  background: #32BAFA;
   color: white;
   transform: rotate(90deg);
 }

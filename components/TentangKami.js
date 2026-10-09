@@ -1,23 +1,31 @@
 import Image from 'next/image';
-import Link from 'next/link';
 import styles from '../styles/TentangKami.module.css';
 
 const TentangKami = () => {
   return (
     <section className={styles.aboutSection} id="tentang-kami">
       <div className={`${styles.aboutContainer} container`}>
-        {/* KOLOM KIRI: KONTEN TEKS */}
+        
+        {/* KOLOM KIRI: KONTEN TEKS BARU */}
         <div className={styles.contentWrapper} data-aos="fade-right">
           <h2 className={styles.title}>
-            Menebar Cahaya Ilmu, Membangun
-            <span className={styles.highlight}> Generasi Berakhlak Mulia</span>
+            Cerdas, Kuat Bertaqwa,
+            <span className={styles.highlight}> Bahagia Itu Mencerdaskan</span>
           </h2>
-          <p className={styles.description}>
-            Yayasan Wakfiah Al Mubarak berdiri dengan semangat untuk menghadirkan pendidikan yang tidak hanya berorientasi pada kecerdasan intelektual, tetapi juga pembinaan akhlak dan penguatan iman. Melalui unit pendidikan Sekolah Dasar (SD), Sekolah Menengah Pertama (SMP), dan Lembaga Pendidikan Qur'an (LPQ), yayasan ini berkomitmen mencetak generasi muda yang unggul dalam ilmu pengetahuan, terampil menghadapi tantangan zaman, sekaligus berkarakter islami.
-          </p>
-          <Link href="/selengkapnya" className={styles.ctaButton}>
-            Read More
-          </Link>
+          
+          <div className={styles.descriptionGroup}>
+            <p className={styles.description}>
+              Kaffah Islamic School menghadirkan pendidikan yang memadukan kecerdasan, ketakwaan, dan kebahagiaan dalam setiap proses belajar. Melalui jenjang KB, TKIT, dan SDIT (KIS 1 & KIS 2) serta LPQ Kaffah, kami berkomitmen membina anak sejak usia dini agar tumbuh menjadi pribadi yang utuh secara iman, ilmu, dan akhlak.
+            </p>
+            <p className={styles.description}>
+              Fokus pendidikan kami adalah membentuk karakter Qur’ani dengan menanamkan kecintaan terhadap Al-Qur’an melalui program hafalan yang terarah, serta membangun akhlak mulia dalam keseharian siswa. Lingkungan belajar dirancang untuk menumbuhkan rasa nyaman dan bahagia sehingga anak dapat berkembang secara optimal.
+            </p>
+            <p className={styles.description}>
+              Selain itu, siswa juga dibekali kemampuan bahasa Inggris melalui penerapan <i>bilingual daily activity</i> sebagai bekal menghadapi tantangan global. Kami percaya, anak yang cerdas, kuat dalam ketakwaan, dan bahagia dalam belajar akan tumbuh menjadi generasi unggul yang siap menghadapi masa depan.
+            </p>
+          </div>
+          
+          {/* 🔥 Tombol Read More Resmi Dibuang! */}
         </div>
 
         {/* KOLOM KANAN: KOLASE GAMBAR */}
@@ -25,18 +33,18 @@ const TentangKami = () => {
           <div className={styles.imageWrapper1}>
             <Image
               src="/tentang-1.jpg"
-              alt="Siswa Yayasan Al Mubarak 1"
+              alt="Siswa Kaffah Islamic School 1"
               fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" // <-- TAMBAHKAN INI
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               style={{ objectFit: 'cover', borderRadius: '16px' }}
             />
           </div>
           <div className={styles.imageWrapper2}>
             <Image
               src="/tentang-2.jpg"
-              alt="Siswa Yayasan Al Mubarak 2"
+              alt="Siswa Kaffah Islamic School 2"
               fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" // <-- TAMBAHKAN INI
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               style={{ objectFit: 'cover', borderRadius: '16px' }}
             />
           </div>

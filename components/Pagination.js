@@ -74,12 +74,12 @@ const AdvancedPagination = ({ pageInfo, currentPage = 1, totalPages = 1 }) => {
         }
 
         .pagination-button:hover:not(.disabled):not(.active) {
-          color: #107163;
+          color: #32BAFA;
           transform: translateY(-1px);
         }
 
         .pagination-button.active {
-          background: linear-gradient(135deg, #107163 0%, #107163 100%);
+          background: linear-gradient(135deg, #32BAFA 0%, #32BAFA 100%);
           color: white;
         }
 
@@ -104,7 +104,7 @@ const AdvancedPagination = ({ pageInfo, currentPage = 1, totalPages = 1 }) => {
 
         .nav-button {
           padding: 0.75rem 1.5rem;
-          background: linear-gradient(135deg, #107163 0%, #107163 100%);
+          background: linear-gradient(135deg, #32BAFA 0%, #32BAFA 100%);
           color: white;
           border: none;
           border-radius: 8px;

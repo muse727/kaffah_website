@@ -12,36 +12,36 @@ import 'swiper/css/pagination';
 
 import styles from '../styles/SejarahSection.module.css';
 
-// CONTOH DATA SEJARAH (5 SLIDE)
+// 🔥 FIX DATA SEJARAH: Disesuaikan dengan sejarah KH. Fathullah Harun & Kaffah Islamic School
 const historySlidesData = [
   {
-    year: '2003 - 2005',
-    title: 'Cikal Bakal & Perintisan',
-    text: 'Berawal dari kepedulian sekelompok pemuda dan tokoh masyarakat, kegiatan pendidikan dimulai dalam bentuk kelompok belajar kecil untuk anak-anak di lingkungan sekitar.',
+    year: '2016',
+    title: 'Awal Berdiri & Wakaf',
+    text: 'SDIT Kaffah Islamic School resmi didirikan di atas tanah wakaf KH. Fathullah Harun sebagai wujud kepedulian terhadap pentingnya pendidikan Islam yang berkualitas.',
     image: '/images/history/history-1.jpg',
   },
   {
-    year: '2006 - 2010',
-    title: 'Pendirian SDIT Al Mubarak',
-    text: 'Melihat antusiasme yang tinggi, Yayasan Wakfiah Al Mubarak resmi didirikan dan membuka unit pendidikan formal pertama, yaitu Sekolah Dasar Islam Terpadu (SDIT).',
+    year: '2017 - 2018',
+    title: 'Membangun Generasi Qurani',
+    text: 'Mulai menerapkan branding "Sekolah Qurani – Generasi Rabbani". Pembelajaran dan ekstrakurikuler diintegrasikan secara penuh dengan nilai-nilai agung Al-Qur’an.',
     image: '/images/history/history-2.jpg',
   },
   {
-    year: '2011 - 2015',
-    title: 'Pengembangan & Akreditasi',
-    text: 'Fase pertumbuhan pesat dengan penambahan fasilitas dan ruang kelas. SDIT Al Mubarak berhasil meraih Akreditasi "A" dari BAN-S/M, sebuah pengakuan atas kualitas pendidikan.',
+    year: '2019 - 2021',
+    title: 'Penguatan Karakter & Akhlak',
+    text: 'Menekankan keterpaduan antara ilmu pengetahuan umum dan agama Islam untuk mencetak siswa yang cerdas, mandiri, dan memiliki kepribadian Islami yang kuat.',
     image: '/images/history/history-3.jpg',
   },
   {
-    year: '2016 - 2020',
-    title: 'Ekspansi ke Jenjang SMP',
-    text: 'Untuk melanjutkan jenjang pendidikan yang berkesinambungan, SMPIT Al Mubarak didirikan dengan program unggulan Pesantren City untuk menjawab kebutuhan pendidikan modern.',
+    year: '2022 - 2024',
+    title: 'Menghadapi Era Globalisasi',
+    text: 'Melanjutkan visi misi ulama besar Betawi, KH. Fathullah Harun, sekolah terus berinovasi dalam metode pembelajaran agar siswa siap menghadapi tantangan zaman modern.',
     image: '/images/history/history-4.jpg',
   },
   {
-    year: '2021 - Sekarang',
-    title: 'Inovasi & Digitalisasi',
-    text: 'Mengadaptasi perkembangan teknologi, yayasan mulai menerapkan digitalisasi sekolah, mengembangkan program coding, dan terus berinovasi untuk mencetak generasi yang siap zaman.',
+    year: '2025 - Sekarang',
+    title: 'Cahaya Ilmu Masa Depan',
+    text: 'Terus berkembang menjadi sekolah dasar Islam terpadu rujukan yang melahirkan generasi Rabbani yang unggul secara akademik dan spiritual.',
     image: '/images/history/history-5.jpg',
   },
 ];
@@ -77,14 +77,14 @@ const SejarahSection = () => {
               <div className={styles.imageFrame}>
                 <Image 
                   src="/images/siswi-berprestasii.png" 
-                  alt="Sejarah Al Mubarak" 
+                  alt="Sejarah Kaffah Islamic School" 
                   fill 
                   style={{ objectFit: 'cover', objectPosition: 'center' }}
                   className={styles.mainImage}
                 />
               </div>
               <div className={styles.yearBadge}>
-                <span>Since 2003</span>
+                <span>Since 2016</span>
               </div>
             </div>
             
@@ -94,21 +94,21 @@ const SejarahSection = () => {
               </div>
               
               <h2 className={styles.title}>
-                Yuk.. Ketahui <span className={styles.highlight}>Sejarah Singkat</span> Yayasan Wakfiah Al Mubarak
+                Yuk.. Ketahui <span className={styles.highlight}>Sejarah Singkat</span> Kaffah Islamic School
               </h2>
               
               <p className={styles.description}>
-                Yayasan Wakfiah Al Mubarak berdiri atas dasar kepedulian terhadap umat dan semangat untuk menebarkan manfaat seluas-luasnya. Yayasan ini didirikan pada tahun 2018 oleh sekelompok pemuda...
+                SDIT Kaffah Islamic School didirikan pada tahun 2016 di atas tanah wakaf ulama besar Betawi, KH. Fathullah Harun, dengan visi mewujudkan pendidikan terpadu yang mencetak generasi Qurani yang Rabbani, berakhlak mulia, cerdas, dan mandiri.
               </p>
 
               <div className={styles.statsGrid}>
                 <div className={styles.statItem}>
-                  <span className={styles.statNumber}>20+</span>
-                  <span className={styles.statLabel}>Tahun Pengalaman</span>
+                  <span className={styles.statNumber}>8+</span>
+                  <span className={styles.statLabel}>Tahun Mengabdi</span>
                 </div>
                 <div className={styles.statItem}>
                   <span className={styles.statNumber}>5</span>
-                  <span className={styles.statLabel}>Tahap Perkembangan</span>
+                  <span className={styles.statLabel}>Fase Perjalanan</span>
                 </div>
               </div>
               
@@ -140,7 +140,7 @@ const SejarahSection = () => {
             
             <div className={styles.modalHeader}>
               <h2>Perjalanan Sejarah</h2>
-              <p>Yayasan Wakfiah Al Mubarak</p>
+              <p>Kaffah Islamic School</p>
             </div>
             
             <Swiper

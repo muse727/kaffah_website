@@ -1,42 +1,39 @@
-import { NextResponse } from "next/server";
-import { writeFile } from "fs/promises";
-import path from "path";
-import fs from "fs";
+import { NextResponse } from 'next/server';
+import { writeFile, mkdir } from 'fs/promises';
+import path from 'path';
 
-export async function POST(req) {
+export async function POST(request) {
   try {
-    const data = await req.formData();
-    const file = data.get("file");
+    // Tangkap file yang dikirim dari form
+    const data = await request.formData();
+    const file = data.get('file');
 
     if (!file) {
-      return NextResponse.json({ success: false, message: "No file uploaded" });
+      return NextResponse.json({ error: 'Tidak ada file yang diupload' }, { status: 400 });
     }
 
-    // Convert file jadi Buffer
+    // Ubah file jadi bentuk Buffer (data mentah biar bisa disimpen)
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    // Buat nama file unik (biar gak bentrok)
-    const filename = Date.now() + "-" + file.name.replaceAll(" ", "_");
+    // Bikin nama file unik (Pake tambahan angka jam biar gak bentrok kalau namanya sama)
+    const filename = Date.now() + '-' + file.name.replace(/[^a-zA-Z0-9.]/g, '-').toLowerCase();
     
-    // Tentukan folder simpan (public/uploads/posters)
-    const uploadDir = path.join(process.cwd(), "public/uploads/posters");
+    // Tentukan lokasi penyimpanan (di dalam folder public/uploads)
+    const uploadDir = path.join(process.cwd(), 'public/uploads');
 
-    // Cek folder ada gak? Kalau gak ada, buat dulu
-    if (!fs.existsSync(uploadDir)) {
-      fs.mkdirSync(uploadDir, { recursive: true });
-    }
+    // Otomatis bikin folder 'uploads' kalau ternyata belum ada
+    await mkdir(uploadDir, { recursive: true });
 
-    // Simpan file
-    const filePath = path.join(uploadDir, filename);
-    await writeFile(filePath, buffer);
+    // Simpan file fisik ke folder
+    const filepath = path.join(uploadDir, filename);
+    await writeFile(filepath, buffer);
 
-    // Balikin alamat URL-nya
-    const fileUrl = `/uploads/posters/${filename}`;
-    return NextResponse.json({ success: true, url: fileUrl });
-
+    // Balikin alamat URL gambarnya ke frontend
+    return NextResponse.json({ url: `/uploads/${filename}` });
+    
   } catch (error) {
-    console.log("Error uploading file:", error);
-    return NextResponse.json({ success: false, message: "Upload failed" });
+    console.error('Error saat upload:', error);
+    return NextResponse.json({ error: 'Gagal mengupload gambar' }, { status: 500 });
   }
 }

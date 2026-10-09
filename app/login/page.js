@@ -3,8 +3,8 @@
 import { useState, useRef } from 'react';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import ReCAPTCHA from "react-google-recaptcha"; // 👈 Import reCAPTCHA
-import styles from './login.module.css'; // Import CSS Module
+import ReCAPTCHA from "react-google-recaptcha"; 
+import styles from './login.module.css'; 
 
 export default function LoginPage() {
   const [username, setUsername] = useState('');
@@ -13,7 +13,6 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   
-  // 👇 Referensi buat nangkep nilai kotak centang Google 👇
   const recaptchaRef = useRef(null);
 
   const handleSubmit = async (e) => {
@@ -21,7 +20,6 @@ export default function LoginPage() {
     setError('');
     setLoading(true);
 
-    // 1. Cek dulu apakah centang robot udah diklik
     const recaptchaValue = recaptchaRef.current?.getValue();
     if (!recaptchaValue) {
       setError('Tolong centang "I am not a robot" dulu bro!');
@@ -29,32 +27,28 @@ export default function LoginPage() {
       return;
     }
 
-    // 2. Lempar data (termasuk token captcha) ke mesin NextAuth
     const res = await signIn('credentials', {
       username,
       password,
-      recaptchaToken: recaptchaValue, // 👈 Token rahasia dikirim ke satpam
+      recaptchaToken: recaptchaValue, 
       redirect: false,
     });
 
     if (res?.error) {
-      // Tampilkan error cerdas dari backend (misal: "Akun digembok 15 menit")
       setError(res.error);
       setLoading(false);
-      // Reset centang recaptcha kalau gagal login biar bisa diklik lagi
       recaptchaRef.current?.reset(); 
     } else {
-      router.push('/admin-dashboard');
+      router.push('/admin-dashboard'); // Nanti sesuaikan rute admin lu
     }
   };
 
   return (
-    // Gunakan styles.container agar Full Screen dan menutupi Navbar
     <div className={styles.container}>
       <div className={styles.loginCard}>
         <div className={styles.header}>
           <h1 className={styles.title}>Admin Login 🔒</h1>
-          <p className={styles.subtitle}>Masuk untuk kelola data wakaf</p>
+          <p className={styles.subtitle}>Masuk untuk kelola web Kaffah Islamic School</p>
         </div>
         
         {error && (
@@ -88,8 +82,7 @@ export default function LoginPage() {
             />
           </div>
 
-          {/* 👇 KOTAK GOOGLE RECAPTCHA MUNCUL DI SINI 👇 */}
-          <div style={{ display: 'flex', justifyContent: 'center', marginTop: '0.5rem' }}>
+          <div style={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }}>
             <ReCAPTCHA
               ref={recaptchaRef}
               sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}

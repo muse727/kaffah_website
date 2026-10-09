@@ -19,14 +19,14 @@ export default function ValidasiDirektur() {
        {/* Anti Klik Kanan se-halaman */}
        <div 
          onContextMenu={(e) => e.preventDefault()} 
-         style={{ background: 'white', padding: '3rem 2rem', borderRadius: '24px', textAlign: 'center', boxShadow: '0 20px 25px -5px rgba(0,0,0,0.1)', maxWidth: '420px', width: '100%', borderTop: '8px solid #107163' }}
+         style={{ background: 'white', padding: '3rem 2rem', borderRadius: '24px', textAlign: 'center', boxShadow: '0 20px 25px -5px rgba(0,0,0,0.1)', maxWidth: '420px', width: '100%', borderTop: '8px solid #32BAFA' }}
        >
-          <FiShield size={65} color="#107163" style={{ marginBottom: '1rem' }} />
+          <FiShield size={65} color="#32BAFA" style={{ marginBottom: '1rem' }} />
           <h2 style={{ color: '#0f172a', marginBottom: '0.5rem', fontWeight: '800', fontSize: '1.5rem' }}>
             Otorisasi Digital
           </h2>
           
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#dcfce7', color: '#107163', padding: '8px 20px', borderRadius: '30px', fontWeight: '700', marginBottom: '2rem', fontSize: '0.9rem' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#dcfce7', color: '#32BAFA', padding: '8px 20px', borderRadius: '30px', fontWeight: '700', marginBottom: '2rem', fontSize: '0.9rem' }}>
              <FiCheckCircle size={18} /> DOKUMEN RESMI & VALID
           </div>
 
@@ -98,14 +98,14 @@ export default function ValidasiDirektur() {
              <h3 style={{ margin: '0 0 5px 0', color: '#0f172a', fontSize: '1.2rem', fontWeight: '700' }}>
                Yayan Supiana, SH, MM
              </h3>
-             <p style={{ margin: '0 0 20px 0', color: '#107163', fontWeight: '600', fontSize: '0.95rem' }}>
+             <p style={{ margin: '0 0 20px 0', color: '#32BAFA', fontWeight: '600', fontSize: '0.95rem' }}>
                Direktur SIT Al Mubarak
              </p>
 
              <p style={{ margin: '0 0 8px 0', color: '#64748b', fontSize: '0.85rem' }}>
                Waktu Validasi (Live System):
              </p>
-             <div style={{ background: '#107163', padding: '12px', borderRadius: '8px', fontFamily: 'monospace', fontSize: '1.1rem', color: '#ffffff', textAlign: 'center', letterSpacing: '2px', fontWeight: 'bold' }}>
+             <div style={{ background: '#32BAFA', padding: '12px', borderRadius: '8px', fontFamily: 'monospace', fontSize: '1.1rem', color: '#ffffff', textAlign: 'center', letterSpacing: '2px', fontWeight: 'bold' }}>
                 {time || 'Memuat sistem...'}
              </div>
              <p style={{ fontSize: '0.75rem', color: '#ef4444', marginTop: '8px', textAlign: 'center' }}>

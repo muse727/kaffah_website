@@ -6,7 +6,7 @@
 
 /* === CTA BLOCK - GAMBAR KELUAR DARI KOTAK === */
 .ctaBlock {
-  background: var(--brand-green);
+  background: var(--brand-primary);
   color: var(--white);
   padding: 2rem;
   border-radius: 24px;
@@ -93,7 +93,7 @@
 
 .ctaForm button {
   background: var(--white);
-  color: var(--brand-green);
+  color: var(--brand-primary);
   border: none;
   padding: 0.75rem 1.5rem;
   border-radius: 8px;
@@ -167,7 +167,7 @@
 }
 
 .footerCol ul a:hover {
-  color: var(--brand-green);
+  color: var(--brand-primary);
 }
 
 .footerLogo {
@@ -215,7 +215,7 @@
 
 /* === COPYRIGHT BAR === */
 .copyrightBar {
-  background-color: var(--brand-green);
+  background-color: var(--brand-primary);
   color: rgba(255, 255, 255, 0.8);
   padding: 1rem 0;
   text-align: center;

@@ -1,197 +1,48 @@
-/* Container Payment */
-.container {
-  min-height: 100vh;
-  background-color: #f8fafc;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  font-family: 'Inter', sans-serif;
-}
+.container { min-height: 100vh; background-color: #f4f7f6; padding: 120px 20px 60px; display: flex; justify-content: center; font-family: 'Poppins', sans-serif; }
+.card { background: white; width: 100%; max-width: 500px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); overflow: hidden; display: flex; flex-direction: column; }
+.header { background: #32BAFA; color: white; padding: 20px; text-align: center; }
+.timerLabel { font-size: 0.85rem; opacity: 0.9; margin-bottom: 5px; }
+.timerBox { font-size: 1.5rem; font-weight: 700; letter-spacing: 1px; }
 
-.card {
-  width: 100%;
-  max-width: 480px;
-  background: #ffffff;
-  border-radius: 20px;
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
-  padding: 2.5rem;
-  border: 1px solid #f1f5f9;
-}
+.summaryBox { padding: 20px; background: #fafafa; border-bottom: 1px solid #eee; }
+.summaryRow { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.95rem; color: #555; }
+.summaryRow.total { font-size: 1.2rem; font-weight: 700; color: #32BAFA; margin-top: 15px; padding-top: 15px; border-top: 1px dashed #ccc; }
 
-.header {
-  text-align: center;
-  margin-bottom: 2rem;
-}
+.paymentSection { padding: 20px; flex: 1; }
+.categoryTitle { font-size: 1rem; font-weight: 600; color: #333; margin: 15px 0 10px 0; }
+.methodGrid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+.methodCard { display: flex; align-items: center; justify-content: space-between; padding: 15px; border: 1px solid #e2e8f0; border-radius: 12px; cursor: pointer; transition: 0.2s; background: white;}
+.methodCard:hover { border-color: #32BAFA; }
+.methodActive { border: 2px solid #32BAFA; background: #f0fdf4; }
+.methodLeft { display: flex; align-items: center; gap: 15px; }
+.methodLogo { width: 45px; height: 30px; object-fit: contain; }
+.methodName { font-weight: 600; color: #333; font-size: 0.95rem; }
+.checkIcon { color: #32BAFA; }
 
-.timerLabel {
-  font-size: 0.9rem;
-  color: #64748b;
-  margin-bottom: 8px;
-}
+.bottomBar { padding: 20px; background: white; border-top: 1px solid #eee; }
+.submitBtn { width: 100%; padding: 15px; background: #32BAFA; color: white; border: none; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px;}
+.submitBtn:hover { background: #21A1DE; }
+.submitBtn:disabled { background: #cbd5e1; cursor: not-allowed; }
+.flipLinkBtn { background: #fd6542; color: white; border: none; padding: 15px 20px; border-radius: 12px; font-weight: bold; font-size: 1rem; cursor: pointer; width: 100%; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; }
+.flipLinkBtn:hover { background: #e05535; }
+.refreshBtn { width: 100%; padding: 14px; background: transparent; color: #32BAFA; border: 1px solid #32BAFA; border-radius: 12px; font-weight: 600; cursor: pointer; margin-top: 15px; display: flex; justify-content: center; align-items: center; gap: 8px; }
+.refreshBtn:hover { background: #f0fdf4; }
 
-.timerBox {
-  display: inline-block;
-  background-color: #fef2f2;
-  color: #ef4444;
-  font-weight: 700;
-  font-size: 1.5rem;
-  padding: 8px 20px;
-  border-radius: 12px;
-  font-variant-numeric: tabular-nums; /* Biar angka gak goyang pas timer jalan */
-}
+.resultContainer { padding: 30px 20px; text-align: center; }
+.instruction { font-size: 0.95rem; color: #475569; margin-bottom: 20px; line-height: 1.6; }
 
-.summary {
-  text-align: center;
-  padding-bottom: 2rem;
-  border-bottom: 2px dashed #e2e8f0;
-  margin-bottom: 2rem;
-}
+/* 🔥 TAMBAHAN UI VIRTUAL ACCOUNT MEWAH */
+.receiptHeader { display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; }
+.yayasanLogo { width: 60px; height: auto; margin-bottom: 10px; border-radius: 50%; border: 2px solid #e2e8f0; }
+.vaBox { background: #f8fafc; border: 2px dashed #94a3b8; padding: 20px; border-radius: 16px; margin-bottom: 20px; position: relative; }
+.vaNumber { font-size: 1.8rem; font-weight: 800; color: #0f172a; letter-spacing: 2px; margin: 10px 0; word-break: break-all; }
+.copyBtnLg { background: #32BAFA; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; font-size: 0.85rem; }
+.copyBtnLg:hover { background: #21A1DE; }
 
-.summaryTitle {
-  font-size: 1rem;
-  color: #64748b;
-  margin-bottom: 0.5rem;
-}
+/* Instruksi Pembayaran */
+.howToPayBox { text-align: left; background: white; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
+.howToPayTitle { font-size: 1rem; font-weight: 700; color: #1e293b; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
+.howToPayList { list-style: decimal; padding-left: 20px; color: #475569; font-size: 0.9rem; line-height: 1.7; margin: 0; }
+.howToPayList li { margin-bottom: 8px; }
 
-.summaryAmount {
-  font-size: 2.2rem;
-  font-weight: 800;
-  color: #1a5f51;
-  margin: 0;
-  letter-spacing: -0.5px;
-}
-
-.summaryId {
-  display: inline-block;
-  margin-top: 10px;
-  background: #e6fffa;
-  color: #1a5f51;
-  padding: 4px 12px;
-  border-radius: 50px;
-  font-size: 0.85rem;
-  font-weight: 500;
-}
-
-/* Bank Section */
-.bankSection {
-  margin-bottom: 2rem;
-}
-
-.bankLabel {
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: #334155;
-  margin-bottom: 12px;
-}
-
-.bankCard {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border: 1px solid #e2e8f0;
-  padding: 16px;
-  border-radius: 12px;
-  background: #ffffff;
-  transition: border-color 0.2s;
-}
-
-.bankCard:hover {
-  border-color: #1a5f51;
-}
-
-.bankLogo {
-  height: 28px;
-  margin-bottom: 4px;
-  display: block;
-}
-
-.bankNumber {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: #1e293b;
-  font-family: monospace;
-  letter-spacing: 0.5px;
-}
-
-.bankName {
-  font-size: 0.85rem;
-  color: #64748b;
-}
-
-.copyBtn {
-  background: none;
-  border: none;
-  color: #1a5f51;
-  font-weight: 700;
-  font-size: 0.9rem;
-  cursor: pointer;
-  padding: 8px 12px;
-  border-radius: 8px;
-  transition: background 0.2s;
-}
-
-.copyBtn:hover {
-  background-color: #e6fffa;
-}
-
-/* Upload Section */
-.uploadSection {
-  margin-top: 1rem;
-}
-
-.uploadLabel {
-  display: block;
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: #334155;
-  margin-bottom: 10px;
-}
-
-.fileInput {
-  width: 100%;
-  padding: 12px;
-  border: 2px dashed #cbd5e1;
-  border-radius: 12px;
-  background: #f8fafc;
-  cursor: pointer;
-  font-size: 0.9rem;
-  color: #475569;
-  margin-bottom: 20px;
-  transition: all 0.2s;
-}
-
-.fileInput:hover {
-  border-color: #1a5f51;
-  background: #f0fdfa;
-}
-
-.submitBtn {
-  width: 100%;
-  padding: 16px;
-  background-color: #1a5f51;
-  color: white;
-  border: none;
-  border-radius: 12px;
-  font-weight: 700;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background 0.2s;
-  box-shadow: 0 4px 6px -1px rgba(26, 95, 81, 0.2);
-}
-
-.submitBtn:hover:not(:disabled) {
-  background-color: #134e42;
-}
-
-.submitBtn:disabled {
-  background-color: #94a3b8;
-  cursor: not-allowed;
-  box-shadow: none;
-}
-
-.loading {
-  text-align: center;
-  color: #64748b;
-  font-weight: 500;
-}
+.invoicePaper { background: white; border: 1px solid #e2e8f0; padding: 25px; border-radius: 16px; text-align: left; margin-top: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }

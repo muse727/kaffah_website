@@ -4,16 +4,14 @@ import { useState } from 'react';
 import Image from 'next/image';
 import styles from '../styles/NilaiUnggulSection.module.css';
 
+// 🔥 DATA UDAH JADI K-A-F-F-A-H
 const nilaiData = [
-  { letter: 'A', title: 'Amal Jama’i (Kerjasama)', description: 'sebagai metode mewujudkan Visi dan Misi.', icon: '/icons/nilai/amal.svg' },
-  { letter: 'L', title: 'Learning (Belajar)', description: 'sebagai budaya seluruh warga sekolah.', icon: '/icons/nilai/learning.svg' },
-  { letter: 'M', title: 'Musyawarah', description: 'sebagai pendekatan dalam menyelesaikan masalah.', icon: '/icons/nilai/musyawarah.svg' },
-  { letter: 'U', title: 'Ukhrawi (Akhirat)', description: 'sebagai tujuan akhir dalam melakukan kebajikan.', icon: '/icons/nilai/ukhrawi.svg' },
-  { letter: 'B', title: 'Bermanfaat dan Peduli', description: 'terhadap sesama serta lingkungan sebagai cita-cita kehidupan.', icon: '/icons/nilai/bermanfaat.svg' },
-  { letter: 'A', title: 'Ahlussunnah wal Jama’ah', description: 'sebagai prinsip dalam mengajarkan ajaran Agama Islam.', icon: '/icons/nilai/ahlussunnah.svg' },
-  { letter: 'R', title: 'Ri’ayah (Penjagaan)', description: 'sebagai cara untuk menjaga keseimbangan sistem.', icon: '/icons/nilai/riayah.svg' },
-  { letter: 'A', title: 'Amar Ma’ruf, Nahi Munkar', description: 'untuk menguatkan organisasi.', icon: '/icons/nilai/amar-maruf.svg' },
-  { letter: 'K', title: 'Komitmen', description: 'untuk peningkatan mutu yang terus berkesinambungan.', icon: '/icons/nilai/komitmen.svg' },
+  { letter: 'K', title: 'Karakter Qur’ani', description: 'Membentuk pribadi yang berakhlak mulia dengan pembiasaan adab, ibadah, dan nilai-nilai Al-Qur’an dalam kehidupan sehari-hari.', icon: '/icons/nilai/karakter.svg' },
+  { letter: 'A', title: 'Al-Qur’an Centered', description: 'Menanamkan kecintaan terhadap Al-Qur’an melalui program hafalan (tahfizh), tilawah, dan pemahaman dasar sejak usia dini.', icon: '/icons/nilai/quran-center.svg' },
+  { letter: 'F', title: 'Fluent in English', description: 'Mengembangkan kemampuan bahasa Inggris melalui penerapan bilingual daily activity agar siswa percaya diri berkomunikasi secara global.', icon: '/icons/nilai/fluent.svg' },
+  { letter: 'F', title: 'Fun Learning Environment', description: 'Menciptakan suasana belajar yang menyenangkan, aktif, dan kreatif sehingga anak belajar dengan bahagia dan optimal.', icon: '/icons/nilai/fun.svg' },
+  { letter: 'A', title: 'Active & Skillful', description: 'Melatih kemandirian, keterampilan, dan kepercayaan diri siswa melalui berbagai kegiatan pengembangan diri.', icon: '/icons/nilai/active.svg' },
+  { letter: 'H', title: 'Holistic Education', description: 'Menghadirkan pendidikan yang menyeluruh meliputi aspek iman, ilmu, akhlak, dan keterampilan untuk mempersiapkan masa depan.', icon: '/icons/nilai/holistic.svg' },
 ];
 
 const NilaiUnggulSection = () => {
@@ -23,12 +21,11 @@ const NilaiUnggulSection = () => {
   return (
     <section className={styles.nilaiSection}>
       <div className="container">
-        {/* === INI DIA CONTAINER PUTIHNYA === */}
         <div className={styles.mainWrapper} data-aos="fade-up">
           <div className={styles.header}>
-            <span className={styles.subtitle}>SDIT Al Mubarak</span>
-            <h2 className={styles.title}>Nilai - Nilai Unggul</h2>
-            <p className={styles.description}>Apalah Nilai unggul yang ada di SDIT Al Mubarak</p>
+            <span className={styles.subtitle}>Kaffah Islamic School 1</span>
+            <h2 className={styles.title}>Nilai - Nilai Unggul KAFFAH</h2>
+            <p className={styles.description}>Keunggulan yang menjadi identitas kami</p>
           </div>
 
           <div className={styles.tabButtons}>
@@ -53,7 +50,6 @@ const NilaiUnggulSection = () => {
             </div>
           </div>
         </div>
-        {/* === AKHIR DARI CONTAINER PUTIH === */}
       </div>
     </section>
   );

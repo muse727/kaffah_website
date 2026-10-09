@@ -1,71 +1,36 @@
 import Image from 'next/image';
 import Link from 'next/link';
-// Import fetchREST dan fetchGraphQL
-import { fetchREST, fetchGraphQL } from '../../../lib/wordpress';
+import { PrismaClient } from '@prisma/client';
 import styles from '../../../styles/SinglePost.module.css';
 import PageWrapper from '../../../components/PageWrapper';
 
 export const dynamic = 'force-dynamic';
+const prisma = new PrismaClient();
 
-// Fungsi helper untuk ambil data via REST API
-async function getPostData(slug) {
-  try {
-    // REST API endpoint untuk get post by slug
-    // _embed=true penting untuk dapat gambar dan author
-    const posts = await fetchREST(`/posts?slug=${slug}&_embed`);
-    
-    // REST API mengembalikan array, kita ambil item pertama
-    if (posts && posts.length > 0) {
-      return posts[0];
-    }
-    return null;
-  } catch (error) {
-    console.error("Gagal fetch REST:", error);
-    return null;
-  }
-}
-
-// Fungsi untuk sidebar (masih pakai GraphQL karena cuma butuh list)
-async function getRecentPosts() {
-  try {
-    const query = `
-      query GetRecentPosts {
-        posts(first: 5, where: { orderby: { field: DATE, order: DESC } }) {
-          nodes { 
-            id, title, slug, 
-            featuredImage { node { sourceUrl(size: THUMBNAIL) } } 
-          }
-        }
-      }
-    `;
-    const data = await fetchGraphQL(query);
-    return data?.posts?.nodes || [];
-  } catch (error) {
-    return [];
-  }
-}
-
+// Bikin Metadata buat SEO / Judul Tab Browser
 export async function generateMetadata({ params }) {
-    // Await params dulu (Next.js 15 requirement)
     const { slug } = await params;
-    const post = await getPostData(slug);
+    const post = await prisma.berita.findUnique({ where: { slug } });
     
     if (post) {
-      return { title: `${post.title.rendered} | Al Mubarak` };
+      return { title: `${post.title} | Kaffah Islamic School` };
     }
     return { title: 'Berita Tidak Ditemukan' };
 }
-
 
 export default async function SinglePostPage(props) {
   const params = await props.params;
   const { slug } = params;
   
-  // Ambil data paralel
-  const [post, recentPosts] = await Promise.all([
-    getPostData(slug),
-    getRecentPosts()
-  ]);
+  // Ambil artikel yang lagi dibaca (Berdasarkan SLUG)
+  const post = await prisma.berita.findUnique({ where: { slug } });
+  
+  // Ambil 4 artikel terbaru buat di Sidebar (Kecuali artikel yang lagi dibaca)
+  const recentPosts = await prisma.berita.findMany({
+    where: { status: 'PUBLISHED', NOT: { slug } },
+    orderBy: { createdAt: 'desc' },
+    take: 4 
+  });
 
   if (!post) {
     return (
@@ -78,31 +43,27 @@ export default async function SinglePostPage(props) {
     );
   }
 
-  // Data dari REST API strukturnya beda dengan GraphQL
-  // post.title.rendered, post.content.rendered, dll.
-  
-  const featuredImageUrl = post._embedded?.['wp:featuredmedia']?.[0]?.source_url;
-  const authorName = post._embedded?.author?.[0]?.name || 'Tim Redaksi';
-
   return (
     <PageWrapper>
         <main className={styles.main}>
           <div className={`${styles.articleContainer} container`}>
+            
+            {/* KONTEN ARTIKEL */}
             <article className={styles.articleContent}>
-              <h1 className={styles.articleTitle} dangerouslySetInnerHTML={{ __html: post.title.rendered }} />
+              <h1 className={styles.articleTitle}>{post.title}</h1>
               
               <div className={styles.metaInfo}>
-                <span>Oleh: {authorName}</span>
+                <span>Oleh: {post.author}</span>
                 <span>
-                  {new Date(post.date).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}
+                  {new Date(post.createdAt).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}
                 </span>
               </div>
 
-              {featuredImageUrl && (
+              {post.image && (
                 <div className={styles.featuredImageWrapper}>
                   <Image 
-                    src={featuredImageUrl}
-                    alt={post.title.rendered}
+                    src={post.image}
+                    alt={post.title}
                     fill
                     sizes="80vw"
                     style={{ objectFit: 'cover' }}
@@ -111,24 +72,23 @@ export default async function SinglePostPage(props) {
                 </div>
               )}
               
+              {/* Hasil dari Editor React Quill langsung ditampilin ke sini */}
               <div 
                 className={styles.articleBody}
-                dangerouslySetInnerHTML={{ __html: post.content.rendered }}
+                dangerouslySetInnerHTML={{ __html: post.content }}
               />
             </article>
 
+            {/* SIDEBAR BERITA LAINNYA */}
             <aside className={styles.sidebar}>
               <h3>Berita Lainnya</h3>
               <div className={styles.sidebarPostList}>
-                {recentPosts
-                  .filter(p => p.slug !== slug)
-                  .slice(0, 4)
-                  .map(recent => (
-                  recent.featuredImage?.node?.sourceUrl && (
+                {recentPosts.map(recent => (
+                  recent.image && (
                     <Link href={`/berita/${recent.slug}`} key={recent.id} className={styles.sidebarPostCard}>
                       <div className={styles.sidebarCardImage}>
                         <Image
-                          src={recent.featuredImage.node.sourceUrl}
+                          src={recent.image}
                           alt={recent.title}
                           fill
                           sizes="100px"
@@ -143,6 +103,7 @@ export default async function SinglePostPage(props) {
                 ))}
               </div>
             </aside>
+            
           </div>
         </main>
     </PageWrapper>

@@ -14,12 +14,10 @@ const Navbar = () => {
   const [isMounted, setIsMounted] = useState(false);
   const pathname = usePathname();
 
-  // Fix hydration issue
   useEffect(() => {
     setIsMounted(true);
   }, []);
 
-  // Efek scroll untuk navbar
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
@@ -28,7 +26,6 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close mobile menu when route changes
   useEffect(() => {
     setIsMenuOpen(false);
     setMobileSubMenuOpen(false);
@@ -46,14 +43,13 @@ const Navbar = () => {
     setMobileSubMenuOpen(false);
   };
 
-  // Prevent hydration mismatch by not rendering until mounted
   if (!isMounted) {
     return (
       <header className={styles.header}>
         <div className={styles.topBar}>
           <div className={styles.topBarContainer}>
             <div className={styles.contactInfo}>
-              <span>almubaraksit@gmail.com</span>
+              <span>kaffahislamicschool@gmail.com</span>
             </div>
           </div>
         </div>
@@ -61,8 +57,8 @@ const Navbar = () => {
           <div className={styles.mainNavContainer}>
             <div className={styles.logo}>
               <div className={styles.logoText}>
-                <span>YAYASAN WAKFIAH</span>
-                <span>AL MUBARAK</span>
+                <span>KAFFAH ISLAMIC</span>
+                <span>SCHOOL</span>
               </div>
             </div>
             <div className={styles.hamburger}>
@@ -78,54 +74,48 @@ const Navbar = () => {
 
   return (
     <header className={`${styles.header} ${isScrolled ? styles.scrolled : ''}`}>
-      {/* ===== TOP BAR (HIJAU) ===== */}
+      {/* ===== TOP BAR ===== */}
       <div className={styles.topBar}>
         <div className={styles.topBarContainer}>
           <div className={styles.contactInfo}>
             <Image src="/icons/mail.svg" alt="Email" width={16} height={16} />
-            <span>almubaraksit@gmail.com</span>
+            <span>kaffahislamicschool@gmail.com</span>
           </div>
           <div className={styles.contactInfo}>
             <Image src="/icons/phone.svg" alt="Telepon" width={16} height={16} />
-            <span>+6289-5170-36100</span>
+            <span>{'(021) 29924450'}</span>
           </div>
         </div>
       </div>
 
-      {/* ===== MAIN NAVIGATION (PUTIH) ===== */}
+      {/* ===== MAIN NAVIGATION ===== */}
       <nav className={styles.mainNav}>
         <div className={styles.mainNavContainer}>
           <Link href="/" className={styles.logo} onClick={closeMenu}>
             <Image 
-              src="/logo-yayasan.png" 
-              alt="Logo Yayasan Al Mubarak" 
-              width={48} 
-              height={48}
+              src="/logo-kaffah.png" 
+              alt="Logo Kaffah Islamic School" 
+              width={100} 
+              height={100}
+              style={{ width: 'auto', height: '40px' }} 
               priority
             />
             <div className={styles.logoText}>
-              <span>YAYASAN WAKFIAH</span>
-              <span>AL MUBARAK</span>
+              <span>KAFFAH</span>
+              <span>ISLAMIC SCHOOL</span>
             </div>
           </Link>
 
           {/* Desktop Navigation */}
           <div className={styles.navMenu}>
             <div className={styles.desktopNav}>
-              <Link 
-                href="/" 
-                className={`${styles.navLink} ${pathname === '/' ? styles.activeLink : ''}`}
-              >
+              <Link href="/" className={`${styles.navLink} ${pathname === '/' ? styles.activeLink : ''}`}>
                 Home
               </Link>
-              <Link 
-                href="/tentang-kami" 
-                className={`${styles.navLink} ${pathname === '/tentang-kami' ? styles.activeLink : ''}`}
-              >
+              <Link href="/tentang-kami" className={`${styles.navLink} ${pathname === '/tentang-kami' ? styles.activeLink : ''}`}>
                 Tentang Kami
               </Link>
               
-              {/* Dropdown Unit Pendidikan */}
               <div 
                 className={styles.dropdownContainer}
                 onMouseEnter={() => setDropdownOpen(true)}
@@ -139,40 +129,24 @@ const Navbar = () => {
                 </button>
                 <div className={`${styles.dropdownMenu} ${isDropdownOpen ? styles.dropdownOpen : ''}`}>
                   <Link href="/unit-pendidikan/sdit" className={styles.dropdownLink}>
-                    SDIT Al Mubarak
+                    Kaffah Islamic School 1
                   </Link>
                   <Link href="/unit-pendidikan/smpit" className={styles.dropdownLink}>
-                    SMPIT Al Mubarak
+                    Kaffah Islamic School 2
                   </Link>
-                  <Link href="/unit-pendidikan/lpq" className={styles.dropdownLink}> LPQ Al Mubarak
-                  </Link>
+                  <Link href="/unit-pendidikan/lpq" className={styles.dropdownLink}> 
+                    SAQU (Sahabat Quran)
+                  </Link>
                 </div>
               </div>
 
-              <Link 
-              href="/juara" 
-              className={`${styles.navLink} ${pathname === '/juara' ? styles.activeLink : ''}`}
-              >
-              Prestasi
+              <Link href="/juara" className={`${styles.navLink} ${pathname === '/juara' ? styles.activeLink : ''}`}>
+                Prestasi
               </Link>
-
-              <Link 
-                href="/wakaf" 
-                className={`${styles.navLink} ${pathname === '/wakaf' ? styles.activeLink : ''}`}
-              >
-                Wakaf
-              </Link>
-
-              <Link 
-                href="/berita" 
-                className={`${styles.navLink} ${pathname === '/berita' ? styles.activeLink : ''}`}
-              >
+              <Link href="/berita" className={`${styles.navLink} ${pathname === '/berita' ? styles.activeLink : ''}`}>
                 Berita
               </Link>
-              <Link 
-                href="/kontak" 
-                className={`${styles.navLink} ${pathname.startsWith('/kontak') ? styles.activeLink : ''}`}
-              >
+              <Link href="/kontak" className={`${styles.navLink} ${pathname.startsWith('/kontak') ? styles.activeLink : ''}`}>
                 Kontak
               </Link>
             </div>
@@ -182,7 +156,6 @@ const Navbar = () => {
             </Link>
           </div>
 
-          {/* Mobile Hamburger */}
           <button 
             className={`${styles.hamburger} ${isMenuOpen ? styles.hamburgerActive : ''}`} 
             onClick={toggleMenu}
@@ -195,16 +168,12 @@ const Navbar = () => {
         </div>
       </nav>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile Menu */}
       <div className={`${styles.mobileOverlay} ${isMenuOpen ? styles.mobileOverlayActive : ''}`} onClick={closeMenu}></div>
       <div className={`${styles.mobileMenu} ${isMenuOpen ? styles.mobileMenuActive : ''}`}>
         <nav className={styles.mobileNav}>
-          <Link href="/" className={styles.mobileNavLink} onClick={closeMenu}>
-            Home
-          </Link>
-          <Link href="/tentang-kami" className={styles.mobileNavLink} onClick={closeMenu}>
-            Tentang Kami
-          </Link>
+          <Link href="/" className={styles.mobileNavLink} onClick={closeMenu}>Home</Link>
+          <Link href="/tentang-kami" className={styles.mobileNavLink} onClick={closeMenu}>Tentang Kami</Link>
           
           <div className={styles.mobileDropdown}>
             <button 
@@ -218,30 +187,20 @@ const Navbar = () => {
             </button>
             <div className={`${styles.mobileSubMenu} ${isMobileSubMenuOpen ? styles.mobileSubMenuActive : ''}`}>
               <Link href="/unit-pendidikan/sdit" className={styles.mobileSubLink} onClick={closeMenu}>
-                SDIT Al Mubarak
+                Kaffah Islamic School 1
               </Link>
               <Link href="/unit-pendidikan/smpit" className={styles.mobileSubLink} onClick={closeMenu}>
-                SMPIT Al Mubarak
+                Kaffah Islamic School 2
               </Link>
               <Link href="/unit-pendidikan/lpq" className={styles.mobileSubLink} onClick={closeMenu}>
-              LPQ Al Mubarak
-              </Link>
+                SAQU (Sahabat Quran)
+              </Link>
             </div>
           </div>
 
-          <Link href="/juara" className={styles.mobileNavLink} onClick={closeMenu}>
-          Prestasi
-          </Link>
-          <Link href="/wakaf" className={styles.mobileNavLink} onClick={closeMenu}>
-            Wakaf
-          </Link>
-
-          <Link href="/berita" className={styles.mobileNavLink} onClick={closeMenu}>
-            Berita
-          </Link>
-          <Link href="/kontak" className={styles.mobileNavLink} onClick={closeMenu}>
-            Kontak
-          </Link>
+          <Link href="/juara" className={styles.mobileNavLink} onClick={closeMenu}>Prestasi</Link>
+          <Link href="/berita" className={styles.mobileNavLink} onClick={closeMenu}>Berita</Link>
+          <Link href="/kontak" className={styles.mobileNavLink} onClick={closeMenu}>Kontak</Link>
           
           <Link href="/pendaftaran" className={styles.mobileCtaButton} onClick={closeMenu}>
             Informasi Pendaftaran

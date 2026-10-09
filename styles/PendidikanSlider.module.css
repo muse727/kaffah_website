@@ -1,5 +1,5 @@
 .section {
-  background-color: #107163;
+  background-color: #32BAFA;
   height: 100vh;
   display: flex;
   align-items: center;
@@ -94,8 +94,8 @@
 }
 
 .cardImage {
-  width: 100%;
-  height: 100%;
+  width: 50%;
+  height: 50%;
   object-fit: cover;
   object-position: center;
   display: block;

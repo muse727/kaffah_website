@@ -1,6 +1,6 @@
 .vmSection {
   padding: 8rem 0;
-  background: linear-gradient(135deg, var(--brand-green) 0%, #1a7368 100%);
+  background: linear-gradient(135deg, var(--brand-primary) 0%, #0F6DA1 100%);
   position: relative;
   overflow: hidden;
 }

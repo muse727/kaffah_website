@@ -6,7 +6,7 @@
 
 /* Wrapper hijau */
 .greenWrapper {
-  background-color: var(--brand-green);
+  background-color: var(--brand-primary);
   color: #fff;
   border-radius: 24px;
   padding: 4rem;

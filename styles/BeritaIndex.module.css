@@ -9,7 +9,7 @@
   text-align: center; 
   margin-bottom: 3rem;
   font-weight: 800;
-  background: linear-gradient(135deg, #107163 0%, #0a5a4d 100%);
+  background: linear-gradient(135deg, #32BAFA 0%, #0a5a4d 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -80,7 +80,7 @@
 }
 
 .featuredTag {
-  background: linear-gradient(135deg, #107163 0%, #0a5a4d 100%);
+  background: linear-gradient(135deg, #32BAFA 0%, #0a5a4d 100%);
   color: #fff;
   padding: 0.5rem 1.2rem;
   border-radius: 99px;
@@ -160,7 +160,7 @@
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(135deg, #107163 0%, #0a5a4d 100%);
+  background: linear-gradient(135deg, #32BAFA 0%, #0a5a4d 100%);
   z-index: 2;
 }
 
@@ -207,7 +207,7 @@
 .cardCategory {
   font-size: 0.75rem;
   font-weight: 700;
-  color: #107163;
+  color: #32BAFA;
   margin-bottom: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -234,7 +234,7 @@
 }
 
 .cardContent h3 a:hover {
-  color: #107163;
+  color: #32BAFA;
 }
 
 .cardExcerpt {
@@ -262,7 +262,7 @@
 .readMore {
   font-size: 0.9rem;
   font-weight: 700;
-  color: #107163;
+  color: #32BAFA;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
@@ -297,12 +297,12 @@
 .sectionHeader h2 {
   font-size: 2rem;
   font-weight: 700;
-  color: #107163;
+  color: #32BAFA;
   margin: 0;
 }
 
 .viewAll {
-  color: #107163;
+  color: #32BAFA;
   text-decoration: none;
   font-weight: 600;
   display: inline-flex;

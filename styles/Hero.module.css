@@ -2,99 +2,133 @@
 .heroSection {
   position: relative;
   width: 100%;
-  height: 90vh; /* Sedikit lebih pendek dari layar penuh agar kartu pas */
-  background-color: #374151;
+  height: 85vh; /* Cukup 85% layar, sisanya buat nampilin kartu */
+  background-color: #1e293b;
+  display: flex;
+  align-items: center; 
 }
 
-/* === BACKGROUND & OVERLAYS (FIXED) === */
+/* === BACKGROUND & OVERLAYS === */
 .backgroundContainer {
   position: absolute;
   inset: 0;
   z-index: 1;
-  /* TAMBAHAN: Pastikan containernya tidak overflow */
   overflow: hidden; 
 }
 
-/* KELAS BARU UNTUK SETIAP GAMBAR */
 .backgroundImage {
   position: absolute;
   inset: 0;
-  opacity: 0; /* Semua gambar awalnya transparan */
+  opacity: 0; 
+  transition: opacity 1.5s ease-in-out; 
 }
 
-/* Pastikan gambar pertama langsung terlihat saat halaman dimuat */
-.backgroundImage:first-child {
+.activeImage {
   opacity: 1;
+  z-index: 1;
 }
-/* KUNCI GAMBAR TIDAK MENYEMPIT */
-.backgroundContainer > div:first-child {
-  height: 100% !important;
-  width: 100% !important;
+
+.videoBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
 }
-.backgroundContainer > div:first-child img {
-  object-fit: cover !important;
-}
+
 .darkOverlay {
   position: absolute;
   inset: 0;
-  background-color: rgba(20, 25, 38, 0.4);
+  background-color: rgba(20, 20, 20, 0.459); 
+  z-index: 2; /* Kunci biar warna gelapnya di ATAS gambar */
 }
+
+
+
 .whiteGradientOverlay {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 0% 50%, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 55%);
+  /* 🔥 KUNCINYA DI SINI: Gradasi dari KIRI (putih pekat) pelan-pelan ngilang ke KANAN */
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.671) 0%, rgba(255, 255, 255, 0.425) 15%, rgba(255, 255, 255, 0.11) 65%);
+  pointer-events: none;
+  z-index: 2; /* Kunci biar putih-putihnya di ATAS gambar */
 }
 
-/* === KONTEN JUDUL (FIXED DENGAN POSISI ABSOLUT) === */
+/* 🔥 3. NAIKIN Z-INDEX KONTEN TEKS JADI 3 */
 .heroContent {
-  position: absolute;
-  z-index: 2;
-  top: 50%;
-  left: 20; /* Mulai dari tepi kiri container */
-  transform: translateY(-50%); /* Trik agar pas di tengah vertikal */
+  position: relative;
+  z-index: 3; /* Teks harus paling depan biar ga ketutup overlay */
   text-align: left;
-  max-width: 70%;
+  width: 100%;
+  max-width: 1200px; 
+  margin-top: -6rem; 
+  margin-left: 1.5rem; 
 }
+
 .heroContent h1 {
   font-family: var(--font-poppins);
-  font-size: 3.5rem;
-  font-weight: 700;
-  line-height: 1.3;
-  text-shadow: 0 2px 10px rgba(0,0,0,0.2);
-}
-.textDark {
-  color: var(--white);
-}
-.textGreen {
-  color: var(--brand-green);
+  font-size: 4.2rem; 
+  font-weight: 800;
+  line-height: 1.4; 
+  letter-spacing: 0px; 
+  word-spacing: 8px; 
+  text-shadow: none; 
 }
 
-/* === KARTU-KARTU (FIXED DENGAN POSISI ABSOLUT) === */
+.textDark {
+  color: #ffffff;
+}
+
+.textBlue {
+  color: #32BAFA; 
+  display: inline-block; 
+  text-shadow: none; 
+  background: none;
+  -webkit-text-fill-color: initial;
+}
+
+/* === KARTU-KARTU (CARDS) === */
+.cardsWrapper {
+  position: relative;
+  z-index: 10; /* Biar selalu di atas section apapun */
+  width: 100%;
+  /* 🔥 KUNCI: Karena dia udah di luar section Hero, kita tarik dia ke atas (negatif) biar overlap! */
+  margin-top: -8rem; 
+  padding-bottom: 2rem; 
+}
+
 .cardsContainer {
-  position: absolute;
-  z-index: 3;
-  bottom: 0;
-  right: 0; /* Mulai dari tepi kanan container */
-  transform: translateY(50%); /* Trik overlap */
-  
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
-  width: 55%;
+  width: 100%;
+  max-width: 65%; /* 3 Kartu ngisi 65% layar doang */
+  margin-left: auto; /* Dorong 3 kartu ke kanan */
+  margin-right: 0;
 }
+
 .card {
-  background-color: var(--white);
-  padding: 2rem;
+  background-color: #ffffff;
+  padding: 2.5rem 1.5rem;
   border-radius: 16px;
-  border: 1px solid var(--border-color);
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 10px 25px -5px rgba(15, 109, 161, 0.15); 
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 30px -5px rgba(15, 109, 161, 0.25);
+}
+
 .iconWrapper {
-  background-color: var(--icon-bg);
+  background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
   width: 64px;
   height: 64px;
   border-radius: 50%;
@@ -103,68 +137,94 @@
   justify-content: center;
   margin-bottom: 1.5rem;
   flex-shrink: 0;
+  box-shadow: 0 4px 10px rgba(50, 186, 250, 0.2);
 }
+
 .cardTitle {
   font-family: var(--font-poppins);
   font-size: 1.25rem;
-  font-weight: 600;
-  color: var(--text-primary);
+  font-weight: 700;
+  color: #0F6DA1;
   margin-bottom: 0.5rem;
 }
+
 .cardDescription {
-  font-size: 1rem;
-  color: var(--text-secondary);
+  font-size: 0.95rem;
+  color: #64748b;
   line-height: 1.6;
 }
 
 /* === RESPONSIVE === */
+@media (max-width: 1200px) {
+  .heroContent h1 { font-size: 3.5rem; }
+  .cardsContainer { max-width: 80%; } 
+}
+
 @media (max-width: 992px) {
   .heroSection {
-    display: block;
-    height: auto;
-    padding: 10rem 1rem 0 1rem; 
+    height: 75vh;
+    padding-top: 5rem;
   }
-
+  
   .heroContent {
-    position: relative;
-    transform: none;
-    left: auto;
-    top: auto;
+    margin-top: -3rem;
+    margin-left: 0; 
     text-align: center;
-    max-width: 100%;
-    /* DIKURANGI: Ruang bawah secukupnya */
-    margin-bottom: 6rem; 
+    padding: 0 1.5rem;
+  }
+  .heroContent h1 {
+    font-size: 3rem;
+  }
+  .cardsWrapper {
+    margin-top: -6rem; 
+  }
+  .cardsContainer {
+    max-width: 100%; 
+    margin: 0 auto;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    padding: 0 2rem;
+  }
+}
+
+/* 🔥 TAMPILAN HP (MOBILE FIX) */
+@media (max-width: 768px) {
+  .heroSection {
+    height: 65vh; /* Jangan terlalu tinggi di HP */
+    padding-top: 6rem; /* Turunin dikit biar gak nabrak logo menu */
   }
 
   .heroContent h1 {
-    font-size: 2.5rem;
+    font-size: 2.1rem;
+    word-spacing: 2px; 
   }
-  
+
+  .textBlue {
+    white-space: normal; 
+  }
 
   .cardsWrapper {
-    position: center;
-    transform: none;
-    bottom: auto;
-    left: auto;
-    right: auto;
-    height: auto;
-    padding-bottom: 4rem;
-    /* BARU: Gunakan Flexbox untuk centering sempurna */
-    display: flex;
-    justify-content: center;
+    /* 🔥 KUNCI MOBILE: 
+       Di HP kita narik wadah bungkusnya ke atas DENGAN MINUS GEDE!
+       Biar kotak pertama nyium background. 
+    */
+    margin-top: -6rem; 
   }
 
   .cardsContainer {
-    grid-template-columns: 1fr;
-    width: 90%;
-    /* DIHAPUS: margin auto karena sudah diatur parent */
-    margin: 20; 
-    /* DIKURANGI: Tarik ke atasnya jangan terlalu banyak */
-    margin-top: 20px;
+    grid-template-columns: 1fr; /* Pasti 1 baris ke bawah */
+    padding: 0 1rem;
   }
+}
 
-  /* Hapus margin spesifik untuk kartu pertama karena semua sudah ditarik ke atas */
-  .card:first-child {
-    margin-top: 700px;
-  }
+/* 🔥 TRIK DEWA YOUTUBE BACKGROUND */
+.youtubeWrapper {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  overflow: hidden; z-index: -1; pointer-events: none; 
+}
+
+.youtubeIframe {
+  position: absolute; top: 50%; left: 50%;
+  width: 100vw; height: 56.25vw; min-height: 100vh; min-width: 177.77vh; 
+  transform: translate(-50%, -50%) scale(1.15); pointer-events: none;
 }

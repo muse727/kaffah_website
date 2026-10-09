@@ -1,16 +1,20 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { Suspense } from 'react';
-import { fetchGraphQL } from '../../lib/wordpress';
+import { PrismaClient } from '@prisma/client'; // 👈 Panggil Prisma langsung
 import styles from '../../styles/BeritaIndex.module.css';
-import Pagination from '../../components/Pagination'; // Pastikan komponen ini ada
+import Pagination from '../../components/Pagination'; 
 import PageWrapper from '../../components/PageWrapper';
 
 export const dynamic = 'force-dynamic';
 
-const cleanExcerpt = (html) => {
-  if (!html) return '';
-  return html.replace(/<[^>]+>/g, '');
+const prisma = new PrismaClient();
+
+// Fungsi buatan buat motong isi berita (karena kita ga pake excerpt bawaan WP lagi)
+const generateExcerpt = (html) => {
+  if (!html) return '';
+  const text = html.replace(/<[^>]+>/g, ''); // Buang tag HTML bawaan Editor Quill
+  return text.length > 120 ? text.substring(0, 120) + '...' : text;
 };
 
 const PaginationLoading = () => (
@@ -19,61 +23,21 @@ const PaginationLoading = () => (
   </div>
 );
 
-const postsPerPage = 6;
-
 export default async function BeritaIndexPage(props) {
   const searchParams = await props.searchParams;
-  let posts = [];
-  let pageInfo = {};
   
-  const { after, before } = searchParams;
+  // Karena sekarang pake database lokal, ambil datanya gampang banget!
+  const posts = await prisma.berita.findMany({
+    where: { status: 'PUBLISHED' }, // Cuma tampilin yang statusnya Terbit
+    orderBy: { createdAt: 'desc' }
+  });
 
-  try {
-    // Query GraphQL standar (TANPA offsetPagination plugin)
-    // Kita gunakan cursor based pagination bawaan WPGraphQL
-    const query = `
-      query GetPosts($first: Int, $last: Int, $after: String, $before: String) {
-        posts(first: $first, last: $last, after: $after, before: $before, where: { orderby: { field: DATE, order: DESC } }) {
-          nodes {
-            id
-            title
-            slug
-            date
-            excerpt(format: RENDERED)
-            featuredImage { node { sourceUrl(size: LARGE) } }
-          }
-          pageInfo {
-            hasNextPage
-            hasPreviousPage
-            startCursor
-            endCursor
-          }
-        }
-      }
-    `;
-    
-    const variables = {
-      after: after || null,
-      before: before || null,
-      first: !before ? postsPerPage : null,
-      last: before ? postsPerPage : null,
-    };
-
-    const data = await fetchGraphQL(query, variables);
-    posts = data?.posts?.nodes || [];
-    pageInfo = data?.posts?.pageInfo || {};
-
-  } catch (error) {
-    console.error("Gagal memuat halaman berita:", error);
-  }
-
-  // Cek apakah ini halaman pertama
-  const isFirstPage = !after && !before;
-  
-  // Ambil featured post hanya di halaman pertama
+  const isFirstPage = true; // Set default dulu buat halaman pertama
   const featuredPost = isFirstPage && posts.length > 0 ? posts[0] : null;
-  // Sisa post untuk grid
   const recentPosts = isFirstPage && posts.length > 1 ? posts.slice(1) : posts;
+
+  // DUMMY PAGE INFO (Biar komponen Pagination lu ga error)
+  const pageInfo = { hasNextPage: false, hasPreviousPage: false, startCursor: null, endCursor: null };
 
   return (
     <PageWrapper>
@@ -81,11 +45,12 @@ export default async function BeritaIndexPage(props) {
         <div className="container">
           <h1 className={styles.pageTitle}>Berita & Kegiatan</h1>
           
-          {featuredPost && featuredPost.featuredImage?.node?.sourceUrl && (
+          {/* ARTIKEL UTAMA (Paling Gede) */}
+          {featuredPost && featuredPost.image && (
             <Link href={`/berita/${featuredPost.slug}`} className={styles.featuredPost} data-aos="fade-up">
               <div className={styles.featuredImageWrapper}>
                 <Image 
-                  src={featuredPost.featuredImage.node.sourceUrl}
+                  src={featuredPost.image} // 👈 Jauh lebih simpel kan?
                   alt={featuredPost.title}
                   fill
                   sizes="(max-width: 768px) 100vw, 80vw"
@@ -96,18 +61,19 @@ export default async function BeritaIndexPage(props) {
               <div className={styles.featuredContent}>
                 <span className={styles.featuredTag}>Berita Utama</span>
                 <h2>{featuredPost.title}</h2>
-                <p>{cleanExcerpt(featuredPost.excerpt)}</p>
+                <p>{generateExcerpt(featuredPost.content)}</p>
               </div>
             </Link>
           )}
 
+          {/* GRID ARTIKEL LAINNYA */}
           <div className={styles.recentGrid}>
             {recentPosts.map((post, index) => (
-              post.featuredImage?.node?.sourceUrl && (
+              post.image && (
                 <div key={post.id} className={styles.postCard} data-aos="fade-up" data-aos-delay={index * 50}>
                   <Link href={`/berita/${post.slug}`} className={styles.cardImageWrapper}>
                     <Image
-                      src={post.featuredImage.node.sourceUrl}
+                      src={post.image}
                       alt={post.title}
                       fill
                       sizes="(max-width: 768px) 100vw, 33vw"
@@ -119,7 +85,7 @@ export default async function BeritaIndexPage(props) {
                     <h3>
                       <Link href={`/berita/${post.slug}`}>{post.title}</Link>
                     </h3>
-                    <p className={styles.cardExcerpt}>{cleanExcerpt(post.excerpt)}</p>
+                    <p className={styles.cardExcerpt}>{generateExcerpt(post.content)}</p>
                     <Link href={`/berita/${post.slug}`} className={styles.readMore}>
                       Selengkapnya &rarr;
                     </Link>

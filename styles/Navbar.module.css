@@ -1,6 +1,6 @@
 /* === VARIABLES === */
 :root {
-  --brand-green: #107163;
+  --brand-primary: #32BAFA;
   --dark-bg: #1F2937;
   --text-primary: #1F2937;
   --text-secondary: #6B7280;
@@ -26,7 +26,7 @@
 
 /* === TOP BAR === */
 .topBar {
-  background: var(--brand-green);
+  background: var(--brand-primary);
   color: white;
   padding: 8px 0;
   font-size: 0.875rem;
@@ -81,7 +81,7 @@
 .logo {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   text-decoration: none;
   z-index: 1002;
 }
@@ -96,7 +96,7 @@
   font-family: var(--font-poppins);
   font-size: 0.875rem;
   font-weight: 700;
-  color: #107163;
+  color: #32BAFA;
 }
 
 .logoText span:last-child {
@@ -134,7 +134,7 @@
 }
 
 .navLink:hover {
-  color: #107163;
+  color: #32BAFA;
 }
 
 .navLink::after {
@@ -144,7 +144,7 @@
   left: 0;
   width: 0;
   height: 2px;
-  background: #107163;
+  background: #32BAFA;
   transition: width 0.3s ease;
 }
 
@@ -154,7 +154,7 @@
 }
 
 .activeLink {
-  color: #107163;
+  color: #32BAFA;
   font-weight: 600;
 }
 
@@ -186,7 +186,7 @@
   border-radius: 8px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   padding: 8px 0;
-  min-width: 200px;
+  min-width: 240px; /* 🔥 Dilebarin dikit biar Kaffah Islamic School muat 1 baris */
   opacity: 0;
   visibility: hidden;
   transition: all 0.3s ease;
@@ -211,13 +211,13 @@
 }
 
 .dropdownLink:hover {
-  color: #107163;
-  background: rgba(16, 113, 99, 0.05);
+  color: #32BAFA;
+  background: rgba(50, 186, 250, 0.08); /* 🔥 Hover jadi biru transparan */
 }
 
 /* CTA Button */
 .ctaButton {
-  background: var(--brand-green);
+  background: var(--brand-primary);
   color: white;
   padding: 10px 20px;
   border-radius: 6px;
@@ -229,7 +229,7 @@
 }
 
 .ctaButton:hover {
-  background: #0e6456;
+  background: #0F6DA1; /* 🔥 Hover jadi Biru Gelap Kaffah */
   transform: translateY(-1px);
 }
 
@@ -327,8 +327,8 @@
 }
 
 .mobileNavLink:hover {
-  background: rgba(16, 113, 99, 0.1);
-  color: #107163;
+  background: rgba(50, 186, 250, 0.08); /* 🔥 Hover jadi biru transparan */
+  color: #32BAFA;
 }
 
 /* Mobile Dropdown */
@@ -352,8 +352,8 @@
 }
 
 .mobileDropdownButton:hover {
-  background: rgba(16, 113, 99, 0.1);
-  color: #107163;
+  background: rgba(50, 186, 250, 0.08); /* 🔥 Hover jadi biru transparan */
+  color: #32BAFA;
 }
 
 .mobileChevron {
@@ -372,7 +372,7 @@
 }
 
 .mobileSubMenuActive {
-  max-height: 200px;
+  max-height: 250px; /* 🔥 Ditinggiin dikit biar kebuka full */
 }
 
 .mobileSubLink {
@@ -388,15 +388,15 @@
 }
 
 .mobileSubLink:hover {
-  background: rgba(16, 113, 99, 0.08);
-  color: #107163;
+  background: rgba(50, 186, 250, 0.08); /* 🔥 Hover jadi biru transparan */
+  color: #32BAFA;
 }
 
 /* Mobile CTA Button */
 .mobileCtaButton {
   margin-top: 16px;
   padding: 12px 20px;
-  background: var(--brand-green);
+  background: var(--brand-primary);
   color: white;
   text-decoration: none;
   border-radius: 6px;
@@ -408,7 +408,7 @@
 }
 
 .mobileCtaButton:hover {
-  background: #0e6456;
+  background: #0F6DA1; /* 🔥 Hover jadi Biru Gelap Kaffah */
 }
 
 /* Disabled Links */
@@ -471,8 +471,8 @@
   }
   
   .logo img {
-    width: 40px;
-    height: 40px;
+    width: auto !important; 
+    height: 38px !important;
   }
   
   .logoText span:first-child {
@@ -497,7 +497,6 @@
   }
 }
 
-/* === HEIGHT FIXES - NO WHITESPACE === */
 @media (max-height: 600px) {
   .mobileMenu {
     padding: 60px 16px 20px;
@@ -515,17 +514,10 @@
   }
 }
 
-/* Prevent body scroll when menu is open */
 body.menuOpen {
   overflow: hidden;
 }
 
-/* Add this to your global CSS or in this module */
-.mobileMenuActive {
-  transform: translateX(0);
-}
-
-/* Ensure no horizontal scroll */
 html, body {
   overflow-x: hidden;
 }

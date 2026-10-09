@@ -1,91 +1,104 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaClient } from "@prisma/client";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 
+// Inisiasi Prisma biar bisa ngobrol sama database
 const prisma = new PrismaClient();
 
 export const authOptions = {
-  session: { strategy: "jwt", maxAge: 2 * 60 * 60 },
   providers: [
     CredentialsProvider({
-      name: "Sign in",
+      name: "Credentials",
       credentials: {
         username: { label: "Username", type: "text" },
         password: { label: "Password", type: "password" },
-        // 👇 TAMBAHIN INI BUAT NERIMA TOKEN CAPTCHA DARI FRONTEND 👇
-        recaptchaToken: { label: "Captcha", type: "text" } 
+        recaptchaToken: { label: "Recaptcha Token", type: "text" }
       },
       async authorize(credentials) {
-        if (!credentials?.username || !credentials?.password) {
-          throw new Error("Username dan Password wajib diisi!");
+        const { username, password, recaptchaToken } = credentials;
+
+        // 🛡️ 1. VALIDASI RECAPTCHA KE GOOGLE
+        if (!recaptchaToken) {
+          throw new Error("Tolong centang reCAPTCHA dulu bro!");
         }
 
-        // 👇 1. VERIFIKASI RECAPTCHA DULU KE SERVER GOOGLE 👇
-        if (!credentials.recaptchaToken) {
-           throw new Error("Centang reCAPTCHA dulu bos!");
-        }
-        
-        const verifyUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${credentials.recaptchaToken}`;
-        const recaptchaRes = await fetch(verifyUrl, { method: "POST" });
-        const recaptchaJson = await recaptchaRes.json();
-        
-        if (!recaptchaJson.success) {
-           throw new Error("Verifikasi reCAPTCHA gagal! Dasar Bot!");
-        }
-        // 👆 BATAS VERIFIKASI RECAPTCHA 👆
+        const recaptchaRes = await fetch(`https://www.google.com/recaptcha/api/siteverify`, {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          // Rahasia backend ngobrol sama Google pakai Secret Key dari .env lu
+          body: `secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${recaptchaToken}`,
+        });
+        const recaptchaData = await recaptchaRes.json();
 
-        // 2. Cari Admin di Database
-        const user = await prisma.admin.findUnique({
-          where: { username: credentials.username },
+        if (!recaptchaData.success) {
+          throw new Error("Verifikasi robot gagal! Coba centang ulang.");
+        }
+
+        // 🕵️‍♂️ 2. CARI ADMIN DI DATABASE
+        const admin = await prisma.admin.findUnique({
+          where: { username: username }
         });
 
-        if (!user) throw new Error("Username tidak ditemukan!");
-
-        // 3. Cek apakah akun sedang digembok (Anti Brute Force yang tadi)
-        if (user.lockoutUntil && user.lockoutUntil > new Date()) {
-          const sisaWaktu = Math.ceil((user.lockoutUntil.getTime() - new Date().getTime()) / 60000);
-          throw new Error(`Akun terkunci! Coba lagi dalam ${sisaWaktu} menit.`);
+        if (!admin) {
+          throw new Error("Username tidak ditemukan bro!");
         }
 
-        // 4. Cek Password
-        const isPasswordValid = await bcrypt.compare(credentials.password, user.password);
+        // 🔐 3. CEK KECOCOKAN PASSWORD (BCRYPT)
+        const passwordMatch = await bcrypt.compare(password, admin.password);
 
-        if (!isPasswordValid) {
-          const newFailedLogins = user.failedLogins + 1;
-          let lockoutUntil = null;
-
-          if (newFailedLogins >= 5) {
-            lockoutUntil = new Date(Date.now() + 15 * 60000); 
-            await prisma.admin.update({ where: { id: user.id }, data: { failedLogins: newFailedLogins, lockoutUntil } });
-            throw new Error("Password salah 5x! Akun Anda diblokir 15 menit.");
-          } else {
-            await prisma.admin.update({ where: { id: user.id }, data: { failedLogins: newFailedLogins } });
-            throw new Error(`Password salah! Sisa percobaan: ${5 - newFailedLogins}`);
-          }
+        if (!passwordMatch) {
+          // Fitur tambahan: Catat kalau ada yang salah masukin password
+          await prisma.admin.update({
+            where: { id: admin.id },
+            data: { failedLogins: admin.failedLogins + 1 }
+          });
+          throw new Error("Password salah! Cek huruf besar/kecilnya.");
         }
 
-        // 5. Kalau sukses, reset dosa (failedLogins)
+        // 🎉 4. LOGIN SUKSES! Reset catatan salah login
         await prisma.admin.update({
-          where: { id: user.id },
-          data: { failedLogins: 0, lockoutUntil: null },
+          where: { id: admin.id },
+          data: { failedLogins: 0 }
         });
 
-        return { id: user.id + "", name: user.name, username: user.username, role: user.role };
-      },
-    }),
+        // Data ini yang bakal dikirim ke halaman admin lu (session)
+        return {
+          id: admin.id,
+          name: admin.name,
+          username: admin.username,
+          role: admin.role,
+        };
+      }
+    })
   ],
   callbacks: {
+    // Nyimpen data ke token browser
     async jwt({ token, user }) {
-      if (user) { token.id = user.id; token.username = user.username; token.role = user.role; }
+      if (user) {
+        token.id = user.id;
+        token.username = user.username;
+        token.role = user.role;
+      }
       return token;
     },
+    // Ngelepas data dari token biar bisa dibaca di frontend (useSession)
     async session({ session, token }) {
-      if (token) { session.user.id = token.id; session.user.username = token.username; session.user.role = token.role; }
+      if (token) {
+        session.user.id = token.id;
+        session.user.username = token.username;
+        session.user.role = token.role;
+      }
       return session;
     }
   },
-  pages: { signIn: "/login" },
+  pages: {
+    signIn: "/login", // Arahin kalau ada yang belum login maksa masuk admin
+  },
+  session: {
+    strategy: "jwt",
+    maxAge: 24 * 60 * 60, // Sesi login tahan 24 jam
+  },
   secret: process.env.NEXTAUTH_SECRET,
 };
 

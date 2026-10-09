@@ -12,11 +12,11 @@ import 'swiper/css/parallax';
 
 import styles from '../styles/PendidikanSlider.module.css';
 
-// Data diubah menggunakan 'src'
+// 🔥 DATA UDAH DIGANTI JADI KAFFAH & SAQU!
 const sliderData = [
-  { bgText: 'SDIT AL MUBARAK', title: 'SDIT Al Mubarak', src: '/images/sd-photo.png', bgColor: '#107163' },
-  { bgText: 'SMPIT AL MUBARAK', title: 'SMPIT Al Mubarak', src: '/images/smp-photo.png', bgColor: '#FBA21A' },
-  { bgText: 'LPQ AL MUBARAK', title: 'LPQ Al Mubarak', src: '/images/lpq-photo.png', bgColor: '#3F3F3F' },
+  { bgText: 'KAFFAH ISLAMIC SCHOOL 1', title: 'Kaffah Islamic School 1', src: '/images/sd-photo.png', bgColor: '#32BAFA' },
+  { bgText: 'KAFFAH ISLAMIC SCHOOL 2', title: 'Kaffah Islamic School 2', src: '/images/smp-photo.png', bgColor: '#FBA21A' },
+  { bgText: 'SAHABAT QURAN', title: 'SAQU', src: '/images/lpq-photo.png', bgColor: '#3F3F3F' },
 ];
 
 const PendidikanSlider = () => {
@@ -77,13 +77,6 @@ const PendidikanSlider = () => {
                   alt={slide.title}
                   fill
                   sizes="50vw"
-                  // KODE LAMA DIHAPUS, DIGANTI DENGAN YANG DI BAWAH
-                  // style={{ 
-                  //   objectFit: 'cover',
-                  //   objectPosition: 'top center'
-                  // }}
-
-                  // GANTI DENGAN INI UNTUK MENGAMBIL STYLE DARI FILE .CSS
                   className={styles.cardImage}
                 />
                 <div className={styles.decorativeBlob} data-swiper-parallax-scale="0.5">

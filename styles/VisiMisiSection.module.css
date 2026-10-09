@@ -1,6 +1,6 @@
 .visiMisiSection {
   padding: 6rem 0;
-  background-color: var(--brand-green);
+  background-color: var(--brand-primary);
   overflow-x: clip; /* Mencegah gambar keluar layar saat horizontal */
 }
 

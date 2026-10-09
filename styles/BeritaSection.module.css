@@ -15,7 +15,7 @@
   font-family: var(--font-poppins);
   font-size: 0.875rem;
   font-weight: 600;
-  color: var(--brand-green);
+  color: #32BAFA; /* 🔥 Biru Kaffah */
   letter-spacing: 1px;
   margin-bottom: 0.75rem;
   display: block;
@@ -41,8 +41,7 @@
 /* ======================================= */
 .bentoGrid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* Kita buat kanvas 4 kolom */
-  /* Tinggi setiap baris akan ditentukan oleh kontennya, kita buat lebih fleksibel */
+  grid-template-columns: repeat(4, 1fr);
   grid-auto-rows: minmax(250px, auto); 
   gap: 1.5rem;
 }
@@ -57,7 +56,7 @@
   justify-content: flex-end;
   padding: 1.5rem;
   transition: transform 0.3s ease;
-  background-color: var(--dark-bg); /* Beri warna fallback */
+  background-color: #0F6DA1; /* 🔥 Biru Fallback */
 }
 
 .card:hover {
@@ -76,10 +75,12 @@
   transform: scale(1.05);
 }
 
-.greenOverlay { /* <-- Ganti dari imageOverlay ke greenOverlay */
+/* 🔥 GANTI NAMA & WARNA JADI BIRU KAFFAH */
+.blueOverlay { 
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(16, 113, 99, 0.1) 0%, rgba(16, 113, 99, 0.8) 100%);
+  /* Gradasi Biru Dongker transparan */
+  background: linear-gradient(180deg, rgba(15, 109, 161, 0.1) 0%, rgba(15, 109, 161, 0.9) 100%);
   z-index: 2;
 }
 
@@ -93,7 +94,7 @@
   font-size: 0.75rem;
   font-weight: 600;
   background-color: var(--white);
-  color: var(--brand-green);
+  color: #32BAFA; /* 🔥 Biru Kaffah */
   padding: 0.25rem 0.75rem;
   border-radius: 999px;
   display: inline-block;
@@ -113,6 +114,15 @@
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.9);
   margin-bottom: 1rem;
+  
+  /* 🔥 FIX ANTI-NABRAK KOTAK */
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Maksimal 2 baris aja, sisanya jadi titik-titik */
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word; /* Maksa kata yang terlalu panjang buat turun ke bawah */
 }
 
 .readMore {
@@ -128,7 +138,7 @@
   transform: translateY(0);
 }
 
-/* PERINTAH POSISI SETIAP KARTU (SESUAI FIGMA) */
+/* PERINTAH POSISI SETIAP KARTU */
 .card:nth-child(1) { grid-column: span 1; grid-row: span 2; }
 .card:nth-child(2) { grid-column: span 1; }
 .card:nth-child(3) { grid-column: span 1; }
@@ -136,7 +146,6 @@
 .card:nth-child(5) { grid-column: span 2; grid-row: span 2; }
 .card:nth-child(6) { grid-column: span 1; }
 .card:nth-child(7) { grid-column: span 1; }
-/* Kita hanya atur 7 kartu dulu sesuai jumlah data */
 
 /* RESPONSIVE */
 @media (max-width: 992px) {
@@ -144,12 +153,10 @@
     grid-template-columns: repeat(2, 1fr);
     grid-auto-rows: minmax(280px, auto);
   }
-  /* Reset posisi di mobile, biarkan grid mengalir alami */
   .card:nth-child(n) {
     grid-column: auto;
     grid-row: auto;
   }
-  /* Tapi buat kartu ke-5 tetap lebih menonjol */
   .card:nth-child(5) {
     grid-column: span 2;
     grid-row: span 2;
@@ -161,7 +168,6 @@
     grid-template-columns: 1fr;
     grid-auto-rows: 350px;
   }
-  /* Di mobile, semua kartu ukurannya sama */
   .card:nth-child(n) {
     grid-column: span 1;
     grid-row: span 1;

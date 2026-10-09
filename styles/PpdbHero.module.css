@@ -7,7 +7,7 @@
 .fallbackBackground {
   width: 100%;
   height: 100%;
-  background-color: var(--brand-green);
+  background-color: var(--brand-primary);
 }
 
 .contentOverlay {

@@ -1,6 +1,6 @@
 .timSection {
   padding: 6rem 0;
-  background-color: #f8f9fa; /* Abu-abu muda */
+  background-color: #f8f9fa;
 }
 
 .header {
@@ -12,6 +12,7 @@
   font-size: 2.5rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
+  color: #1e293b;
 }
 
 .subtitle {
@@ -32,8 +33,8 @@
 
 .filterButton {
   background-color: #fff;
-  border: 1px solid var(--border-color);
-  color: var(--text-secondary);
+  border: 1px solid #cbd5e1;
+  color: #64748b;
   padding: 0.75rem 1.5rem;
   border-radius: 99px;
   font-size: 1rem;
@@ -43,17 +44,17 @@
 }
 
 .filterButton:hover {
-  background-color: #e0f2f1; /* Warna icon-bg */
-  color: var(--brand-green);
-  border-color: var(--brand-green);
+  background-color: #e0f2fe; /* Biru muda hover */
+  color: #0F6DA1; /* Biru Kaffah */
+  border-color: #0F6DA1;
 }
 
 .filterButton.active {
-  background-color: var(--brand-green);
+  background: linear-gradient(135deg, #32BAFA, #0F6DA1); /* Gradasi Biru Kaffah */
   color: #fff;
-  border-color: var(--brand-green);
+  border-color: #0F6DA1;
+  box-shadow: 0 4px 15px rgba(15, 109, 161, 0.3);
 }
-
 
 /* Grid Kartu Tim */
 .grid {
@@ -68,17 +69,19 @@
   overflow: hidden;
   box-shadow: 0 4px 15px rgba(0,0,0,0.05);
   transition: all 0.3s ease;
+  border: 1px solid transparent;
 }
 
 .card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+  box-shadow: 0 12px 25px rgba(15, 109, 161, 0.15); /* Shadow biru tipis */
+  border-color: #e0f2fe;
 }
 
 .imageWrapper {
   position: relative;
   width: 100%;
-  aspect-ratio: 1 / 1; /* Membuat gambar jadi kotak */
+  aspect-ratio: 1 / 1;
 }
 
 .cardContent {
@@ -89,11 +92,12 @@
 .name {
   font-size: 1.2rem;
   font-weight: 700;
-  color: var(--text-primary);
+  color: #1e293b;
   margin-bottom: 0.25rem;
 }
 
 .position {
   font-size: 0.9rem;
-  color: var(--brand-green);
+  font-weight: 600;
+  color: #32BAFA; /* Biru Kaffah */
 }

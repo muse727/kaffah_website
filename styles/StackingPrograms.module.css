@@ -10,7 +10,7 @@
 
 .subtitle {
   display: inline-block;
-  background-color: var(--brand-green);
+  background-color: var(--brand-primary);
   color: white;
   padding: 0.5rem 1.5rem;
   border-radius: 99px;
@@ -46,7 +46,7 @@
 
 /* Program Card - Memanjang */
 .programCard {
-  background: var(--brand-green);
+  background: var(--brand-primary);
   border-radius: 16px;
   padding: 0;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);

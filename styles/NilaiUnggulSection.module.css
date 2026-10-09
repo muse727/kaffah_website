@@ -1,7 +1,7 @@
 /* Section utama dengan background hijau */
 .nilaiSection {
   padding: 6rem 0;
-  background-color: var(--brand-green);
+  background-color: var(--brand-primary);
 }
 
 /* Container putih yang membungkus semuanya */
@@ -63,19 +63,19 @@
 }
 
 .tabButton:hover {
-  border-color: var(--brand-green);
-  color: var(--brand-green);
+  border-color: var(--brand-primary);
+  color: var(--brand-primary);
 }
 
 .tabButton.active {
-  background-color: var(--brand-green);
+  background-color: var(--brand-primary);
   color: #fff;
-  border-color: var(--brand-green);
+  border-color: var(--brand-primary);
   transform: scale(1.1);
 }
 
 .tabContent {
-  background-color: var(--brand-green);
+  background-color: var(--brand-primary);
   color: #fff;
   border-radius: 24px;
   padding: 2rem 2.5rem;

@@ -1,44 +1,32 @@
 const { PrismaClient } = require('@prisma/client');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 const prisma = new PrismaClient();
 
 async function main() {
-  // 1. Kita bikin password "admin123" versi enkripsi
+  // Kita samarkan password "admin123" biar aman di database
   const hashedPassword = await bcrypt.hash('admin123', 10);
 
-  console.log("Sedang membuat admin...");
+  // Masukin data lu ke database
+  const admin = await prisma.admin.create({
+    data: {
+      name: 'Mus',            // Nama asli lu yang bakal tampil di Dashboard
+      username: 'admin',      // Username buat login
+      password: hashedPassword, // Password yang udah diacak
+      role: 'SUPERADMIN',
+    },
+  });
 
-  try {
-    // 2. Masukkan ke tabel Admin
-    const user = await prisma.admin.upsert({
-      where: { username: 'admin' },
-      update: { password: hashedPassword }, // Kalau udah ada, reset passwordnya
-      create: {
-        username: 'admin',
-        password: hashedPassword,
-        // Kalau di database kamu ada kolom 'role' atau 'nama', 
-        // uncomment baris di bawah ini dan sesuaikan:
-        // role: 'SUPER_ADMIN', 
-        // name: 'Admin Lokal',
-      },
-    });
-
-    console.log('✅ SUKSES! Admin berhasil dibuat.');
-    console.log('👉 Username: admin');
-    console.log('👉 Password: admin123');
-
-  } catch (e) {
-    console.error('❌ Gagal membuat admin:', e);
-    
-    // Tips kalau error kolom kurang
-    if (e.message.includes("Argument")) {
-      console.log("\n💡 TIPS: Sepertinya tabel Admin kamu butuh kolom lain (misal: 'role', 'email', dll).");
-      console.log("Cek file prisma/schema.prisma kamu, lalu tambahkan field itu di script ini.");
-    }
-  } finally {
-    await prisma.$disconnect();
-  }
+  console.log('🚀 MANTAP! Akun Admin berhasil dibuat:');
+  console.log(`Username: ${admin.username}`);
+  console.log(`Password: admin123`);
 }
 
-main();
+main()
+  .catch((e) => {
+    console.error('Ada error nih bro:', e);
+    process.exit(1);
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
+  });

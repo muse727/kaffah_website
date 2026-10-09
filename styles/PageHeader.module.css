@@ -6,11 +6,16 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  color: #fff;
-  background-color: var(--brand-green);
-  /* Pola titik-titik samar untuk background */
-  background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-  background-size: 15px 15px;
+  
+  /* 🔥 FIX WARNA TEKS: Ganti jadi gelap biar kebaca di background putih */
+  color: #1e293b; 
+  
+  /* 🔥 FIX BACKGROUND: Jadi putih bersih */
+  background-color: #ffffff;
+  
+  /* 🔥 PATTERN TITIK-TITIK: Estetik pakai warna biru cerah Kaffah */
+  background-image: radial-gradient(rgba(50, 186, 250, 0.25) 2px, transparent 2px);
+  background-size: 30px 30px; /* Jarak antar titik */
 }
 
 .overlay {
@@ -19,19 +24,36 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to top, rgba(16, 113, 99, 0.3), transparent);
+  /* 🔥 FIX OVERLAY: Buang ijo gelapnya, kasih gradasi putih transparan dari bawah biar nyatu sama konten di bawahnya */
+  background: linear-gradient(to top, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 50%);
+  pointer-events: none; /* Biar overlay gak nutupin klik tombol */
+}
+
+/* 🔥 FIX POSISI: Ini gantiin ".headerSection > div" yang bikin error kemarin */
+.headerContent {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .title {
   font-size: 3.5rem;
-  font-weight: 700;
+  font-weight: 800;
   margin-bottom: 0.5rem;
+  /* Kasih warna biru dongker biar elegan dan kontras */
+  color: #0F6DA1; 
 }
 
 .tagline {
   font-size: 1.25rem;
-  font-weight: 400;
-  opacity: 0.9;
+  font-weight: 500;
+  color: #64748b; /* Abu-abu estetik buat teks deskripsi */
   margin-bottom: 2.5rem;
 }
 
@@ -39,6 +61,8 @@
   display: flex;
   justify-content: center;
   gap: 1rem;
+  position: relative;
+  z-index: 3;
 }
 
 .buttonPrimary,
@@ -48,28 +72,38 @@
   font-weight: 600;
   font-size: 1rem;
   transition: all 0.3s ease;
+  text-decoration: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .buttonPrimary {
-  background-color: #fff;
-  color: var(--brand-green);
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  /* 🔥 FIX TOMBOL 1: Samain pakai gradasi mewah Kaffah */
+  background: linear-gradient(135deg, #32BAFA 0%, #128BCE 100%);
+  color: #fff;
+  box-shadow: 0 6px 15px rgba(50, 186, 250, 0.3);
+  border: none;
 }
 
 .buttonPrimary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(50, 186, 250, 0.5);
+  color: #fff;
 }
 
 .buttonSecondary {
   background-color: transparent;
-  color: #fff;
-  border: 2px solid #fff;
+  /* 🔥 FIX TOMBOL 2: Kasih outline biru cerah */
+  color: #128BCE;
+  border: 2px solid #32BAFA;
 }
 
 .buttonSecondary:hover {
-  background-color: #fff;
-  color: var(--brand-green);
+  background: rgba(50, 186, 250, 0.1);
+  color: #128BCE;
+  transform: translateY(-2px);
 }
 
 /* RESPONSIVE */

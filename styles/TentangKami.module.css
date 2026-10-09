@@ -1,13 +1,12 @@
 .aboutSection {
-  /* Coba kurangi nilainya jika perlu, misal: 10rem atau 9rem */
-  padding-top: 20rem; 
+  /* 🔥 FIX JARAK: Padding atas dilebarin banget biar gak nabrak kartu Hero yang turun ke bawah */
+  padding-top: 10rem; 
   padding-bottom: 6rem;
   width: 100%;
 }
 
 .aboutContainer {
   display: grid;
-  /* Kolom kiri lebih besar dari kolom kanan */
   grid-template-columns: 1.2fr 1fr; 
   gap: 5rem;
   align-items: center;
@@ -22,7 +21,7 @@
 
 .title {
   font-family: var(--font-poppins);
-  font-size: 2.75rem; /* 44px */
+  font-size: 2.75rem; 
   font-weight: 700;
   line-height: 1.3;
   color: var(--text-primary);
@@ -30,28 +29,23 @@
 }
 
 .highlight {
-  color: var(--brand-green);
+  color: #32BAFA; /* Biru Kaffah */
+  display: block; /* Biar tagline turun ke baris baru dengan rapi */
+}
+
+/* 🔥 Grup paragraf biar rapi */
+.descriptionGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem; /* Jarak antar paragraf */
 }
 
 .description {
-  font-size: 1.125rem; /* 18px */
+  font-size: 1.1rem; 
   color: var(--text-secondary);
   line-height: 1.7;
-  margin-bottom: 2.5rem;
-}
-
-.ctaButton {
-  font-family: var(--font-poppins);
-  font-weight: 600;
-  background-color: var(--brand-green);
-  color: var(--white);
-  padding: 0.875rem 2.5rem; /* 14px 40px */
-  border-radius: 8px;
-  transition: all 0.3s ease;
-}
-
-.ctaButton:hover {
-  opacity: 0.9;
+  margin: 0; /* Margin bawah diurus sama gap di descriptionGroup */
+  text-align: justify; /* Biar paragrafnya rata kanan-kiri rapi */
 }
 
 /* --- KOLASE GAMBAR KANAN --- */
@@ -59,7 +53,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: auto auto;
-  gap: 1rem; /* Jarak antar gambar */
+  gap: 1rem; 
 }
 
 .imageWrapper1, .imageWrapper2 {
@@ -70,45 +64,57 @@
 }
 
 .imageWrapper1 {
-  /* Gambar atas memanjang 2 kolom */
   grid-column: 1 / 3; 
-  padding-top: 66%; /* Aspect ratio 3:2 */
+  padding-top: 66%; 
 }
 
 .imageWrapper2 {
-  padding-top: 120%; /* Aspect ratio 5:6 */
+  padding-top: 120%; 
 }
 
 .colorBlock {
-  background-color: var(--brand-green);
+  background: linear-gradient(135deg, #32BAFA 0%, #128BCE 100%);
   border-radius: 16px;
+  box-shadow: 0 10px 20px rgba(50, 186, 250, 0.2);
 }
 
 /* === RESPONSIVE === */
 @media (max-width: 992px) {
   .aboutSection {
-    /* PERBAIKAN: Kurangi padding atas secara drastis di mobile */
-    padding-top: 50rem; 
+    /* 🔥 FIX JARAK TABLET: Ditambahin juga biar aman */
+    padding-top: 10rem; 
     padding-bottom: 4rem;
   }
   .aboutContainer {
     grid-template-columns: 1fr;
-    gap: 2rem; /* Kurangi jarak antar elemen */
+    gap: 3rem; 
   }
-
-  /* KUNCI PERBAIKAN URUTAN DI SINI */
   .contentWrapper {
-    order: 2; /* Tampilkan blok teks ini pertama */
+    order: 2; 
   }
-
   .imageGrid {
-    order: 1; /* Tampilkan blok gambar ini setelahnya */
+    order: 1; 
   }
-  
   .title {
     font-size: 2rem;
   }
   .description {
     font-size: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .aboutSection {
+    /* 🔥 FIX JARAK MOBILE: Padding atas ditambahin buat kompensasi kartu Hero */
+    padding-top: 8rem; 
+  }
+  .title {
+    font-size: 1.8rem;
+  }
+  .descriptionGroup {
+    gap: 0.8rem; /* Di HP jarak antar paragraf dirapetin dikit */
+  }
+  .description {
+    text-align: left; /* Di HP rata kiri aja biar gampang dibaca */
   }
 }

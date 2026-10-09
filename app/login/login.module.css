@@ -5,11 +5,11 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: #f3f4f6; /* Abu-abu muda bersih */
+  background-color: #f3f4f6; 
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 99999; /* Pastikan di atas Navbar */
+  z-index: 99999; 
   font-family: var(--font-poppins), sans-serif;
 }
 
@@ -73,16 +73,16 @@
 }
 
 .input:focus {
-  border-color: #107163; /* Warna Hijau Brand */
+  border-color: #32BAFA; /* 🔥 Warna Biru Kaffah */
   background-color: #ffffff;
-  box-shadow: 0 0 0 3px rgba(16, 113, 99, 0.1);
+  box-shadow: 0 0 0 3px rgba(50, 186, 250, 0.15); /* 🔥 Shadow Biru */
 }
 
 /* Tombol */
 .submitButton {
   width: 100%;
   padding: 0.875rem;
-  background-color: #107163; /* Warna Hijau Brand */
+  background-color: #32BAFA; /* 🔥 Warna Biru Kaffah */
   color: #ffffff;
   font-weight: 700;
   font-size: 1rem;
@@ -94,7 +94,7 @@
 }
 
 .submitButton:hover {
-  background-color: #0d5c50;
+  background-color: #128BCE; /* 🔥 Warna Hover Biru Dongker */
 }
 
 .submitButton:active {

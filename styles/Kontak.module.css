@@ -71,7 +71,7 @@
   display: inline-block;
   margin-left: 1rem;
   padding: 0.5rem 1.5rem;
-  border: 1px solid #107163;
+  border: 1px solid #32BAFA;
   border-radius: 99px;
   color: #1e1e1e;
   text-decoration: none;
@@ -79,13 +79,13 @@
 }
 
 .ctaButton:hover {
-  background-color: #107163;
+  background-color: #32BAFA;
   color: #fff;
 }
 
 /* SECTION 2: FORMULIR HIJAU - DI BAWAH */
 .sectionTwo {
-  background-color: #107163;
+  background-color: #32BAFA;
   color: #fff;
   position: relative;
   z-index: 1;
@@ -165,7 +165,7 @@
 .inputGroup select:focus,
 .inputGroup textarea:focus {
   outline: none;
-  border-color: #107163;
+  border-color: #32BAFA;
   box-shadow: 0 0 0 2px rgba(16, 113, 99, 0.1);
 }
 
@@ -174,7 +174,7 @@
   padding: 1rem;
   border: none;
   border-radius: 8px;
-  background-color: #107163;
+  background-color: #32BAFA;
   color: #fff;
   font-size: 1rem;
   font-weight: 700;
@@ -192,7 +192,7 @@
 }
 
 .successMsg {
-  color: #107163;
+  color: #32BAFA;
   margin-top: 1rem;
   text-align: center;
   font-weight: 600;

@@ -1,11 +1,15 @@
+'use client';
+
 import Image from 'next/image';
+import { FaBookOpen, FaUserShield, FaMosque, FaLanguage, FaLightbulb } from 'react-icons/fa';
 import styles from '../styles/Keunggulan.module.css';
 
 const features = [
-  { icon: '/icons/kurikulum.svg', text: 'Kurikulum berbasis agama & karakter' },
-  { icon: '/icons/pendidik.svg', text: 'Tenaga pendidik profesional' },
-  { icon: '/icons/prestasi.svg', text: 'Prestasi akademik & non-akademik' },
-  { icon: '/icons/fasilitas.svg', text: 'Fasilitas lengkap & lingkungan nyaman' },
+  { icon: <FaBookOpen size={20} color="#ffffff" />, text: "Hafalan Qur'an, Hadits & Doa Harian" },
+  { icon: <FaUserShield size={20} color="#ffffff" />, text: 'Pembentukan Karakter Islami yang Kuat' },
+  { icon: <FaMosque size={20} color="#ffffff" />, text: 'Praktik Ibadah Sesuai Sunnah (Sholat & Wudhu)' },
+  { icon: <FaLanguage size={24} color="#ffffff" />, text: 'Program Bilingual (Bahasa Inggris & Arab)' },
+  { icon: <FaLightbulb size={20} color="#ffffff" />, text: 'Pengembangan Life Skill & Kemandirian Anak' },
 ];
 
 const Keunggulan = () => {
@@ -14,22 +18,33 @@ const Keunggulan = () => {
       <div className={`${styles.container} container`}>
         {/* Elemen #1: Judul */}
         <h2 className={styles.title} data-aos="fade-down">
-          Mengapa harus di <span className={styles.highlight}>Al Mubarak?</span>
+          Mengapa harus di <span className={styles.highlight}>Kaffah Islamic School?</span>
         </h2>
 
         {/* Elemen #2: Kolom Gambar */}
         <div className={styles.imageColumn} data-aos="fade-right">
+          
+          {/* Background Biru Bentuk Abstrak */}
           <div className={styles.blobBackground}>
             <Image src="/blob.svg" alt="Bentuk Abstrak" fill />
           </div>
+          
           <div className={styles.mainImageWrapper}>
+            {/* 🔥 SHADOW 3D DITARUH DI SINI BIAR DI BELAKANG TUPAI */}
+            <div className={styles.blobShadow}></div>
+
+            {/* 🔥 JURUS ANTI GEPENG TEMBAK LANGSUNG DI STYLE */}
             <Image 
               src="/photo-keunggulan.png" 
-              alt="Siswi Al Mubarak" 
+              alt="Maskot Kaffah Islamic School" 
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
+              style={{ objectFit: 'contain', objectPosition: 'bottom center' }} 
+              className={styles.squirrelImage}
             />
           </div>
+
+          {/* Icon Like Melayang */}
           <div className={styles.likeIcon1} data-aos="zoom-in" data-aos-delay="500">
             <Image src="/icons/like-icon.svg" alt="Like" width={60} height={60} />
           </div>
@@ -43,7 +58,7 @@ const Keunggulan = () => {
           {features.map((feature, index) => (
             <div key={index} className={styles.featureItem}>
               <div className={styles.featureIcon}>
-                <Image src={feature.icon} alt="" width={24} height={24} />
+                {feature.icon}
               </div>
               <span>{feature.text}</span>
             </div>
